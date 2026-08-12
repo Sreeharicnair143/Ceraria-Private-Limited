@@ -1,0 +1,31 @@
+{
+  "name": "ceraria-private-limited",
+  "version": "1.0.0",
+  "description": "CERARIA — The Art of Ceramic Luxury. Full-stack e-commerce for premium tiles.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "db:init": "psql -U postgres -f db/schema.sql"
+  },
+  "keywords": [
+    "tiles",
+    "ceramics",
+    "luxury",
+    "e-commerce"
+  ],
+  "author": "CERARIA Private Limited",
+  "license": "UNLICENSED",
+  "private": true,
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cloudinary": "^1.41.3",
+    "cors": "^2.8.5",
+    "dotenv": "^17.4.2",
+    "express": "^4.21.0",
+    "express-session": "^1.18.0",
+    "multer": "^1.4.5-lts.1",
+    "multer-storage-cloudinary": "^4.0.0",
+    "pg": "^8.13.0"
+  }
+}

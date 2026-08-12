@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CERARIA — A Symphony of Texture & Design</title>
+  <meta name="description" content="Discover premium ceramic and porcelain tiles crafted for luxury interiors." />
+
+  <!-- FONTS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- LIBRARIES -->
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <!-- TAILWIND CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            cream:    { 50: '#FFFDF8', 100: '#FFF9ED' },
+            sand:     { 100: '#F5F0E8', 200: '#EDE5D8', 400: '#C4B8A3' },
+            bronze:   { 400: '#C49A6C', 500: '#B07D4F', 600: '#9A673B' },
+            charcoal: { 800: '#2C2824', 900: '#1A1714' },
+          },
+          fontFamily: {
+            serif: ['"Playfair Display"', 'serif'],
+            sans:  ['"Inter"', 'sans-serif'],
+          }
+        }
+      }
+    };
+  </script>
+
+  <!-- CUSTOM STYLES -->
+  <style>
+    body { font-family: 'Inter', sans-serif; overflow-x: hidden; background: #FFFDF8; }
+    h1, h2, h3, h4, h5, h6, .font-serif { font-family: 'Playfair Display', serif; }
+    
+    /* ── HEADER OVERLAY ── */
+    #main-header { transition: background 0.4s ease, border 0.4s ease; }
+    #main-header.scrolled { background: rgba(255,253,248,0.95); backdrop-filter: blur(10px); border-bottom: 1px solid #EDE5D8; }
+    #main-header:not(.scrolled) .nav-link { color: white; }
+    #main-header:not(.scrolled) .nav-logo { color: white; border-color: rgba(255,255,255,0.4); }
+    #main-header.scrolled .nav-link { color: #2C2824; }
+    #main-header.scrolled .nav-link:hover { color: #B07D4F; }
+    #main-header.scrolled .nav-logo { color: #1A1714; border-color: #B07D4F; }
+
+    /* ── HERO SWIPER ── */
+    .hero-swiper { width: 100vw; height: 100vh; position: relative; }
+    .hero-swiper .swiper-slide { position: relative; overflow: hidden; }
+    .hero-swiper video { width: 100%; height: 100%; object-fit: cover; }
+    .hero-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.4); display: flex; flex-direction: column; justify-content: center; align-items: flex-start; padding: 10%; z-index: 10; }
+    
+    /* ── CUSTOM BUTTON ── */
+    .btn-outline { 
+      border: 1px solid white; color: white; padding: 12px 30px; font-size: 14px; letter-spacing: 1px; text-transform: uppercase;
+      transition: all 0.3s; position: relative; overflow: hidden; z-index: 1; border-radius: 4px;
+    }
+    .btn-outline::before { content: ''; position: absolute; top: 0; left: 0; width: 0%; height: 100%; background: #B07D4F; z-index: -1; transition: all 0.3s; }
+    .btn-outline:hover::before { width: 100%; }
+    .btn-outline:hover { border-color: #B07D4F; }
+    
+    .btn-dark {
+      border: 1px solid #1A1714; color: #1A1714; padding: 12px 30px; font-size: 14px; letter-spacing: 1px; text-transform: uppercase;
+      transition: all 0.3s; position: relative; overflow: hidden; z-index: 1; border-radius: 4px;
+      display: inline-block;
+      margin-top: 20px;
+    }
+    .btn-dark::before { content: ''; position: absolute; top: 0; left: 0; width: 0%; height: 100%; background: #B07D4F; z-index: -1; transition: all 0.3s; }
+    .btn-dark:hover::before { width: 100%; }
+    .btn-dark:hover { color: white; border-color: #B07D4F; }
+
+    /* ── REEL SECTION ── */
+    .reel-section { position: relative; height: 80vh; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+    .reel-section img.bg { width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; z-index: 1; }
+    .reel-play-btn { 
+      z-index: 10; width: 90px; height: 90px; background: rgba(255,255,255,0.2); backdrop-filter: blur(5px); border: 2px solid white;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s;
+    }
+    .reel-play-btn:hover { background: #B07D4F; border-color: #B07D4F; transform: scale(1.1); }
+    .reel-play-btn i { color: white; font-size: 30px; margin-left: 5px; }
+
+    /* ── IMPACT COUNTERS ── */
+    .impact-section { padding: 100px 5%; background: #FFF9ED; display: flex; flex-wrap: wrap; }
+    .impact-left { flex: 1; min-width: 300px; padding-right: 50px; }
+    .impact-right { flex: 1; min-width: 300px; position: relative; }
+    .impact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 50px; }
+    .impact-num { font-size: 3rem; font-family: 'Playfair Display', serif; font-weight: 700; color: #1A1714; }
+    .impact-label { font-size: 1rem; color: #5C554B; margin-top: 5px; }
+    .glance-swiper img { width: 100%; height: auto; border-radius: 12px; }
+
+    /* ── TRANSFORM YOUR SPACE (Parallax) ── */
+    .transform-section { padding: 100px 5%; }
+    .transform-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; align-items: center; }
+    .transform-img-box { overflow: hidden; border-radius: 12px; }
+    .transform-img-box img { width: 100%; height: auto; transition: transform 0.5s; }
+    .transform-img-box:hover img { transform: scale(1.05); }
+
+    /* ── IMAGE STACK TABS ── */
+    .stack-section { padding: 100px 5%; background: #1A1714; color: white; overflow: hidden; }
+    .stack-tabs { display: flex; gap: 30px; border-bottom: 1px solid rgba(255,255,255,0.2); margin-bottom: 50px; overflow-x: auto; scrollbar-width: none; }
+    .stack-tabs li { padding: 15px 0; cursor: pointer; text-transform: uppercase; font-size: 14px; font-weight: 500; letter-spacing: 1px; color: rgba(255,255,255,0.5); transition: 0.3s; white-space: nowrap; }
+    .stack-tabs li.active { color: white; border-bottom: 2px solid #B07D4F; }
+    .tab-content { display: none; animation: fadeIn 0.5s ease; }
+    .tab-content.active { display: block; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    
+    .stack-swiper .swiper-slide { padding: 20px; }
+    .stack-box img { width: 100%; height: 350px; object-fit: cover; border-radius: 12px; margin-bottom: 20px; }
+    .stack-hdn { font-family: 'Playfair Display', serif; font-size: 1.5rem; margin-bottom: 10px; }
+    .stack-para { color: rgba(255,255,255,0.7); font-size: 0.9rem; line-height: 1.6; margin-bottom: 20px; min-height: 70px; }
+
+  </style>
+</head>
+<body>
+
+  <!-- ================================================================
+       SECTION: NAVIGATION BAR
+       ================================================================ -->
+  <!-- ================================================================
+       SECTION: NAVIGATION BAR
+       ================================================================ -->
+  <nav id="navbar" class="navbar-glass fixed top-0 left-0 right-0 z-50 border-b border-sand-200/60 shadow-sm transition-all duration-300 bg-cream-50/90 backdrop-blur-md">
+    <div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-24 py-4">
+
+        <!-- Logo -->
+        <a href="/" class="flex items-center gap-3 group" id="nav-logo">
+          <img src="/assets/images/logo-icon.png"
+               alt="CERARIA logo"
+               class="w-12 h-12 group-hover:scale-105 transition-transform duration-500 rounded-md" />
+          <span class="text-2xl md:text-3xl font-serif font-bold tracking-[0.15em] text-charcoal-900 group-hover:text-bronze-500 transition-colors duration-500">
+            CERARIA
+          </span>
+          <span class="inline-block text-[8px] sm:text-[10px] font-sans font-medium tracking-[0.15em] sm:tracking-[0.25em] uppercase text-stone-400 border-l border-stone-300 pl-2 sm:pl-3 leading-relaxed">
+            THE ART OF<br/>CERAMIC LUXURY
+          </span>
+        </a>
+
+        <!-- Desktop Nav Links -->
+        <div class="hidden xl:flex items-center gap-8" id="nav-links-desktop">
+          <a href="/" class="relative group text-[11px] uppercase tracking-[0.2em] font-bold text-stone-500 hover:text-charcoal-900 transition-colors py-1">
+            Home
+            <span class="absolute bottom-0 left-0 w-0 h-[1.5px] bg-bronze-500 transition-all duration-300 group-hover:w-full"></span>
+          </a>
+          <a href="/gallery.html" class="relative group text-[11px] uppercase tracking-[0.2em] font-bold text-stone-500 hover:text-charcoal-900 transition-colors py-1">
+            Gallery
+            <span class="absolute bottom-0 left-0 w-0 h-[1.5px] bg-bronze-500 transition-all duration-300 group-hover:w-full"></span>
+          </a>
+          <a href="/products.html" class="relative group text-[11px] uppercase tracking-[0.2em] font-bold text-stone-500 hover:text-charcoal-900 transition-colors py-1">
+            Products
+            <span class="absolute bottom-0 left-0 w-0 h-[1.5px] bg-bronze-500 transition-all duration-300 group-hover:w-full"></span>
+          </a>
+          <a href="/catalogue.html" class="relative group text-[11px] uppercase tracking-[0.2em] font-bold text-stone-500 hover:text-charcoal-900 transition-colors py-1">
+            Catalogue
+            <span class="absolute bottom-0 left-0 w-0 h-[1.5px] bg-bronze-500 transition-all duration-300 group-hover:w-full"></span>
+          </a>
+          <a href="/about.html" class="relative group text-[11px] uppercase tracking-[0.2em] font-bold text-stone-500 hover:text-charcoal-900 transition-colors py-1">
+            About
+            <span class="absolute bottom-0 left-0 w-0 h-[1.5px] bg-bronze-500 transition-all duration-300 group-hover:w-full"></span>
+          </a>
+          <a href="/contact.html" class="relative group text-[11px] uppercase tracking-[0.2em] font-bold text-stone-500 hover:text-charcoal-900 transition-colors py-1">
+            Contact Us
+            <span class="absolute bottom-0 left-0 w-0 h-[1.5px] bg-bronze-500 transition-all duration-300 group-hover:w-full"></span>
+          </a>
+          
+          <a href="/visualizer.html" class="ml-4 px-7 py-3.5 bg-gradient-to-r from-bronze-600 to-bronze-500 text-cream-50 text-[11px] uppercase tracking-[0.2em] font-bold rounded-sm hover:from-charcoal-900 hover:to-charcoal-800 hover:-translate-y-0.5 transition-all duration-300 shadow-[0_4px_14px_0_rgba(180,119,73,0.39)] hover:shadow-[0_6px_20px_rgba(0,0,0,0.23)] flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+            Visualizer
+          </a>
+        </div>
+
+        <!-- Mobile Hamburger -->
+        <button id="mobile-menu-btn"
+                class="xl:hidden flex flex-col gap-1.5 p-2 rounded-lg hover:bg-sand-100 transition-colors"
+                aria-label="Toggle mobile menu">
+          <span class="block w-7 h-0.5 bg-charcoal-800 rounded transition-all duration-300" id="burger-line-1"></span>
+          <span class="block w-7 h-0.5 bg-charcoal-800 rounded transition-all duration-300" id="burger-line-2"></span>
+          <span class="block w-5 h-0.5 bg-charcoal-800 rounded transition-all duration-300" id="burger-line-3"></span>
+        </button>
+      </div>
+
+      <!-- Mobile Menu -->
+      <div id="mobile-menu" class="mobile-menu xl:hidden max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+        <div class="pb-6 pt-2 space-y-2 border-t border-sand-200">
+          <a href="/" class="block px-4 py-3 text-[11px] uppercase tracking-[0.2em] font-bold text-stone-600 hover:bg-sand-100 hover:text-bronze-600 rounded-lg transition-colors">Home</a>
+          <a href="/gallery.html" class="block px-4 py-3 text-[11px] uppercase tracking-[0.2em] font-bold text-stone-600 hover:bg-sand-100 hover:text-bronze-600 rounded-lg transition-colors">Gallery</a>
+          <a href="/products.html" class="block px-4 py-3 text-[11px] uppercase tracking-[0.2em] font-bold text-stone-600 hover:bg-sand-100 hover:text-bronze-600 rounded-lg transition-colors">Products</a>
+          <a href="/catalogue.html" class="block px-4 py-3 text-[11px] uppercase tracking-[0.2em] font-bold text-stone-600 hover:bg-sand-100 hover:text-bronze-600 rounded-lg transition-colors">Catalogue</a>
+          <a href="/about.html" class="block px-4 py-3 text-[11px] uppercase tracking-[0.2em] font-bold text-stone-600 hover:bg-sand-100 hover:text-bronze-600 rounded-lg transition-colors">About</a>
+          <a href="/contact.html" class="block px-4 py-3 text-[11px] uppercase tracking-[0.2em] font-bold text-stone-600 hover:bg-sand-100 hover:text-bronze-600 rounded-lg transition-colors">Contact Us</a>
+          <a href="/visualizer.html" class="block px-4 py-3 text-[11px] uppercase tracking-[0.2em] font-bold text-stone-600 hover:bg-sand-100 hover:text-bronze-600 rounded-lg transition-colors flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+            Virtual Visualizer
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+  
+  <script>
+    // Inline script for mobile menu in case it's missing in some files
+    document.addEventListener('DOMContentLoaded', () => {
+      const menuBtn = document.getElementById('mobile-menu-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const burgerLines = [
+        document.getElementById('burger-line-1'),
+        document.getElementById('burger-line-2'),
+        document.getElementById('burger-line-3'),
+      ];
+      let menuOpen = false;
+
+      if(menuBtn) {
+        menuBtn.addEventListener('click', () => {
+          menuOpen = !menuOpen;
+          if (menuOpen) {
+            mobileMenu.style.maxHeight = '500px';
+          } else {
+            mobileMenu.style.maxHeight = '0';
+          }
+          burgerLines[0].style.transform = menuOpen ? 'rotate(45deg) translate(5px, 6px)' : '';
+          burgerLines[1].style.opacity   = menuOpen ? '0' : '1';
+          burgerLines[2].style.transform = menuOpen ? 'rotate(-45deg) translate(4px, -5px)' : '';
+          burgerLines[2].style.width     = menuOpen ? '1.75rem' : '1.25rem';
+        });
+      }
+    });
+  </script>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const menuBtn = document.getElementById('mobile-menu-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const burgerLines = [
+        document.getElementById('burger-line-1'),
+        document.getElementById('burger-line-2'),
+        document.getElementById('burger-line-3'),
+      ];
+      let menuOpen = false;
+
+      if(menuBtn && mobileMenu) {
+        menuBtn.addEventListener('click', () => {
+          menuOpen = !menuOpen;
+          if (menuOpen) {
+            mobileMenu.style.maxHeight = '400px';
+          } else {
+            mobileMenu.style.maxHeight = '0';
+          }
+          burgerLines[0].style.transform = menuOpen ? 'rotate(45deg) translate(4px, 4px)' : '';
+          burgerLines[1].style.opacity   = menuOpen ? '0' : '1';
+          burgerLines[2].style.transform = menuOpen ? 'rotate(-45deg) translate(3px, -3px)' : '';
+          burgerLines[2].style.width     = menuOpen ? '1.5rem' : '1rem';
+        });
+      }
+    });
+  </script>
+
+  <!-- ================= HERO SLIDER ================= -->
+  <section class="hero-swiper">
+    <div class="swiper banner-swiper h-full w-full">
+      <div class="swiper-wrapper h-full">
+        <!-- Slide 1 -->
+        <div class="swiper-slide h-full">
+          <video autoplay loop muted playsinline>
+            <source src="https://creanza.in/wp-content/uploads/2025/03/banner1.mp4" type="video/mp4">
+          </video>
+          <div class="hero-overlay">
+            <h2 class="text-white font-serif text-5xl md:text-7xl font-bold mb-4">The Pinnacle<br>of Excellence</h2>
+            <p class="text-white/80 text-lg md:text-xl max-w-lg mb-8">Elevate your spaces with tiles that blend innovation, artistry, and timeless sophistication.</p>
+            <a href="/products.html" class="btn-outline">Explore Now</a>
+          </div>
+        </div>
+        <!-- Slide 2 -->
+        <div class="swiper-slide h-full">
+          <video autoplay loop muted playsinline>
+            <source src="https://creanza.in/wp-content/uploads/2025/03/banner2.mp4" type="video/mp4">
+          </video>
+          <div class="hero-overlay">
+            <h2 class="text-white font-serif text-5xl md:text-7xl font-bold mb-4">Unveiling the Art<br>of Surfaces</h2>
+            <p class="text-white/80 text-lg md:text-xl max-w-lg mb-8">Immerse yourself in a world of exquisite tiles, designed to redefine elegance and luxury.</p>
+            <a href="/products.html" class="btn-outline">Explore Now</a>
+          </div>
+        </div>
+        <!-- Slide 3 -->
+        <div class="swiper-slide h-full">
+          <video autoplay loop muted playsinline>
+            <source src="https://creanza.in/wp-content/uploads/2025/03/banner3.mp4" type="video/mp4">
+          </video>
+          <div class="hero-overlay">
+            <h2 class="text-white font-serif text-5xl md:text-7xl font-bold mb-4">A Symphony of<br>Texture & Design</h2>
+            <p class="text-white/80 text-lg md:text-xl max-w-lg mb-8">Discover an unparalleled fusion of intricate details and refined aesthetics.</p>
+            <a href="/products.html" class="btn-outline">Explore Now</a>
+          </div>
+        </div>
+      </div>
+      <!-- Pagination -->
+      <div class="swiper-pagination"></div>
+    </div>
+  </section>
+
+  <!-- ================= REEL SECTION ================= -->
+  <section class="reel-section">
+    <img src="https://creanza.in/wp-content/uploads/2025/04/Creanza_GVTPGVT_moodboard-scaled-e1743580106904.jpg" alt="Moodboard" class="bg" data-aos="zoom-in" data-aos-duration="1500" />
+    <div class="absolute inset-0 bg-black/30 z-0"></div>
+    <a href="#homepage-video-modal" class="reel-play-btn popup-video" data-aos="zoom-in" data-aos-delay="500">
+      <i class="fas fa-play"></i>
+    </a>
+  </section>
+
+  <!-- ================= IMPACT AT A GLANCE ================= -->
+  <section class="impact-section max-w-[1600px] mx-auto overflow-hidden">
+    <div class="impact-left" data-aos="fade-right">
+      <h3 class="font-serif text-4xl md:text-5xl font-bold text-charcoal-900 mb-6">Our Impact<br>at a Glance</h3>
+      <div class="impact-grid">
+        <div class="impact-box">
+          <div class="impact-num"><span class="counter" data-target="75">0</span>+</div>
+          <div class="impact-label">Countries Served</div>
+        </div>
+        <div class="impact-box">
+          <div class="impact-num"><span class="counter" data-target="25">0</span>M</div>
+          <div class="impact-label">Sqmtr Production / Year</div>
+        </div>
+        <div class="impact-box">
+          <div class="impact-num"><span class="counter" data-target="20">0</span>+</div>
+          <div class="impact-label">Years of Excellence</div>
+        </div>
+        <div class="impact-box">
+          <div class="impact-num"><span class="counter" data-target="1000">0</span>+</div>
+          <div class="impact-label">Channel Partners</div>
+        </div>
+      </div>
+    </div>
+    <div class="impact-right mt-10 md:mt-0" data-aos="fade-left">
+      <div class="swiper glance-swiper h-full">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide"><img src="https://creanza.in/wp-content/uploads/2025/03/Property-1Default.png" alt="Impact 1" /></div>
+          <div class="swiper-slide"><img src="https://creanza.in/wp-content/uploads/2025/03/Property-1Variant2.png" alt="Impact 2" /></div>
+          <div class="swiper-slide"><img src="https://creanza.in/wp-content/uploads/2025/03/Property-1Variant3.png" alt="Impact 3" /></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= TRANSFORM YOUR SPACE ================= -->
+  <section class="transform-section bg-white max-w-[1600px] mx-auto overflow-hidden">
+    <div class="text-center mb-16" data-aos="fade-up">
+      <h2 class="font-serif text-4xl md:text-5xl font-bold text-charcoal-900 mb-4">Transform Your Space with<br>Curated Tile Perfection</h2>
+      <p class="text-stone-500 max-w-2xl mx-auto">With a collection for every taste, our tiles seamlessly blend functionality and style, transforming your space into a work of art.</p>
+    </div>
+    <div class="transform-grid">
+      <div class="transform-img-box" data-aos="fade-up" data-aos-delay="100">
+        <img src="https://creanza.in/wp-content/uploads/2025/03/REGAL-KLINKER-GREY-scaled.jpg" alt="Regal" />
+      </div>
+      <div class="transform-img-box" data-aos="fade-up" data-aos-delay="200">
+        <img src="https://creanza.in/wp-content/uploads/2025/03/REGAL-FERROL-WHITE-DECOR-scaled.jpg" alt="Regal Decor" />
+      </div>
+      <div class="transform-img-box" data-aos="fade-up" data-aos-delay="300">
+        <img src="https://creanza.in/wp-content/uploads/2025/03/ROYAL-SVEZIA-GRIS-1-scaled.jpg" alt="Royal" />
+      </div>
+    </div>
+    <div class="text-center mt-12" data-aos="fade-up">
+      <a href="/products.html" class="btn-dark">Discover All Products</a>
+    </div>
+  </section>
+
+  <!-- ================= IMAGE STACK TABS ================= -->
+  <section class="stack-section">
+    <div class="max-w-[1440px] mx-auto">
+      <ul class="stack-tabs" data-aos="fade-up">
+        <li class="active" data-tab="commercial">Commercial</li>
+        <li data-tab="kitchen">Kitchen</li>
+        <li data-tab="bathroom">Bathroom</li>
+        <li data-tab="bedroom">Bedroom</li>
+        <li data-tab="outdoors">Outdoors</li>
+      </ul>
+
+      <!-- Commercial Tab -->
+      <div class="tab-content active" id="commercial">
+        <div class="swiper stack-swiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <div class="stack-box">
+                <img src="https://creanza.in/wp-content/uploads/2025/04/GRANDE-LISTELLO-WHITE_GHR-scaled.jpg" alt="Infinia+" />
+                <h4 class="stack-hdn">INFINIA+</h4>
+                <p class="stack-para">Exquisite large-format tiles combining grandeur with unmatched precision. Perfect for expansive spaces.</p>
+                <a href="/products.html" class="btn-outline">View Collection</a>
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div class="stack-box">
+                <img src="https://creanza.in/wp-content/uploads/2025/03/ROYAL-VOLTERRA-TAN_GHR-1-scaled.jpg" alt="Solido" />
+                <h4 class="stack-hdn">SOLIDO</h4>
+                <p class="stack-para">Premium matt granulla structured surface that mimics the feel of real stone.</p>
+                <a href="/products.html" class="btn-outline">View Collection</a>
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div class="stack-box">
+                <img src="https://creanza.in/wp-content/uploads/2025/04/ROYAL-TRASIA-SAND_EVAN_PARKING-scaled.jpg" alt="Panache" />
+                <h4 class="stack-hdn">PANACHE</h4>
+                <p class="stack-para">A minimal anti-reflective surface with a natural feel and flat surface.</p>
+                <a href="/products.html" class="btn-outline">View Collection</a>
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div class="stack-box">
+                <img src="https://creanza.in/wp-content/uploads/2025/04/ROYAL-NATURAL-TERAZZO-SILVER-GREY-scaled.jpg" alt="Evoq" />
+                <h4 class="stack-hdn">EVOQ</h4>
+                <p class="stack-para">Consistent color and pattern throughout the thickness. Ensures uniform appearance even on exposed edges.</p>
+                <a href="/products.html" class="btn-outline">View Collection</a>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-pagination"></div>
+        </div>
+      </div>
+
+      <!-- Kitchen Tab -->
+      <div class="tab-content" id="kitchen">
+        <div class="swiper stack-swiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <div class="stack-box">
+                <img src="https://creanza.in/wp-content/uploads/2025/04/ROYAL-DOLOMITE-GREY-scaled.jpg" alt="Glossy" />
+                <h4 class="stack-hdn">GLOSSY</h4>
+                <p class="stack-para">Crafted to perfection to provide the ultimate comfort and luxurious experience in culinary spaces.</p>
+                <a href="/products.html" class="btn-outline">View Collection</a>
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div class="stack-box">
+                <img src="https://creanza.in/wp-content/uploads/2025/03/REGAL-KLINKER-GREY-scaled.jpg" alt="Regal" />
+                <h4 class="stack-hdn">REGAL</h4>
+                <p class="stack-para">Timeless and elegant, offering heat and stain resistance for the most demanding kitchen environments.</p>
+                <a href="/products.html" class="btn-outline">View Collection</a>
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div class="stack-box">
+                <img src="https://creanza.in/wp-content/uploads/2025/03/ROYAL-SVEZIA-GRIS-1-scaled.jpg" alt="Svezia" />
+                <h4 class="stack-hdn">SVEZIA</h4>
+                <p class="stack-para">A stunningly smooth surface designed to be easy to clean while maintaining a premium look.</p>
+                <a href="/products.html" class="btn-outline">View Collection</a>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-pagination"></div>
+        </div>
+      </div>
+      
+      <!-- Bathroom Tab -->
+      <div class="tab-content" id="bathroom">
+        <div class="swiper stack-swiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <div class="stack-box">
+                <img src="https://creanza.in/wp-content/uploads/2025/04/ROYAL-ESTONIA-BIANCO-scaled.jpg" alt="Evoq" />
+                <h4 class="stack-hdn">EVOQ BIANCO</h4>
+                <p class="stack-para">Water resistant finish specifically tuned for modern bathrooms and wet areas.</p>
+                <a href="/products.html" class="btn-outline">View Collection</a>
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div class="stack-box">
+                <img src="https://creanza.in/wp-content/uploads/2025/03/REGAL-FERROL-WHITE-DECOR-scaled.jpg" alt="Ferrol Decor" />
+                <h4 class="stack-hdn">FERROL DECOR</h4>
+                <p class="stack-para">Intricate decorative elements that bring a spa-like tranquility to your private sanctuary.</p>
+                <a href="/products.html" class="btn-outline">View Collection</a>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-pagination"></div>
+        </div>
+      </div>
+
+      <!-- Bedroom Tab -->
+      <div class="tab-content" id="bedroom">
+        <div class="swiper stack-swiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <div class="stack-box">
+                <img src="https://creanza.in/wp-content/uploads/2025/03/ROYAL-VOLTERRA-TAN_GHR-1-scaled.jpg" alt="Volterra Tan" />
+                <h4 class="stack-hdn">VOLTERRA</h4>
+                <p class="stack-para">Warm, earthy tones with a subtle texture that creates a cozy and inviting bedroom atmosphere.</p>
+                <a href="/products.html" class="btn-outline">View Collection</a>
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div class="stack-box">
+                <img src="https://creanza.in/wp-content/uploads/2025/04/ROYAL-TRASIA-SAND_EVAN_PARKING-scaled.jpg" alt="Trasia Sand" />
+                <h4 class="stack-hdn">TRASİA SAND</h4>
+                <p class="stack-para">A gentle, minimalist design ensuring a peaceful and serene environment for rest.</p>
+                <a href="/products.html" class="btn-outline">View Collection</a>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-pagination"></div>
+        </div>
+      </div>
+
+      <!-- Outdoors Tab -->
+      <div class="tab-content" id="outdoors">
+        <div class="swiper stack-swiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <div class="stack-box">
+                <img src="https://creanza.in/wp-content/uploads/2025/04/ROYAL-TRASIA-SAND_EVAN_PARKING-scaled.jpg" alt="Parking" />
+                <h4 class="stack-hdn">EXTERIOR PRO</h4>
+                <p class="stack-para">Heavy-duty, slip-resistant tiles engineered to withstand the elements without losing their charm.</p>
+                <a href="/products.html" class="btn-outline">View Collection</a>
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div class="stack-box">
+                <img src="https://creanza.in/wp-content/uploads/2025/04/ROYAL-NATURAL-TERAZZO-SILVER-GREY-scaled.jpg" alt="Terazzo" />
+                <h4 class="stack-hdn">TERRAZZO OUTDOOR</h4>
+                <p class="stack-para">Durable and visually striking, perfect for patios, driveways, and garden walkways.</p>
+                <a href="/products.html" class="btn-outline">View Collection</a>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-pagination"></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="bg-charcoal-900 text-cream-50 pt-16 pb-8 border-t border-stone-600/30">
+    <div class="max-w-[1440px] mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-10">
+      <div>
+        <h3 class="font-serif text-2xl font-bold mb-4 tracking-wide text-bronze-400">CERARIA</h3>
+        <p class="text-stone-400 text-sm leading-relaxed mb-6">The art of ceramic luxury. Elevating architectural spaces with timeless elegance and unmatched durability.</p>
+      </div>
+      <div>
+        <h4 class="font-serif text-lg font-bold mb-4">Collections</h4>
+        <ul class="space-y-2 text-sm text-stone-400">
+          <li><a href="#" class="hover:text-bronze-400 transition-colors">Infinia+</a></li>
+          <li><a href="#" class="hover:text-bronze-400 transition-colors">Solido</a></li>
+          <li><a href="#" class="hover:text-bronze-400 transition-colors">Evoq</a></li>
+          <li><a href="#" class="hover:text-bronze-400 transition-colors">Panache</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-serif text-lg font-bold mb-4">Company</h4>
+        <ul class="space-y-2 text-sm text-stone-400">
+          <li><a href="#" class="hover:text-bronze-400 transition-colors">About Us</a></li>
+          <li><a href="#" class="hover:text-bronze-400 transition-colors">Sustainability</a></li>
+          
+          <li><a href="/contact.html" class="hover:text-bronze-400 transition-colors">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-serif text-lg font-bold mb-4">Connect</h4>
+        <div class="flex gap-4 mb-6">
+          <a href="#" class="w-10 h-10 rounded-full border border-stone-600 flex items-center justify-center text-stone-400 hover:text-bronze-400 hover:border-bronze-400 transition-colors"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="w-10 h-10 rounded-full border border-stone-600 flex items-center justify-center text-stone-400 hover:text-bronze-400 hover:border-bronze-400 transition-colors"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#" class="w-10 h-10 rounded-full border border-stone-600 flex items-center justify-center text-stone-400 hover:text-bronze-400 hover:border-bronze-400 transition-colors"><i class="fab fa-pinterest-p"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="max-w-[1440px] mx-auto px-6 mt-12 pt-8 border-t border-stone-600/30 flex flex-col md:flex-row items-center justify-between text-xs text-stone-500">
+      <p>&copy; 2026 CERARIA PRIVATE LIMITED. All rights reserved.</p>
+      <div class="flex gap-4 mt-4 md:mt-0">
+        <a href="#" class="hover:text-bronze-400 transition-colors">Privacy Policy</a>
+        <a href="#" class="hover:text-bronze-400 transition-colors">Terms of Service</a>
+        <a href="/admin-login" class="hover:text-bronze-400 transition-colors">Admin Login</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ================= SCRIPTS ================= -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
+
+  <script>
+    // 1. Header scroll effect
+    window.addEventListener('scroll', () => {
+      const header = document.getElementById('main-header');
+      if (header) {
+        if (window.scrollY > 50) header.classList.add('scrolled');
+        else header.classList.remove('scrolled');
+      }
+    });
+
+    // 2. Init AOS
+    AOS.init({
+      once: false, // repeat animations
+      offset: 100,
+      duration: 800,
+      easing: 'ease-out-cubic'
+    });
+
+    // 3. Init Swiper (Hero)
+    new Swiper('.banner-swiper', {
+      loop: true,
+      effect: 'fade',
+      fadeEffect: { crossFade: true },
+      autoplay: { delay: 6000, disableOnInteraction: false },
+      pagination: { el: '.swiper-pagination', clickable: true }
+    });
+
+    // 4. Init Swiper (Glance)
+    new Swiper('.glance-swiper', {
+      loop: true,
+      effect: 'slide',
+      autoplay: { delay: 3000 },
+      slidesPerView: 1
+    });
+
+    // 5. Init Swiper (Stack)
+    const stackSwiper = new Swiper('.stack-swiper', {
+      slidesPerView: 1,
+      spaceBetween: 20,
+      pagination: { el: '.swiper-pagination', clickable: true },
+      breakpoints: {
+        640: { slidesPerView: 2 },
+        1024: { slidesPerView: 3 }
+      }
+    });
+
+    // 6. Init Magnific Popup
+    $(document).ready(function() {
+      $('.popup-video').magnificPopup({
+        type: 'inline',
+        midClick: true,
+        callbacks: {
+          open: function() {
+            // Add a cache buster so if they upload a new video, it refreshes
+            const video = document.getElementById('homepage-video-player');
+            if(video && !video.src.includes('?v=')) {
+              video.src = '/assets/videos/homepage-video.mp4?v=' + new Date().getTime();
+            }
+            if(video) video.play();
+          },
+          close: function() {
+            const video = document.getElementById('homepage-video-player');
+            if(video) video.pause();
+          }
+        }
+      });
+    });
+
+    // 7. Counters Animation
+    const counters = document.querySelectorAll('.counter');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const counter = entry.target;
+          const target = +counter.getAttribute('data-target');
+          let count = 0;
+          const updateCount = () => {
+            const increment = target / 40;
+            if (count < target) {
+              count += increment;
+              counter.innerText = Math.ceil(count);
+              setTimeout(updateCount, 40);
+            } else {
+              counter.innerText = target;
+            }
+          };
+          updateCount();
+          observer.unobserve(counter);
+        }
+      });
+    }, { threshold: 0.5 });
+    counters.forEach(counter => observer.observe(counter));
+
+    // 8. Tabs Logic
+    document.querySelectorAll('.stack-tabs li').forEach(tab => {
+      tab.addEventListener('click', function() {
+        // Remove active from all tabs
+        document.querySelectorAll('.stack-tabs li').forEach(t => t.classList.remove('active'));
+        this.classList.add('active');
+        
+        // Hide all tab contents
+        document.querySelectorAll('.tab-content').forEach(tc => {
+          tc.classList.remove('active');
+          tc.style.display = 'none';
+        });
+
+        // Show target
+        const targetId = this.getAttribute('data-tab');
+        const targetEl = document.getElementById(targetId);
+        if(targetEl) {
+          targetEl.style.display = 'block';
+          // Trigger reflow
+          void targetEl.offsetWidth;
+          targetEl.classList.add('active');
+        }
+      });
+    });
+
+  </script>
+  <!-- Video Modal -->
+  <div id="homepage-video-modal" class="mfp-hide bg-black relative max-w-5xl mx-auto rounded-xl overflow-hidden shadow-2xl">
+    <video id="homepage-video-player" controls preload="none" class="w-full h-auto max-h-[80vh] bg-black">
+      <source src="/assets/videos/homepage-video.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </div>
+</body>
+</html>

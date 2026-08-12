@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ========================================
+       SEO & META — Hidden from search engines
+  ======================================== -->
+  <title>Admin Login — CERARIA</title>
+  <meta name="robots" content="noindex, nofollow" />
+
+  <!-- ========================================
+       FONTS
+  ======================================== -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- ========================================
+       TAILWIND CSS via CDN
+  ======================================== -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            cream:    { 50: '#FFFDF8', 100: '#FFF9ED', 200: '#FFF3DB' },
+            sand:     { 100: '#F5F0E8', 200: '#EDE5D8', 300: '#DDD3C1', 400: '#C4B8A3' },
+            stone:    { 300: '#B8B0A4', 400: '#9A9184', 500: '#7A7267', 600: '#5C554B' },
+            bronze:   { 400: '#C49A6C', 500: '#B07D4F', 600: '#9A673B', 700: '#7D522E' },
+            copper:   { 400: '#C87941', 500: '#A8612E', 600: '#8B4F24' },
+            charcoal: { 700: '#3A342E', 800: '#2C2824', 900: '#1A1714' },
+          },
+          fontFamily: {
+            serif: ['"Playfair Display"', 'Georgia', 'serif'],
+            sans:  ['"Inter"', 'system-ui', 'sans-serif'],
+          },
+        },
+      },
+    };
+  </script>
+
+  <!-- ========================================
+       FONTAWESOME
+  ======================================== -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <style>
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', system-ui, sans-serif; }
+
+    /* ── Background pattern ── */
+    .login-bg {
+      background-image:
+        radial-gradient(ellipse at 20% 50%, rgba(176, 125, 79, 0.08) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 20%, rgba(196, 154, 108, 0.06) 0%, transparent 50%),
+        radial-gradient(ellipse at 60% 80%, rgba(176, 125, 79, 0.05) 0%, transparent 50%);
+    }
+
+    /* ── Input focus ── */
+    .login-input:focus {
+      outline: none;
+      border-color: #B07D4F;
+      box-shadow: 0 0 0 3px rgba(176,125,79,0.12);
+    }
+
+    /* ── Shake animation for errors ── */
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-8px); }
+      40%, 80% { transform: translateX(8px); }
+    }
+    .shake { animation: shake 0.4s ease-in-out; }
+
+    /* ── Login card entrance ── */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .login-card {
+      animation: fadeInUp 0.6s ease-out;
+    }
+
+    /* ── Spinner ── */
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .spinner { animation: spin 0.7s linear infinite; }
+  </style>
+</head>
+
+<body class="login-bg bg-cream-50 min-h-screen flex items-center justify-center p-4 antialiased">
+
+  <div class="login-card w-full max-w-md">
+
+    <!-- ── Logo ── -->
+    <div class="text-center mb-8">
+      <div class="inline-flex items-center justify-center w-16 h-16 bg-charcoal-900 rounded-2xl mb-4 shadow-xl">
+        <span class="font-serif text-3xl font-bold text-cream-50">C</span>
+      </div>
+      <h1 class="font-serif text-3xl font-bold text-charcoal-900 tracking-wide">CERARIA</h1>
+      <p class="text-xs tracking-[0.3em] uppercase text-stone-400 mt-1">Admin Portal</p>
+    </div>
+
+    <!-- ── Login Card ── -->
+    <div class="bg-white/80 backdrop-blur-2xl rounded-3xl p-8 sm:p-10 shadow-xl border border-sand-200/60" id="login-card">
+
+      <div class="mb-6">
+        <h2 class="font-serif text-xl font-bold text-charcoal-900">Welcome Back</h2>
+        <p class="text-sm text-stone-400 mt-1">Sign in to manage your inventory</p>
+      </div>
+
+      <!-- Error Alert -->
+      <div id="error-alert" class="hidden mb-4 p-3 bg-red-50 border border-red-200 rounded-xl text-sm text-red-600 font-medium flex items-center gap-2">
+        <i class="fa-solid fa-circle-exclamation"></i>
+        <span id="error-message">Invalid credentials</span>
+      </div>
+
+      <!-- Login Form -->
+      <form id="login-form" class="space-y-5">
+        <div>
+          <label for="login-email" class="block text-sm font-semibold text-charcoal-900 mb-2">Email Address</label>
+          <div class="relative">
+            <div class="absolute left-4 top-1/2 -translate-y-1/2">
+              <i class="fa-solid fa-envelope text-stone-400 text-sm"></i>
+            </div>
+            <input type="email" id="login-email" name="email" required autofocus
+                   placeholder="admin@ceraria.in"
+                   class="login-input w-full pl-11 pr-4 py-3.5 border border-sand-200 rounded-xl text-sm text-charcoal-800 bg-cream-50/50 transition-all" />
+          </div>
+        </div>
+
+        <div>
+          <label for="login-password" class="block text-sm font-semibold text-charcoal-900 mb-2">Password</label>
+          <div class="relative">
+            <div class="absolute left-4 top-1/2 -translate-y-1/2">
+              <i class="fa-solid fa-lock text-stone-400 text-sm"></i>
+            </div>
+            <input type="password" id="login-password" name="password" required
+                   placeholder="••••••••••"
+                   class="login-input w-full pl-11 pr-12 py-3.5 border border-sand-200 rounded-xl text-sm text-charcoal-800 bg-cream-50/50 transition-all" />
+            <button type="button" onclick="togglePassword()" class="absolute right-4 top-1/2 -translate-y-1/2 text-stone-400 hover:text-stone-600 transition-colors" aria-label="Toggle password visibility">
+              <i class="fa-solid fa-eye" id="password-toggle-icon"></i>
+            </button>
+          </div>
+        </div>
+
+        <button type="submit" id="login-submit-btn"
+                class="w-full py-3.5 bg-bronze-500 text-cream-50 font-semibold text-sm tracking-widest uppercase rounded-xl hover:bg-bronze-600 transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2">
+          <i class="fa-solid fa-right-to-bracket"></i>
+          Sign In
+        </button>
+      </form>
+    </div>
+
+    <!-- Footer -->
+    <p class="text-center text-xs text-stone-400 mt-6">
+      &copy; 2026 CERARIA Private Limited
+    </p>
+  </div>
+
+
+  <!-- ================================================================
+       JAVASCRIPT
+       ================================================================ -->
+  <script>
+    // Check if already authenticated
+    (async () => {
+      try {
+        const res = await fetch('/api/admin/check');
+        const json = await res.json();
+        if (json.success) {
+          window.location.href = '/admin.html';
+        }
+      } catch (e) { /* Not authenticated, stay on login */ }
+    })();
+
+    // Toggle password visibility
+    function togglePassword() {
+      const input = document.getElementById('login-password');
+      const icon = document.getElementById('password-toggle-icon');
+      if (input.type === 'password') {
+        input.type = 'text';
+        icon.className = 'fa-solid fa-eye-slash';
+      } else {
+        input.type = 'password';
+        icon.className = 'fa-solid fa-eye';
+      }
+    }
+
+    // Login form submission
+    document.getElementById('login-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const btn = document.getElementById('login-submit-btn');
+      const errorAlert = document.getElementById('error-alert');
+      const errorMessage = document.getElementById('error-message');
+      const card = document.getElementById('login-card');
+
+      // Hide previous error
+      errorAlert.classList.add('hidden');
+
+      // Loading state
+      btn.disabled = true;
+      btn.innerHTML = '<div class="w-5 h-5 border-2 border-cream-50 border-t-transparent rounded-full spinner"></div> Signing in...';
+
+      const email = document.getElementById('login-email').value.trim();
+      const password = document.getElementById('login-password').value;
+
+      try {
+        const res = await fetch('/api/admin/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password })
+        });
+
+        const json = await res.json();
+
+        if (json.success) {
+          // Success animation
+          btn.innerHTML = '<i class="fa-solid fa-check"></i> Success!';
+          btn.classList.remove('bg-bronze-500', 'hover:bg-bronze-600');
+          btn.classList.add('bg-green-600');
+
+          setTimeout(() => {
+            window.location.href = '/admin.html';
+          }, 600);
+        } else {
+          // Error
+          errorMessage.textContent = json.error || 'Invalid credentials';
+          errorAlert.classList.remove('hidden');
+          card.classList.add('shake');
+          setTimeout(() => card.classList.remove('shake'), 500);
+
+          btn.disabled = false;
+          btn.innerHTML = '<i class="fa-solid fa-right-to-bracket"></i> Sign In';
+        }
+      } catch (err) {
+        errorMessage.textContent = 'Network error. Please try again.';
+        errorAlert.classList.remove('hidden');
+        card.classList.add('shake');
+        setTimeout(() => card.classList.remove('shake'), 500);
+
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fa-solid fa-right-to-bracket"></i> Sign In';
+      }
+    });
+  </script>
+
+</body>
+</html>

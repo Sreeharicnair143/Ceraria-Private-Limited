@@ -1,0 +1,1199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Product Details — CERARIA | The Art of Ceramic Luxury</title>
+  <meta name="description" content="Explore premium tile details, specifications, and interior visualizations at CERARIA." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            cream:    { 50: '#FFFDF8', 100: '#FFF9ED', 200: '#FFF3DB' },
+            sand:     { 100: '#F5F0E8', 200: '#EDE5D8', 300: '#DDD3C1', 400: '#C4B8A3' },
+            stone:    { 300: '#B8B0A4', 400: '#9A9184', 500: '#7A7267', 600: '#5C554B' },
+            bronze:   { 400: '#C49A6C', 500: '#B07D4F', 600: '#9A673B', 700: '#7D522E' },
+            charcoal: { 700: '#3A342E', 800: '#2C2824', 900: '#1A1714' },
+          },
+          fontFamily: {
+            serif: ['"Playfair Display"', 'Georgia', 'serif'],
+            sans:  ['"Inter"', 'system-ui', 'sans-serif'],
+          },
+        },
+      },
+    };
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+
+  <style>
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', system-ui, sans-serif; background: #FFFDF8; }
+
+    /* Header */
+    #main-header .nav-link { color: #2C2824; }
+    #main-header .nav-link:hover { color: #B07D4F; }
+
+    /* ── Kajaria-style Image Carousel ── */
+    .carousel-track { display: flex; width: 200%; transition: transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+    .carousel-slide { width: 50%; position: relative; cursor: zoom-in; overflow: hidden; }
+    .carousel-slide img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .carousel-slide:hover img { transform: scale(1.04); }
+
+    /* Slide type badge */
+    .slide-badge {
+      position: absolute; bottom: 16px; left: 16px;
+      background: rgba(0,0,0,0.6); backdrop-filter: blur(8px);
+      color: white; font-size: 10px; font-weight: 700;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      padding: 5px 12px; border-radius: 20px;
+    }
+
+    /* Arrow buttons */
+    .carousel-btn {
+      position: absolute; top: 50%; transform: translateY(-50%); z-index: 10;
+      width: 44px; height: 44px; border-radius: 50%;
+      background: rgba(255,255,255,0.9); backdrop-filter: blur(8px);
+      border: 1px solid rgba(0,0,0,0.08); cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+      transition: all 0.2s ease;
+      color: #1A1714;
+    }
+    .carousel-btn:hover { background: white; box-shadow: 0 6px 24px rgba(0,0,0,0.18); transform: translateY(-50%) scale(1.05); }
+    .carousel-btn-prev { left: 14px; }
+    .carousel-btn-next { right: 14px; }
+
+    /* Dots */
+    .carousel-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: rgba(255,255,255,0.5); cursor: pointer;
+      transition: all 0.3s; border: none;
+    }
+    .carousel-dot.active { background: white; width: 28px; border-radius: 4px; }
+
+    /* ── Specs divider table ── */
+    .spec-divider { border-right: 1px solid #DDD3C1; }
+    .spec-divider:last-child { border-right: none; }
+
+    /* ── Application tag ── */
+    .app-tag {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 4px 12px; border-radius: 20px;
+      background: #F5F0E8; color: #5C554B;
+      font-size: 11px; font-weight: 600; letter-spacing: 0.05em;
+      border: 1px solid #DDD3C1;
+    }
+
+    /* ── Lightbox ── */
+    .lightbox-overlay { opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease; }
+    .lightbox-overlay.open { opacity: 1; visibility: visible; }
+
+    /* ── Inquiry modal ── */
+    .modal-overlay { opacity: 0; visibility: hidden; transition: opacity 0.3s ease; }
+    .modal-overlay.open { opacity: 1; visibility: visible; }
+    .modal-panel { transform: scale(0.95) translateY(20px); transition: transform 0.3s ease; }
+    .modal-overlay.open .modal-panel { transform: scale(1) translateY(0); }
+
+    /* ── Fade-up ── */
+    .fade-up { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease-out, transform 0.7s ease-out; }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+    .delay-1 { transition-delay: 0.1s; } .delay-2 { transition-delay: 0.2s; }
+
+    /* ── Skeleton ── */
+    @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+    .skeleton { background: linear-gradient(90deg, #F5F0E8 25%, #EDE5D8 50%, #F5F0E8 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite; border-radius: 12px; }
+
+    /* ── Form ── */
+    .form-input:focus { outline: none; border-color: #B07D4F; box-shadow: 0 0 0 3px rgba(176,125,79,0.12); }
+
+    /* ── Product card hover ── */
+    .product-card { transition: transform 0.4s ease, box-shadow 0.4s ease; }
+    .product-card:hover { transform: translateY(-5px); box-shadow: 0 20px 48px rgba(0,0,0,0.09); }
+
+    /* ── Scrollbar ── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #F5F0E8; }
+    ::-webkit-scrollbar-thumb { background: #C4B8A3; border-radius: 3px; }
+
+    /* Breadcrumb separator */
+    .bc-sep { color: #C4B8A3; }
+  </style>
+</head>
+
+<body class="bg-cream-50 text-charcoal-900 antialiased">
+
+  <!-- ================================================================
+       NAVIGATION
+  ================================================================ -->
+  <!-- ================================================================
+       SECTION: NAVIGATION BAR
+       ================================================================ -->
+  <!-- ================================================================
+       SECTION: NAVIGATION BAR
+       ================================================================ -->
+  <nav id="navbar" class="navbar-glass fixed top-0 left-0 right-0 z-50 border-b border-sand-200/60 shadow-sm transition-all duration-300 bg-cream-50/90 backdrop-blur-md">
+    <div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-24 py-4">
+
+        <!-- Logo -->
+        <a href="/" class="flex items-center gap-3 group" id="nav-logo">
+          <img src="/assets/images/logo-icon.png"
+               alt="CERARIA logo"
+               class="w-12 h-12 group-hover:scale-105 transition-transform duration-500 rounded-md" />
+          <span class="text-2xl md:text-3xl font-serif font-bold tracking-[0.15em] text-charcoal-900 group-hover:text-bronze-500 transition-colors duration-500">
+            CERARIA
+          </span>
+          <span class="inline-block text-[8px] sm:text-[10px] font-sans font-medium tracking-[0.15em] sm:tracking-[0.25em] uppercase text-stone-400 border-l border-stone-300 pl-2 sm:pl-3 leading-relaxed">
+            THE ART OF<br/>CERAMIC LUXURY
+          </span>
+        </a>
+
+        <!-- Desktop Nav Links -->
+        <div class="hidden xl:flex items-center gap-8" id="nav-links-desktop">
+          <a href="/" class="relative group text-[11px] uppercase tracking-[0.2em] font-bold text-stone-500 hover:text-charcoal-900 transition-colors py-1">
+            Home
+            <span class="absolute bottom-0 left-0 w-0 h-[1.5px] bg-bronze-500 transition-all duration-300 group-hover:w-full"></span>
+          </a>
+          <a href="/gallery.html" class="relative group text-[11px] uppercase tracking-[0.2em] font-bold text-stone-500 hover:text-charcoal-900 transition-colors py-1">
+            Gallery
+            <span class="absolute bottom-0 left-0 w-0 h-[1.5px] bg-bronze-500 transition-all duration-300 group-hover:w-full"></span>
+          </a>
+          <a href="/products.html" class="relative group text-[11px] uppercase tracking-[0.2em] font-bold text-stone-500 hover:text-charcoal-900 transition-colors py-1">
+            Products
+            <span class="absolute bottom-0 left-0 w-0 h-[1.5px] bg-bronze-500 transition-all duration-300 group-hover:w-full"></span>
+          </a>
+          <a href="/catalogue.html" class="relative group text-[11px] uppercase tracking-[0.2em] font-bold text-stone-500 hover:text-charcoal-900 transition-colors py-1">
+            Catalogue
+            <span class="absolute bottom-0 left-0 w-0 h-[1.5px] bg-bronze-500 transition-all duration-300 group-hover:w-full"></span>
+          </a>
+          <a href="/about.html" class="relative group text-[11px] uppercase tracking-[0.2em] font-bold text-stone-500 hover:text-charcoal-900 transition-colors py-1">
+            About
+            <span class="absolute bottom-0 left-0 w-0 h-[1.5px] bg-bronze-500 transition-all duration-300 group-hover:w-full"></span>
+          </a>
+          <a href="/contact.html" class="relative group text-[11px] uppercase tracking-[0.2em] font-bold text-stone-500 hover:text-charcoal-900 transition-colors py-1">
+            Contact Us
+            <span class="absolute bottom-0 left-0 w-0 h-[1.5px] bg-bronze-500 transition-all duration-300 group-hover:w-full"></span>
+          </a>
+          
+          <a href="/visualizer.html" class="ml-4 px-7 py-3.5 bg-gradient-to-r from-bronze-600 to-bronze-500 text-cream-50 text-[11px] uppercase tracking-[0.2em] font-bold rounded-sm hover:from-charcoal-900 hover:to-charcoal-800 hover:-translate-y-0.5 transition-all duration-300 shadow-[0_4px_14px_0_rgba(180,119,73,0.39)] hover:shadow-[0_6px_20px_rgba(0,0,0,0.23)] flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+            Visualizer
+          </a>
+        </div>
+
+        <!-- Mobile Hamburger -->
+        <button id="mobile-menu-btn"
+                class="xl:hidden flex flex-col gap-1.5 p-2 rounded-lg hover:bg-sand-100 transition-colors"
+                aria-label="Toggle mobile menu">
+          <span class="block w-7 h-0.5 bg-charcoal-800 rounded transition-all duration-300" id="burger-line-1"></span>
+          <span class="block w-7 h-0.5 bg-charcoal-800 rounded transition-all duration-300" id="burger-line-2"></span>
+          <span class="block w-5 h-0.5 bg-charcoal-800 rounded transition-all duration-300" id="burger-line-3"></span>
+        </button>
+      </div>
+
+      <!-- Mobile Menu -->
+      <div id="mobile-menu" class="mobile-menu xl:hidden max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+        <div class="pb-6 pt-2 space-y-2 border-t border-sand-200">
+          <a href="/" class="block px-4 py-3 text-[11px] uppercase tracking-[0.2em] font-bold text-stone-600 hover:bg-sand-100 hover:text-bronze-600 rounded-lg transition-colors">Home</a>
+          <a href="/gallery.html" class="block px-4 py-3 text-[11px] uppercase tracking-[0.2em] font-bold text-stone-600 hover:bg-sand-100 hover:text-bronze-600 rounded-lg transition-colors">Gallery</a>
+          <a href="/products.html" class="block px-4 py-3 text-[11px] uppercase tracking-[0.2em] font-bold text-stone-600 hover:bg-sand-100 hover:text-bronze-600 rounded-lg transition-colors">Products</a>
+          <a href="/catalogue.html" class="block px-4 py-3 text-[11px] uppercase tracking-[0.2em] font-bold text-stone-600 hover:bg-sand-100 hover:text-bronze-600 rounded-lg transition-colors">Catalogue</a>
+          <a href="/about.html" class="block px-4 py-3 text-[11px] uppercase tracking-[0.2em] font-bold text-stone-600 hover:bg-sand-100 hover:text-bronze-600 rounded-lg transition-colors">About</a>
+          <a href="/contact.html" class="block px-4 py-3 text-[11px] uppercase tracking-[0.2em] font-bold text-stone-600 hover:bg-sand-100 hover:text-bronze-600 rounded-lg transition-colors">Contact Us</a>
+          <a href="/visualizer.html" class="block px-4 py-3 text-[11px] uppercase tracking-[0.2em] font-bold text-stone-600 hover:bg-sand-100 hover:text-bronze-600 rounded-lg transition-colors flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+            Virtual Visualizer
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+  
+  <script>
+    // Inline script for mobile menu in case it's missing in some files
+    document.addEventListener('DOMContentLoaded', () => {
+      const menuBtn = document.getElementById('mobile-menu-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const burgerLines = [
+        document.getElementById('burger-line-1'),
+        document.getElementById('burger-line-2'),
+        document.getElementById('burger-line-3'),
+      ];
+      let menuOpen = false;
+
+      if(menuBtn) {
+        menuBtn.addEventListener('click', () => {
+          menuOpen = !menuOpen;
+          if (menuOpen) {
+            mobileMenu.style.maxHeight = '500px';
+          } else {
+            mobileMenu.style.maxHeight = '0';
+          }
+          burgerLines[0].style.transform = menuOpen ? 'rotate(45deg) translate(5px, 6px)' : '';
+          burgerLines[1].style.opacity   = menuOpen ? '0' : '1';
+          burgerLines[2].style.transform = menuOpen ? 'rotate(-45deg) translate(4px, -5px)' : '';
+          burgerLines[2].style.width     = menuOpen ? '1.75rem' : '1.25rem';
+        });
+      }
+    });
+  </script>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const menuBtn = document.getElementById('mobile-menu-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const burgerLines = [
+        document.getElementById('burger-line-1'),
+        document.getElementById('burger-line-2'),
+        document.getElementById('burger-line-3'),
+      ];
+      let menuOpen = false;
+
+      if(menuBtn && mobileMenu) {
+        menuBtn.addEventListener('click', () => {
+          menuOpen = !menuOpen;
+          if (menuOpen) {
+            mobileMenu.style.maxHeight = '400px';
+          } else {
+            mobileMenu.style.maxHeight = '0';
+          }
+          burgerLines[0].style.transform = menuOpen ? 'rotate(45deg) translate(4px, 4px)' : '';
+          burgerLines[1].style.opacity   = menuOpen ? '0' : '1';
+          burgerLines[2].style.transform = menuOpen ? 'rotate(-45deg) translate(3px, -3px)' : '';
+          burgerLines[2].style.width     = menuOpen ? '1.5rem' : '1rem';
+        });
+      }
+    });
+  </script>
+
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="fixed inset-y-0 right-0 w-80 max-w-full bg-white z-[60] shadow-2xl p-6 overflow-y-auto transform translate-x-full transition-transform duration-300">
+    <div class="flex justify-between items-center mb-8">
+      <span class="font-serif text-xl font-bold">CERARIA</span>
+      <button id="mobile-menu-close" class="p-2 text-charcoal-800">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+      </button>
+    </div>
+    <nav class="space-y-3">
+      <a href="/gallery.html" class="block py-3 text-lg font-medium text-charcoal-800 border-b border-sand-100">Gallery</a>
+      <a href="/catalogue.html" class="block py-3 text-lg font-medium text-charcoal-800 border-b border-sand-100">Catalogue</a>
+      <a href="/contact.html" class="block py-3 text-lg font-medium text-charcoal-800 border-b border-sand-100">Contact Us</a>
+      <a href="/about.html" class="block py-3 text-lg font-medium text-charcoal-800 border-b border-sand-100">About</a>
+      <a href="/visualizer.html" class="block py-3 text-lg font-medium text-bronze-500 font-bold border-b border-sand-100">Virtual Visualizer</a>
+      <a href="/products.html" class="block py-3 text-lg font-medium text-charcoal-800 border-b border-sand-100">Products</a>
+      <a href="tel:+919876543210" class="block mt-6 text-center py-3 bg-bronze-500 text-cream-50 font-semibold text-sm tracking-widest uppercase rounded-xl">Call Now</a>
+    </nav>
+  </div>
+  <div id="mobile-menu-backdrop" class="fixed inset-0 bg-black/40 z-[55] hidden"></div>
+
+
+  <!-- ================================================================
+       LOADING SKELETON
+  ================================================================ -->
+  <div id="page-loader" class="pt-[70px]">
+    <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div class="flex items-center gap-2 mb-8">
+        <div class="skeleton h-4 w-12 rounded"></div>
+        <div class="skeleton h-4 w-4 rounded"></div>
+        <div class="skeleton h-4 w-20 rounded"></div>
+        <div class="skeleton h-4 w-4 rounded"></div>
+        <div class="skeleton h-4 w-32 rounded"></div>
+      </div>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div class="skeleton rounded-2xl" style="aspect-ratio:1/1;"></div>
+        <div class="space-y-5 pt-4">
+          <div class="skeleton h-4 w-28 rounded"></div>
+          <div class="skeleton h-14 w-3/4 rounded"></div>
+          <div class="skeleton h-5 w-48 rounded"></div>
+          <div class="skeleton h-28 w-full rounded-xl"></div>
+          <div class="skeleton h-20 w-full rounded-xl"></div>
+          <div class="flex gap-3"><div class="skeleton h-14 flex-1 rounded-xl"></div><div class="skeleton h-14 flex-1 rounded-xl"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ================================================================
+       MAIN PRODUCT CONTENT
+  ================================================================ -->
+  <main id="product-content" class="hidden pt-[70px]">
+
+    <!-- Breadcrumb -->
+    <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 pt-5 pb-1">
+      <nav class="flex items-center gap-2 text-xs" aria-label="Breadcrumb">
+        <a href="/" class="text-stone-400 hover:text-bronze-600 transition-colors">Home</a>
+        <span class="bc-sep">/</span>
+        <a href="/products.html" class="text-stone-400 hover:text-bronze-600 transition-colors">Products</a>
+        <span class="bc-sep">/</span>
+        <span id="breadcrumb-series" class="text-stone-400"></span>
+        <span class="bc-sep">/</span>
+        <span id="breadcrumb-name" class="text-charcoal-900 font-semibold"></span>
+      </nav>
+    </div>
+
+    <!-- ================================================================
+         SECTION 1: KAJARIA-STYLE PRODUCT SHOWCASE
+         Left: 2-slide carousel (Room Scene + Tile Closeup)
+         Right: Product details + specs + CTAs
+    ================================================================ -->
+    <section class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-6 lg:py-10">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-14 items-start">
+
+        <!-- ── LEFT: Image Carousel ── -->
+        <div class="fade-up">
+          <!-- Carousel Wrapper -->
+          <div class="relative rounded-2xl overflow-hidden bg-sand-100" style="aspect-ratio: 1/1;" id="carousel-wrapper">
+
+            <!-- Slides track -->
+            <div class="carousel-track h-full" id="carousel-track">
+              <!-- Slide 1: Room Scene -->
+              <div class="carousel-slide h-full" id="slide-room" onclick="openLightbox(0)">
+                <img id="room-img" src="" alt="Room Scene" class="w-full h-full" />
+                <span class="slide-badge"><i class="fa-solid fa-couch mr-1.5 text-xs"></i>Room Scene</span>
+              </div>
+              <!-- Slide 2: Tile Closeup -->
+              <div class="carousel-slide h-full" id="slide-tile" onclick="openLightbox(1)">
+                <img id="tile-img" src="" alt="Tile Closeup" class="w-full h-full" />
+                <span class="slide-badge"><i class="fa-solid fa-border-all mr-1.5 text-xs"></i>Tile Closeup</span>
+              </div>
+            </div>
+
+            <!-- Nav Arrows -->
+            <button class="carousel-btn carousel-btn-prev" onclick="carouselPrev()" aria-label="Previous">
+              <i class="fa-solid fa-chevron-left text-sm"></i>
+            </button>
+            <button class="carousel-btn carousel-btn-next" onclick="carouselNext()" aria-label="Next">
+              <i class="fa-solid fa-chevron-right text-sm"></i>
+            </button>
+
+            <!-- Slide indicator dots -->
+            <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+              <button class="carousel-dot active" onclick="goToSlide(0)" aria-label="Room scene"></button>
+              <button class="carousel-dot" onclick="goToSlide(1)" aria-label="Tile closeup"></button>
+            </div>
+
+            <!-- Zoom hint -->
+            <div class="absolute top-4 right-4 px-2.5 py-1 bg-white/80 backdrop-blur-sm rounded-full text-[10px] font-semibold text-stone-500 flex items-center gap-1 pointer-events-none">
+              <i class="fa-solid fa-magnifying-glass-plus text-bronze-400"></i> Click to zoom
+            </div>
+          </div>
+
+          <!-- Slide label strip under carousel -->
+          <div class="flex gap-3 mt-3">
+            <button id="tab-room" onclick="goToSlide(0)" class="flex-1 py-2.5 text-xs font-semibold uppercase tracking-wider rounded-xl border-2 border-bronze-500 bg-bronze-500/10 text-bronze-600 transition-all">
+              <i class="fa-solid fa-couch mr-1.5"></i>Room Scene
+            </button>
+            <button id="tab-tile" onclick="goToSlide(1)" class="flex-1 py-2.5 text-xs font-semibold uppercase tracking-wider rounded-xl border-2 border-sand-300 text-stone-500 hover:border-bronze-400 transition-all">
+              <i class="fa-solid fa-border-all mr-1.5"></i>Tile Closeup
+            </button>
+          </div>
+        </div>
+
+
+        <!-- ── RIGHT: Product Info Panel ── -->
+        <div class="fade-up delay-1 space-y-6">
+
+          <!-- Series + Category badges -->
+          <div class="flex items-center gap-2 flex-wrap">
+            <span class="text-[10px] font-bold tracking-[0.25em] uppercase text-bronze-500 px-3 py-1 bg-bronze-500/10 rounded-full border border-bronze-400/30" id="product-series-label">Series</span>
+            <span class="text-[10px] font-bold tracking-[0.2em] uppercase text-stone-500 px-3 py-1 bg-sand-100 rounded-full" id="product-category-badge">Category</span>
+          </div>
+
+          <!-- Product Name -->
+          <div>
+            <h1 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-charcoal-900 leading-tight" id="product-name">Loading...</h1>
+          </div>
+
+          <!-- Specs Row -->
+          <div class="flex divide-x divide-sand-300 border border-sand-200 rounded-2xl overflow-hidden bg-white" id="specs-row">
+            <div class="flex-1 px-5 py-4">
+              <p class="text-[9px] font-bold tracking-[0.2em] uppercase text-stone-400 mb-1">SIZE</p>
+              <p class="text-sm font-bold text-charcoal-900" id="spec-size">—</p>
+            </div>
+            <div class="flex-1 px-5 py-4">
+              <p class="text-[9px] font-bold tracking-[0.2em] uppercase text-stone-400 mb-1">FINISH</p>
+              <p class="text-sm font-bold text-charcoal-900" id="spec-finish">—</p>
+            </div>
+            <div class="flex-1 px-5 py-4">
+              <p class="text-[9px] font-bold tracking-[0.2em] uppercase text-stone-400 mb-1">THICKNESS</p>
+              <p class="text-sm font-bold text-charcoal-900" id="spec-thickness">—</p>
+            </div>
+          </div>
+
+          <!-- Description -->
+          <p class="text-stone-500 text-sm leading-relaxed" id="product-description">Loading...</p>
+
+          <!-- Applications -->
+          <div id="applications-section" class="hidden">
+            <p class="text-[9px] font-bold tracking-[0.2em] uppercase text-stone-400 mb-2.5">SUITABLE FOR</p>
+            <div id="application-tags" class="flex flex-wrap gap-2"></div>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="flex flex-col sm:flex-row gap-4 pt-4">
+            <button onclick="open360Viewer()" class="flex-1 flex items-center justify-center gap-2 py-3.5 bg-charcoal-800 text-cream-50 font-semibold text-sm tracking-widest uppercase rounded-xl hover:bg-black transition-all shadow-md">
+              <i class="fa-solid fa-cube text-lg"></i> 360° Room View
+            </button>
+            <button onclick="openInquiryModal()" class="flex-1 flex items-center justify-center gap-2 py-3.5 bg-bronze-500 text-cream-50 font-semibold text-sm tracking-widest uppercase rounded-xl hover:bg-bronze-600 transition-all shadow-md">
+              <i class="fa-solid fa-paper-plane"></i> Send Inquiry
+            </button>
+            <button onclick="openWhatsApp()" class="flex-1 flex items-center justify-center gap-2 py-3.5 bg-green-600 text-white font-semibold text-sm tracking-widest uppercase rounded-xl hover:bg-green-700 transition-all shadow-md">
+              <i class="fa-brands fa-whatsapp text-lg"></i> WhatsApp
+            </button>
+          </div>
+
+          <!-- Full specs accordion -->
+          <details class="border border-sand-200 rounded-2xl overflow-hidden group mt-6">
+            <summary class="flex items-center justify-between px-5 py-4 cursor-pointer bg-sand-100/60 hover:bg-sand-100 transition-colors list-none">
+              <span class="text-xs font-bold tracking-[0.2em] uppercase text-stone-500 flex items-center gap-2">
+                <i class="fa-solid fa-table-cells-large text-bronze-400"></i> Full Specifications
+              </span>
+              <i class="fa-solid fa-chevron-down text-stone-400 text-xs group-open:rotate-180 transition-transform"></i>
+            </summary>
+            <div class="p-5">
+              <div class="grid grid-cols-2 gap-3" id="specs-grid">
+                <!-- Populated by JS -->
+              </div>
+            </div>
+          </details>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================
+         SECTION 2: ROOM INSPIRATIONS (similar products' room scenes)
+    ================================================================ -->
+    <section class="bg-sand-100/50 py-16 sm:py-20">
+      <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12 fade-up">
+          <span class="inline-block text-xs font-semibold tracking-[0.35em] uppercase text-bronze-500 mb-3">Visual Inspiration</span>
+          <h2 class="font-serif text-3xl sm:text-4xl font-bold text-charcoal-900">See It In Your Space</h2>
+          <p class="text-stone-500 text-sm mt-3 max-w-xl mx-auto">Discover how this tile transforms interiors across different spaces and styles.</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5 fade-up delay-1" id="room-inspo-grid">
+          <!-- 3 room images for inspiration, populated by JS -->
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ================================================================
+         SECTION 3: RELATED PRODUCTS
+    ================================================================ -->
+    <section class="py-16 sm:py-20 bg-cream-50" id="related-section">
+      <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12 fade-up">
+          <span class="inline-block text-xs font-semibold tracking-[0.35em] uppercase text-bronze-500 mb-3">Explore More</span>
+          <h2 class="font-serif text-3xl sm:text-4xl font-bold text-charcoal-900">From the Same Collection</h2>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-7 fade-up delay-1" id="related-products-grid">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+    </section>
+
+
+        <!-- ================================================================
+         360° ROOM VIEWER OVERLAY
+    ================================================================ -->
+    <div id="viewer-360-overlay" class="fixed inset-0 z-[70] hidden items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+        <div class="relative w-full max-w-5xl h-[80vh] bg-charcoal-900 rounded-3xl overflow-hidden shadow-2xl flex flex-col">
+            <!-- Close Button -->
+            <button onclick="close360Viewer()" class="absolute top-4 right-4 z-20 p-3 rounded-full bg-black/40 hover:bg-black/60 text-white transition-colors">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+            </button>
+            <!-- Loading Indicator -->
+            <div id="viewer-360-loading" class="absolute inset-0 z-10 flex flex-col items-center justify-center bg-charcoal-900 text-white transition-opacity duration-300">
+                <i class="fa-solid fa-spinner fa-spin text-4xl text-bronze-400 mb-4"></i>
+                <p class="text-sm font-semibold tracking-widest uppercase">Initializing 3D Space...</p>
+            </div>
+            <!-- Container for WebGL Canvas -->
+            <div id="viewer-360-container" class="flex-1 w-full h-full cursor-grab active:cursor-grabbing"></div>
+            
+            <!-- Controls (Optional) -->
+            <div class="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex gap-2 bg-black/50 p-2 rounded-xl backdrop-blur-md">
+                 <div class="px-4 py-2 text-xs font-semibold tracking-widest text-white uppercase">Drag to pan</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- FOOTER -->
+    <footer class="bg-charcoal-900 border-t border-stone-600/20 px-4 sm:px-6 lg:px-8 py-12">
+      <div class="max-w-[1440px] mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-10 mb-10">
+          <div class="md:col-span-1">
+            <span class="font-serif text-2xl font-bold text-cream-50">CERARIA</span>
+            <p class="text-sm text-sand-400 mt-3 leading-relaxed">The Art of Ceramic Luxury. Premium tiles for spaces that inspire.</p>
+          </div>
+          <div>
+            <h4 class="text-xs font-semibold tracking-widest uppercase text-bronze-400 mb-4">Quick Links</h4>
+            <ul class="space-y-2.5">
+              <li><a href="/" class="text-sm text-sand-300 hover:text-cream-50 transition-colors">Home</a></li>
+              <li><a href="/products.html" class="text-sm text-sand-300 hover:text-cream-50 transition-colors">Products</a></li>
+              <li><a href="/contact.html" class="text-sm text-sand-300 hover:text-cream-50 transition-colors">Contact</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="text-xs font-semibold tracking-widest uppercase text-bronze-400 mb-4">Categories</h4>
+            <ul class="space-y-2.5">
+              <li><a href="/products.html" class="text-sm text-sand-300 hover:text-cream-50 transition-colors">Porcelain Tiles</a></li>
+              <li><a href="/products.html" class="text-sm text-sand-300 hover:text-cream-50 transition-colors">Ceramic Tiles</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="text-xs font-semibold tracking-widest uppercase text-bronze-400 mb-4">Get in Touch</h4>
+            <ul class="space-y-2.5">
+              <li class="text-sm text-sand-300">hello@ceraria.in</li>
+              <li class="text-sm text-sand-300">+91 98765 43210</li>
+              <li class="text-sm text-sand-300">Kochi, Kerala, India</li>
+            </ul>
+          </div>
+        </div>
+        <div class="border-t border-stone-600/20 pt-6 text-center">
+          <p class="text-xs text-stone-500">&copy; 2026 CERARIA Private Limited. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+  </main>
+
+
+  <!-- ================================================================
+       FULLSCREEN LIGHTBOX
+  ================================================================ -->
+  <div id="lightbox" class="lightbox-overlay fixed inset-0 z-[80] flex items-center justify-center bg-black/95 backdrop-blur-md">
+    <button onclick="closeLightbox()" class="absolute top-5 right-5 z-10 p-3 rounded-full bg-white/10 hover:bg-white/20 transition-colors" aria-label="Close">
+      <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+    </button>
+    <button onclick="lightboxPrev()" class="absolute left-4 sm:left-8 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-white/10 backdrop-blur-md border border-white/20 rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-all">
+      <i class="fa-solid fa-chevron-left"></i>
+    </button>
+    <button onclick="lightboxNext()" class="absolute right-4 sm:right-8 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-white/10 backdrop-blur-md border border-white/20 rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-all">
+      <i class="fa-solid fa-chevron-right"></i>
+    </button>
+    <div class="max-w-5xl max-h-[88vh] mx-4 text-center">
+      <img id="lightbox-image" src="" alt="" class="max-w-full max-h-[80vh] object-contain rounded-xl" />
+      <p id="lightbox-label" class="text-white/60 text-xs mt-3 tracking-widest uppercase"></p>
+    </div>
+    <div id="lightbox-dots" class="absolute bottom-5 left-1/2 -translate-x-1/2 flex gap-2"></div>
+  </div>
+
+
+  <!-- ================================================================
+       INQUIRY MODAL
+  ================================================================ -->
+  <div id="inquiry-modal" class="modal-overlay fixed inset-0 z-[70] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+    <div class="modal-panel bg-white rounded-3xl max-w-lg w-full max-h-[90vh] overflow-y-auto shadow-2xl">
+      <div class="sticky top-0 bg-white/95 backdrop-blur-sm z-10 px-6 py-5 border-b border-sand-100 rounded-t-3xl flex items-center justify-between">
+        <div>
+          <h2 class="font-serif text-xl font-bold text-charcoal-900">Product Inquiry</h2>
+          <p class="text-xs text-stone-400 mt-0.5">We'll get back to you within 24 hours</p>
+        </div>
+        <button onclick="closeInquiryModal()" class="p-2 rounded-full bg-sand-100 hover:bg-sand-200 transition-colors">
+          <svg class="w-5 h-5 text-charcoal-800" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+        </button>
+      </div>
+      <form id="inquiry-form" class="p-6 space-y-4">
+        <div>
+          <label class="block text-sm font-semibold text-charcoal-900 mb-1.5">Full Name *</label>
+          <input type="text" name="name" required placeholder="Your name" class="form-input w-full px-4 py-3 border border-sand-200 rounded-xl text-sm text-charcoal-800 bg-cream-50/50 transition-all" />
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-semibold text-charcoal-900 mb-1.5">Phone *</label>
+            <input type="tel" name="phone" required placeholder="+91 XXXXX XXXXX" class="form-input w-full px-4 py-3 border border-sand-200 rounded-xl text-sm text-charcoal-800 bg-cream-50/50 transition-all" />
+          </div>
+          <div>
+            <label class="block text-sm font-semibold text-charcoal-900 mb-1.5">Email *</label>
+            <input type="email" name="email" required placeholder="you@email.com" class="form-input w-full px-4 py-3 border border-sand-200 rounded-xl text-sm text-charcoal-800 bg-cream-50/50 transition-all" />
+          </div>
+        </div>
+        <div>
+          <label class="block text-sm font-semibold text-charcoal-900 mb-1.5">Product</label>
+          <input type="text" name="product_name" id="inquiry-product-name" readonly class="form-input w-full px-4 py-3 border border-sand-200 rounded-xl text-sm text-charcoal-800 bg-sand-100/50 cursor-not-allowed" />
+        </div>
+        <div>
+          <label class="block text-sm font-semibold text-charcoal-900 mb-1.5">Required Quantity</label>
+          <input type="text" name="quantity" placeholder="e.g., 200 sq. ft." class="form-input w-full px-4 py-3 border border-sand-200 rounded-xl text-sm text-charcoal-800 bg-cream-50/50 transition-all" />
+        </div>
+        <div>
+          <label class="block text-sm font-semibold text-charcoal-900 mb-1.5">Message</label>
+          <textarea name="message" rows="3" placeholder="Tell us about your project..." class="form-input w-full px-4 py-3 border border-sand-200 rounded-xl text-sm text-charcoal-800 bg-cream-50/50 resize-none transition-all"></textarea>
+        </div>
+        <div class="flex flex-col sm:flex-row gap-3 pt-2">
+          <button type="submit" id="inquiry-submit-btn" class="flex-1 flex items-center justify-center gap-2 py-3.5 bg-bronze-500 text-cream-50 font-semibold text-sm tracking-widest uppercase rounded-xl hover:bg-bronze-600 transition-all shadow-md">
+            <i class="fa-solid fa-paper-plane"></i> Send Inquiry
+          </button>
+          <button type="button" onclick="openWhatsApp()" class="flex-1 flex items-center justify-center gap-2 py-3.5 bg-green-600 text-white font-semibold text-sm tracking-widest uppercase rounded-xl hover:bg-green-700 transition-all shadow-md">
+            <i class="fa-brands fa-whatsapp text-lg"></i> WhatsApp
+          </button>
+        </div>
+        <div id="inquiry-success" class="hidden text-center py-4 bg-green-50 border border-green-200 rounded-xl">
+          <p class="text-sm font-semibold text-green-700"><i class="fa-solid fa-circle-check mr-1"></i> Inquiry sent successfully!</p>
+          <p class="text-xs text-green-600 mt-1">Our team will contact you within 24 hours.</p>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+  <!-- ================================================================
+       JAVASCRIPT
+  ================================================================ -->
+  <script>
+    let product = null;
+    let carouselIndex = 0;  // 0 = room scene, 1 = tile closeup
+    let allLightboxImages = [];
+    let lightboxIdx = 0;
+    const WHATSAPP_NUMBER = '919876543210';
+
+    // Application icons map
+    const APP_ICONS = {
+      'Bathroom': 'fa-shower', 'Kitchen': 'fa-utensils', 'Living Room': 'fa-couch',
+      'Bedroom': 'fa-bed', 'Outdoor': 'fa-tree', 'Commercial Spaces': 'fa-building',
+      'Staircases': 'fa-stairs', 'Counter Slabs': 'fa-square', 'Elevation Tiles': 'fa-building-columns'
+    };
+
+    // ── INIT ──────────────────────────────────────
+    document.addEventListener('DOMContentLoaded', () => {
+      initMobileMenu();
+      initFadeUpObserver();
+      loadProduct();
+    });
+
+    // ── LOAD PRODUCT ──────────────────────────────
+    async function loadProduct() {
+      const params = new URLSearchParams(window.location.search);
+      const id = params.get('id');
+      if (!id) { window.location.href = '/products.html'; return; }
+
+      try {
+        const res = await fetch(`/api/products/${id}`);
+        const json = await res.json();
+        if (!json.success) { window.location.href = '/products.html'; return; }
+        product = json.data;
+        renderProduct();
+        loadRelatedProducts();
+      } catch (err) {
+        console.error('Failed to load product:', err);
+        window.location.href = '/products.html';
+      }
+    }
+
+    // ── RENDER PRODUCT ────────────────────────────
+    function renderProduct() {
+      document.title = `${product.name} — ${product.series} | CERARIA`;
+
+      // Breadcrumb
+      document.getElementById('breadcrumb-series').textContent = product.series;
+      document.getElementById('breadcrumb-name').textContent = product.name;
+
+      // Carousel images
+      const roomSrc = product.room_scene_url || 'https://images.unsplash.com/photo-1600210492493-0946911123ea?w=1200&q=85';
+      const tileSrc = product.main_image || 'https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=1200&q=80';
+
+      document.getElementById('room-img').src = roomSrc;
+      document.getElementById('room-img').alt = `${product.name} — Room Scene`;
+      document.getElementById('tile-img').src = tileSrc;
+      document.getElementById('tile-img').alt = `${product.name} — Tile Closeup`;
+
+      allLightboxImages = [
+        { src: roomSrc, label: 'Room Scene' },
+        { src: tileSrc, label: 'Tile Closeup' }
+      ];
+
+      // Info
+      document.getElementById('product-series-label').textContent = product.series;
+      document.getElementById('product-category-badge').textContent = product.category || 'Porcelain Tiles';
+      document.getElementById('product-name').textContent = product.name;
+      document.getElementById('product-description').textContent = product.description || `A premium tile from the ${product.series} collection by CERARIA.`;
+
+      // Specs row
+      document.getElementById('spec-size').textContent = product.size ? product.size.replace('x', ' × ') + ' mm' : '—';
+      document.getElementById('spec-finish').textContent = product.finish || '—';
+      document.getElementById('spec-thickness').textContent = product.thickness || '—';
+
+      // Full specs grid
+      const specs = [
+        { label: 'Collection', value: product.series, icon: 'fa-layer-group' },
+        { label: 'Category', value: product.category || '—', icon: 'fa-shapes' },
+        { label: 'Size', value: product.size ? product.size.replace('x', ' × ') + ' mm' : '—', icon: 'fa-ruler-combined' },
+        { label: 'Thickness', value: product.thickness || '—', icon: 'fa-expand' },
+        { label: 'Finish', value: product.finish || '—', icon: 'fa-wand-magic-sparkles' },
+        { label: 'Surface', value: product.surface || '—', icon: 'fa-hand-sparkles' },
+      ];
+      document.getElementById('specs-grid').innerHTML = specs.map(s => `
+        <div class="bg-sand-100/70 rounded-xl px-4 py-3">
+          <div class="flex items-center gap-1.5 mb-1">
+            <i class="fa-solid ${s.icon} text-[10px] text-bronze-400"></i>
+            <span class="text-[9px] font-bold tracking-widest uppercase text-stone-400">${s.label}</span>
+          </div>
+          <span class="text-sm font-bold text-charcoal-800">${s.value}</span>
+        </div>
+      `).join('');
+
+      // Applications
+      let apps = product.application || [];
+      if (typeof apps === 'string') { try { apps = JSON.parse(apps); } catch(e) { apps = []; } }
+      if (apps && apps.length > 0) {
+        document.getElementById('applications-section').classList.remove('hidden');
+        document.getElementById('application-tags').innerHTML = apps.map(app => `
+          <span class="app-tag">
+            <i class="fa-solid ${APP_ICONS[app] || 'fa-star'} text-bronze-400 text-[10px]"></i>
+            ${app}
+          </span>
+        `).join('');
+      }
+
+      // Room inspirations grid
+      buildRoomInspGrid(roomSrc, apps);
+
+      // Inquiry modal prefill
+      document.getElementById('inquiry-product-name').value = `${product.name} (${product.series})`;
+
+      // Show content
+      document.getElementById('page-loader').classList.add('hidden');
+      document.getElementById('product-content').classList.remove('hidden');
+      setTimeout(() => { document.querySelectorAll('.fade-up').forEach(el => el.classList.add('visible')); }, 50);
+    }
+
+    // ── BUILD ROOM INSPIRATION GRID ───────────────
+    function buildRoomInspGrid(primaryRoom, apps) {
+      const SCENES = {
+        'Bathroom': ['https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=800&q=80','https://images.unsplash.com/photo-1507652313519-d4e9174996dd?w=800&q=80'],
+        'Kitchen': ['https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=80','https://images.unsplash.com/photo-1565183997392-2f6f122e5912?w=800&q=80'],
+        'Living Room': ['https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&q=80','https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=800&q=80'],
+        'Bedroom': ['https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=800&q=80','https://images.unsplash.com/photo-1540518614846-7eded433c457?w=800&q=80'],
+        'Outdoor': ['https://images.unsplash.com/photo-1613977257363-707ba9348227?w=800&q=80','https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=800&q=80'],
+        'default': ['https://images.unsplash.com/photo-1600210492493-0946911123ea?w=800&q=80','https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=800&q=80','https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=800&q=80']
+      };
+
+      const pool = new Set([primaryRoom]);
+      for (const app of apps) {
+        if (SCENES[app]) SCENES[app].forEach(u => pool.add(u));
+      }
+      SCENES['default'].forEach(u => pool.add(u));
+
+      const images = [...pool].slice(0, 3);
+      const labels = ['Inspiration 1', 'Inspiration 2', 'Inspiration 3'];
+      document.getElementById('room-inspo-grid').innerHTML = images.map((src, i) => `
+        <div class="rounded-2xl overflow-hidden shadow-md group cursor-zoom-in" style="aspect-ratio:4/3;" onclick="showInspo('${src}')">
+          <img src="${src}" alt="${labels[i]}" loading="lazy"
+               class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+        </div>
+      `).join('');
+    }
+    function showInspo(src) {
+      document.getElementById('lightbox-image').src = src;
+      document.getElementById('lightbox-label').textContent = 'Room Inspiration';
+      document.getElementById('lightbox-dots').innerHTML = '';
+      document.getElementById('lightbox').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    // ── CAROUSEL ──────────────────────────────────
+    function goToSlide(idx) {
+      carouselIndex = idx;
+      const track = document.getElementById('carousel-track');
+      track.style.transform = `translateX(-${idx * 50}%)`;
+      // Update dots
+      document.querySelectorAll('.carousel-dot').forEach((d, i) => d.classList.toggle('active', i === idx));
+      // Update tab buttons
+      const tabRoom = document.getElementById('tab-room');
+      const tabTile = document.getElementById('tab-tile');
+      if (idx === 0) {
+        tabRoom.className = 'flex-1 py-2.5 text-xs font-semibold uppercase tracking-wider rounded-xl border-2 border-bronze-500 bg-bronze-500/10 text-bronze-600 transition-all';
+        tabTile.className = 'flex-1 py-2.5 text-xs font-semibold uppercase tracking-wider rounded-xl border-2 border-sand-300 text-stone-500 hover:border-bronze-400 transition-all';
+      } else {
+        tabRoom.className = 'flex-1 py-2.5 text-xs font-semibold uppercase tracking-wider rounded-xl border-2 border-sand-300 text-stone-500 hover:border-bronze-400 transition-all';
+        tabTile.className = 'flex-1 py-2.5 text-xs font-semibold uppercase tracking-wider rounded-xl border-2 border-bronze-500 bg-bronze-500/10 text-bronze-600 transition-all';
+      }
+    }
+    function carouselPrev() { goToSlide((carouselIndex - 1 + 2) % 2); }
+    function carouselNext() { goToSlide((carouselIndex + 1) % 2); }
+
+    // Auto-advance carousel every 5s
+    setInterval(() => { if (!document.getElementById('lightbox').classList.contains('open')) carouselNext(); }, 5000);
+
+    // ── LIGHTBOX ──────────────────────────────────
+    function openLightbox(idx) {
+      lightboxIdx = idx;
+      updateLightbox();
+      document.getElementById('lightbox').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    function updateLightbox() {
+      const img = allLightboxImages[lightboxIdx];
+      document.getElementById('lightbox-image').src = img.src;
+      document.getElementById('lightbox-label').textContent = img.label;
+      document.getElementById('lightbox-dots').innerHTML = allLightboxImages.map((_, i) => `
+        <button onclick="lightboxGo(${i})" class="carousel-dot ${i === lightboxIdx ? 'active' : ''}" aria-label="Image ${i+1}"></button>
+      `).join('');
+    }
+    function lightboxGo(i) { lightboxIdx = i; updateLightbox(); }
+    function lightboxPrev() { lightboxIdx = (lightboxIdx - 1 + allLightboxImages.length) % allLightboxImages.length; updateLightbox(); }
+    function lightboxNext() { lightboxIdx = (lightboxIdx + 1) % allLightboxImages.length; updateLightbox(); }
+
+    // ── INQUIRY MODAL ────────────────────────────
+    function openInquiryModal() { document.getElementById('inquiry-modal').classList.add('open'); document.body.style.overflow = 'hidden'; }
+    function closeInquiryModal() {
+      document.getElementById('inquiry-modal').classList.remove('open');
+      document.body.style.overflow = '';
+      document.getElementById('inquiry-form').reset();
+      document.getElementById('inquiry-success').classList.add('hidden');
+      document.getElementById('inquiry-submit-btn').disabled = false;
+      document.getElementById('inquiry-submit-btn').innerHTML = '<i class="fa-solid fa-paper-plane"></i> Send Inquiry';
+      if (product) document.getElementById('inquiry-product-name').value = `${product.name} (${product.series})`;
+    }
+
+    document.getElementById('inquiry-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById('inquiry-submit-btn');
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending...';
+      const data = Object.fromEntries(new FormData(e.target).entries());
+      try {
+        const res = await fetch('/api/inquiry', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
+        const json = await res.json();
+        if (json.success) {
+          e.target.classList.add('hidden');
+          document.getElementById('inquiry-success').classList.remove('hidden');
+          setTimeout(() => closeInquiryModal(), 3000);
+        } else {
+          btn.disabled = false;
+          btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Send Inquiry';
+          alert(json.error || 'Failed to send inquiry');
+        }
+      } catch (err) {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Send Inquiry';
+        alert('Network error. Please try again.');
+      }
+    });
+
+    // ── WHATSAPP ────────────────────────────────
+    function openWhatsApp() {
+      if (!product) return;
+      const text = encodeURIComponent(
+        `Hello CERARIA,\n\nI am interested in:\n\n*Product:* ${product.name}\n*Collection:* ${product.series}\n*Size:* ${product.size} mm\n*Finish:* ${product.finish || 'N/A'}\n\nPlease share pricing and availability.\n\nThank you!`
+      );
+      window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${text}`, '_blank');
+    }
+
+    // ── RELATED PRODUCTS ─────────────────────────
+    async function loadRelatedProducts() {
+      if (!product) return;
+      try {
+        const res = await fetch(`/api/products?series=${encodeURIComponent(product.series)}`);
+        const json = await res.json();
+        if (json.success) {
+          const related = json.data.filter(p => p.id !== product.id).slice(0, 3);
+          if (related.length === 0) { document.getElementById('related-section').classList.add('hidden'); return; }
+          document.getElementById('related-products-grid').innerHTML = related.map(p => `
+            <a href="/product.html?id=${p.id}" class="product-card bg-white rounded-2xl overflow-hidden shadow-sm border border-sand-100 group block">
+              <div class="relative overflow-hidden" style="aspect-ratio:4/3;">
+                <img src="${p.room_scene_url || p.main_image}" alt="${p.name}"
+                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy" />
+                <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
+                <div class="absolute bottom-4 left-4 right-4">
+                  <span class="text-[9px] font-bold tracking-wider uppercase text-white/70">${p.series}</span>
+                  <h3 class="font-serif text-lg font-bold text-white mt-0.5 leading-tight">${p.name}</h3>
+                </div>
+              </div>
+              <div class="p-4 flex items-center justify-between">
+                <span class="text-xs text-stone-400">${p.size ? p.size.replace('x', ' × ') + ' mm' : ''}</span>
+                <span class="text-xs font-semibold text-bronze-500">${p.finish || ''}</span>
+              </div>
+            </a>
+          `).join('');
+        }
+      } catch (err) { console.error('Failed to load related:', err); }
+    }
+
+    // ── MOBILE MENU ──────────────────────────────
+    function initMobileMenu() {
+      const menu = document.getElementById('mobile-menu');
+      const backdrop = document.getElementById('mobile-menu-backdrop');
+      const openBtn = document.getElementById('mobile-menu-btn');
+      const closeBtn = document.getElementById('mobile-menu-close');
+      const close = () => { menu.style.transform = 'translateX(100%)'; backdrop.classList.add('hidden'); document.body.style.overflow = ''; };
+      openBtn.addEventListener('click', () => { menu.style.transform = 'translateX(0)'; backdrop.classList.remove('hidden'); document.body.style.overflow = 'hidden'; });
+      closeBtn.addEventListener('click', close);
+      backdrop.addEventListener('click', close);
+      menu.querySelectorAll('a').forEach(a => a.addEventListener('click', close));
+    }
+
+    // ── FADE UP OBSERVER ─────────────────────────
+    function initFadeUpObserver() {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+      }, { threshold: 0.1 });
+      document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+    }
+
+    // ── 360 DEGREE WEBGL VIEWER ───────────────────────
+    let viewerScene, viewerCamera, viewerRenderer, viewerControls;
+    let roomFloor, roomWalls = [];
+    let currentTexture = null;
+    let activeSurface = 'floor';
+    let viewerInitialized = false;
+
+    function open360Viewer() {
+      const overlay = document.getElementById('viewer-360-overlay');
+      overlay.classList.remove('hidden');
+      overlay.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+
+      if (!viewerInitialized) {
+        init360Viewer();
+        viewerInitialized = true;
+      }
+      
+      if (product && product.main_image) {
+        loadTexture(product.main_image);
+      }
+    }
+
+    function close360Viewer() {
+      const overlay = document.getElementById('viewer-360-overlay');
+      overlay.classList.add('hidden');
+      overlay.classList.remove('flex');
+      document.body.style.overflow = '';
+    }
+
+    function init360Viewer() {
+      const container = document.getElementById('viewer-360-container');
+      const width = container.clientWidth;
+      const height = container.clientHeight;
+
+      viewerScene = new THREE.Scene();
+      viewerScene.background = new THREE.Color(0x1a1a1a);
+
+      viewerCamera = new THREE.PerspectiveCamera(60, width / height, 0.1, 1000);
+      viewerCamera.position.set(0, 1.6, 0);
+
+      viewerRenderer = new THREE.WebGLRenderer({ antialias: true });
+      viewerRenderer.setSize(width, height);
+      viewerRenderer.setPixelRatio(window.devicePixelRatio);
+      viewerRenderer.shadowMap.enabled = true;
+      viewerRenderer.shadowMap.type = THREE.PCFSoftShadowMap;
+      container.appendChild(viewerRenderer.domElement);
+
+      viewerControls = new THREE.OrbitControls(viewerCamera, viewerRenderer.domElement);
+      viewerControls.enablePan = false;
+      viewerControls.enableZoom = true;
+      viewerControls.minDistance = 0.5;
+      viewerControls.maxDistance = 3.5;
+      viewerControls.maxPolarAngle = Math.PI - 0.1;
+      viewerControls.minPolarAngle = 0.1;
+
+      const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+      viewerScene.add(ambientLight);
+
+      const dirLight = new THREE.DirectionalLight(0xffffff, 0.5);
+      dirLight.position.set(2, 5, 2);
+      dirLight.castShadow = true;
+      viewerScene.add(dirLight);
+
+      const pointLight = new THREE.PointLight(0xfff0dd, 0.3, 10);
+      pointLight.position.set(0, 2.5, 0);
+      viewerScene.add(pointLight);
+
+      buildRoom();
+
+      window.addEventListener('resize', () => {
+        if (!viewerInitialized) return;
+        const w = container.clientWidth;
+        const h = container.clientHeight;
+        viewerCamera.aspect = w / h;
+        viewerCamera.updateProjectionMatrix();
+        viewerRenderer.setSize(w, h);
+      });
+
+      function animate() {
+        requestAnimationFrame(animate);
+        viewerControls.update();
+        viewerRenderer.render(viewerScene, viewerCamera);
+      }
+      animate();
+
+      setTimeout(() => {
+        document.getElementById('viewer-360-loading').style.opacity = '0';
+        setTimeout(() => document.getElementById('viewer-360-loading').style.display = 'none', 300);
+      }, 500);
+    }
+
+    function buildRoom() {
+      const defaultFloorMat = new THREE.MeshStandardMaterial({ color: 0xe0e0e0, roughness: 0.8 });
+      const defaultWallMat = new THREE.MeshStandardMaterial({ color: 0xf5f5f5, roughness: 0.9 });
+      const ceilingMat = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 1.0 });
+
+      const w = 6, d = 6, h = 3;
+
+      const floorGeo = new THREE.PlaneGeometry(w, d);
+      roomFloor = new THREE.Mesh(floorGeo, defaultFloorMat);
+      roomFloor.rotation.x = -Math.PI / 2;
+      roomFloor.receiveShadow = true;
+      viewerScene.add(roomFloor);
+
+      const ceilingGeo = new THREE.PlaneGeometry(w, d);
+      const ceiling = new THREE.Mesh(ceilingGeo, ceilingMat);
+      ceiling.rotation.x = Math.PI / 2;
+      ceiling.position.y = h;
+      viewerScene.add(ceiling);
+
+      const wallGeo = new THREE.PlaneGeometry(w, h);
+      
+      const wall1 = new THREE.Mesh(wallGeo, defaultWallMat);
+      wall1.position.set(0, h/2, -d/2);
+      wall1.receiveShadow = true;
+      viewerScene.add(wall1);
+      roomWalls.push(wall1);
+
+      const wall2 = new THREE.Mesh(wallGeo, defaultWallMat);
+      wall2.position.set(0, h/2, d/2);
+      wall2.rotation.y = Math.PI;
+      wall2.receiveShadow = true;
+      viewerScene.add(wall2);
+      roomWalls.push(wall2);
+
+      const wall3 = new THREE.Mesh(wallGeo, defaultWallMat);
+      wall3.position.set(-w/2, h/2, 0);
+      wall3.rotation.y = Math.PI / 2;
+      wall3.receiveShadow = true;
+      viewerScene.add(wall3);
+      roomWalls.push(wall3);
+
+      const wall4 = new THREE.Mesh(wallGeo, defaultWallMat);
+      wall4.position.set(w/2, h/2, 0);
+      wall4.rotation.y = -Math.PI / 2;
+      wall4.receiveShadow = true;
+      viewerScene.add(wall4);
+      roomWalls.push(wall4);
+    }
+
+    function loadTexture(url) {
+      document.getElementById('viewer-360-loading').style.display = 'flex';
+      document.getElementById('viewer-360-loading').style.opacity = '1';
+
+      new THREE.TextureLoader().load(url, (texture) => {
+        texture.wrapS = THREE.RepeatWrapping;
+        texture.wrapT = THREE.RepeatWrapping;
+        
+        // Exact Mathematical Scaling: Assume physical tile is 0.6m x 0.6m
+        const tileScale = 0.6; 
+        
+        if (activeSurface === 'floor') {
+            texture.repeat.set(6 / tileScale, 6 / tileScale);
+        } else {
+            texture.repeat.set(6 / tileScale, 3 / tileScale);
+        }
+
+        const newMaterial = new THREE.MeshStandardMaterial({ 
+            map: texture,
+            roughness: 0.2,
+            metalness: 0.1
+        });
+
+        if (activeSurface === 'floor') {
+            roomFloor.material = newMaterial;
+            roomWalls.forEach(w => w.material = new THREE.MeshStandardMaterial({ color: 0xf5f5f5, roughness: 0.9 }));
+        } else {
+            roomWalls.forEach(w => w.material = newMaterial);
+            roomFloor.material = new THREE.MeshStandardMaterial({ color: 0xe0e0e0, roughness: 0.8 });
+        }
+        
+        currentTexture = texture;
+        
+        setTimeout(() => {
+            document.getElementById('viewer-360-loading').style.opacity = '0';
+            setTimeout(() => document.getElementById('viewer-360-loading').style.display = 'none', 300);
+        }, 300);
+      }, undefined, (err) => {
+          console.error('Texture load failed', err);
+          document.getElementById('viewer-360-loading').style.opacity = '0';
+          setTimeout(() => document.getElementById('viewer-360-loading').style.display = 'none', 300);
+      });
+    }
+
+    window.applyToSurface = function(surface) {
+      activeSurface = surface;
+      
+      const floorBtn = document.getElementById('btn-surface-floor');
+      const wallBtn = document.getElementById('btn-surface-wall');
+      
+      if (surface === 'floor') {
+          floorBtn.className = 'px-6 py-2 rounded-xl bg-bronze-500 text-white text-xs font-bold uppercase tracking-widest transition-all shadow-md';
+          wallBtn.className = 'px-6 py-2 rounded-xl text-stone-300 hover:text-white text-xs font-bold uppercase tracking-widest transition-all border border-transparent hover:border-white/20';
+      } else {
+          wallBtn.className = 'px-6 py-2 rounded-xl bg-bronze-500 text-white text-xs font-bold uppercase tracking-widest transition-all shadow-md';
+          floorBtn.className = 'px-6 py-2 rounded-xl text-stone-300 hover:text-white text-xs font-bold uppercase tracking-widest transition-all border border-transparent hover:border-white/20';
+      }
+
+      if (product && product.main_image) {
+          loadTexture(product.main_image);
+      }
+    }
+
+    // ── KEYBOARD SHORTCUTS ───────────────────────
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') { closeLightbox(); closeInquiryModal(); }
+      if (document.getElementById('lightbox').classList.contains('open')) {
+        if (e.key === 'ArrowLeft') lightboxPrev();
+        if (e.key === 'ArrowRight') lightboxNext();
+      }
+    });
+    document.getElementById('lightbox').addEventListener('click', (e) => { if (e.target === document.getElementById('lightbox')) closeLightbox(); });
+    document.getElementById('inquiry-modal').addEventListener('click', (e) => { if (e.target === document.getElementById('inquiry-modal')) closeInquiryModal(); });
+  </script>
+
+  <!-- 360 Viewer Overlay -->
+  <div id="viewer-360-overlay" class="fixed inset-0 z-[100] bg-charcoal-900 hidden flex-col">
+    <!-- Header -->
+    <div class="h-16 flex items-center justify-between px-6 bg-charcoal-800 border-b border-white/10 shrink-0 shadow-lg relative z-20">
+      <div class="flex items-center gap-3">
+        <i class="fa-solid fa-cube text-bronze-400 text-xl"></i>
+        <h3 class="text-white font-bold tracking-widest text-sm uppercase">Interactive 360° Room</h3>
+      </div>
+      <button onclick="close360Viewer()" class="text-stone-400 hover:text-white transition-colors">
+        <i class="fa-solid fa-xmark text-2xl"></i>
+      </button>
+    </div>
+    
+    <!-- Controls/Options -->
+    <div class="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex gap-2 bg-charcoal-800/90 backdrop-blur-md p-2 rounded-2xl border border-white/10 shadow-2xl">
+      <button onclick="applyToSurface('floor')" id="btn-surface-floor" class="px-6 py-2 rounded-xl bg-bronze-500 text-white text-xs font-bold uppercase tracking-widest transition-all shadow-md">Floor</button>
+      <button onclick="applyToSurface('wall')" id="btn-surface-wall" class="px-6 py-2 rounded-xl text-stone-300 hover:text-white text-xs font-bold uppercase tracking-widest transition-all border border-transparent hover:border-white/20">Wall</button>
+    </div>
+
+    <!-- WebGL Container -->
+    <div id="viewer-360-container" class="flex-1 w-full relative overflow-hidden bg-[#111] z-10 cursor-move">
+      <!-- Loading indicator -->
+      <div id="viewer-360-loading" class="absolute inset-0 flex flex-col items-center justify-center bg-charcoal-900/90 backdrop-blur-sm z-30 transition-opacity duration-300">
+        <i class="fa-solid fa-circle-notch fa-spin text-4xl text-bronze-500 mb-4"></i>
+        <p class="text-stone-400 text-xs font-bold tracking-[0.2em] uppercase">Building Room...</p>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

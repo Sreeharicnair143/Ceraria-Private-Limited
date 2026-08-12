@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gallery — CERARIA | The Art of Ceramic Luxury</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Swiper CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+  <!-- AOS CSS -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            cream:    { 50: '#FFFDF8', 100: '#FFF9ED' },
+            sand:     { 100: '#F5F0E8', 200: '#EDE5D8', 300: '#DDD3C1', 400: '#C4B8A3' },
+            stone:    { 300: '#B8B0A4', 400: '#9A9184', 500: '#7A7267', 600: '#5C554B' },
+            bronze:   { 400: '#C49A6C', 500: '#B07D4F', 600: '#9A673B' },
+            charcoal: { 800: '#2C2824', 900: '#1A1714' },
+          },
+          fontFamily: {
+            serif:  ['"Marcellus"', 'Georgia', 'serif'],
+            sans:   ['"Inter"', 'system-ui', 'sans-serif'],
+          },
+        },
+      },
+    };
+  </script>
+  <style>
+    body { font-family: 'Inter', system-ui, sans-serif; overflow-x: hidden; }
+    .navbar-glass {
+      backdrop-filter: blur(20px) saturate(180%);
+      background: rgba(255, 253, 248, 0.85);
+    }
+    
+    /* Top Swiper (Preview) */
+    .previewSwiper {
+      width: 100%;
+      height: 70vh;
+      overflow: hidden;
+    }
+    .previewSwiper .swiper-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Bottom Swiper (Thumbs) */
+    .tileSwiper {
+      width: 100%;
+      height: auto;
+      box-sizing: border-box;
+      padding: 10px 0;
+    }
+    .tileSwiper .swiper-slide {
+      width: 180px !important;
+      height: 120px;
+      opacity: 0.5;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      overflow: hidden;
+      border: 2px solid transparent;
+      border-radius: 4px;
+    }
+    .tileSwiper .swiper-slide:hover {
+      opacity: 0.8;
+    }
+    .tileSwiper .swiper-slide-thumb-active {
+      opacity: 1;
+      border-color: #C49A6C; /* Subtle bronze border */
+    }
+    .tileSwiper .swiper-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Swiper Navigation Customization */
+    .swiper-button-next, .swiper-button-prev {
+      color: #FFFDF8 !important;
+      background: rgba(26, 23, 20, 0.5);
+      width: 50px !important;
+      height: 50px !important;
+      border-radius: 50%;
+      transition: background 0.3s ease;
+    }
+    .swiper-button-next:hover, .swiper-button-prev:hover {
+      background: rgba(26, 23, 20, 0.8);
+    }
+    .swiper-button-next:after, .swiper-button-prev:after {
+      font-size: 20px !important;
+    }
+
+    /* Discover Slider */
+    .discover-box {
+      position: relative;
+      border-radius: 1rem;
+      overflow: hidden;
+      aspect-ratio: 4/5;
+    }
+    .discover-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .discover-box:hover img {
+      transform: scale(1.05);
+    }
+    .discover-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(26,23,20,0.9) 0%, rgba(26,23,20,0) 50%);
+      display: flex;
+      align-items: flex-end;
+      padding: 1.5rem;
+    }
+
+    /* Accordion */
+    .discoverSwiper .swiper-wrapper {
+      transition-timing-function: linear !important;
+    }
+    .accordion-item {
+      border-bottom: 1px solid #E5E7EB;
+    }
+    .accordion-header {
+      cursor: pointer;
+      padding: 1.5rem 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+    .accordion-header:hover {
+      color: #C49A6C;
+    }
+    .accordion-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+    }
+    .accordion-content p {
+      padding-bottom: 1.5rem;
+      color: #5C554B;
+    }
+  </style>
+</head>
+
+<body class="bg-cream-50 text-charcoal-800 antialiased">
+  
+  <!-- Navigation -->
+  <!-- ================================================================
+       SECTION: NAVIGATION BAR
+       ================================================================ -->
+  <nav id="navbar" class="navbar-glass fixed top-0 left-0 right-0 z-50 border-b border-sand-200/60 shadow-sm transition-all duration-300 bg-cream-50/90 backdrop-blur-md">
+    <div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-24 py-4">
+
+        <!-- Logo -->
+        <a href="/" class="flex items-center gap-3 group" id="nav-logo">
+          <img src="/assets/images/logo-icon.png"
+               alt="CERARIA logo"
+               class="w-12 h-12 group-hover:scale-105 transition-transform duration-500 rounded-md" />
+          <span class="text-2xl md:text-3xl font-serif font-bold tracking-[0.15em] text-charcoal-900 group-hover:text-bronze-500 transition-colors duration-500">
+            CERARIA
+          </span>
+          <span class="inline-block text-[8px] sm:text-[10px] font-sans font-medium tracking-[0.15em] sm:tracking-[0.25em] uppercase text-stone-400 border-l border-stone-300 pl-2 sm:pl-3 leading-relaxed">
+            THE ART OF<br/>CERAMIC LUXURY
+          </span>
+        </a>
+
+        <!-- Desktop Nav Links -->
+        <div class="hidden xl:flex items-center gap-8" id="nav-links-desktop">
+          <a href="/" class="relative group text-[11px] uppercase tracking-[0.2em] font-bold text-stone-500 hover:text-charcoal-900 transition-colors py-1">
+            Home
+            <span class="absolute bottom-0 left-0 w-0 h-[1.5px] bg-bronze-500 transition-all duration-300 group-hover:w-full"></span>
+          </a>
+          <a href="/gallery.html" class="relative group text-[11px] uppercase tracking-[0.2em] font-bold text-stone-500 hover:text-charcoal-900 transition-colors py-1">
+            Gallery
+            <span class="absolute bottom-0 left-0 w-0 h-[1.5px] bg-bronze-500 transition-all duration-300 group-hover:w-full"></span>
+          </a>
+          <a href="/products.html" class="relative group text-[11px] uppercase tracking-[0.2em] font-bold text-stone-500 hover:text-charcoal-900 transition-colors py-1">
+            Products
+            <span class="absolute bottom-0 left-0 w-0 h-[1.5px] bg-bronze-500 transition-all duration-300 group-hover:w-full"></span>
+          </a>
+          <a href="/catalogue.html" class="relative group text-[11px] uppercase tracking-[0.2em] font-bold text-stone-500 hover:text-charcoal-900 transition-colors py-1">
+            Catalogue
+            <span class="absolute bottom-0 left-0 w-0 h-[1.5px] bg-bronze-500 transition-all duration-300 group-hover:w-full"></span>
+          </a>
+          <a href="/about.html" class="relative group text-[11px] uppercase tracking-[0.2em] font-bold text-stone-500 hover:text-charcoal-900 transition-colors py-1">
+            About
+            <span class="absolute bottom-0 left-0 w-0 h-[1.5px] bg-bronze-500 transition-all duration-300 group-hover:w-full"></span>
+          </a>
+          <a href="/contact.html" class="relative group text-[11px] uppercase tracking-[0.2em] font-bold text-stone-500 hover:text-charcoal-900 transition-colors py-1">
+            Contact Us
+            <span class="absolute bottom-0 left-0 w-0 h-[1.5px] bg-bronze-500 transition-all duration-300 group-hover:w-full"></span>
+          </a>
+          
+          <a href="/visualizer.html" class="ml-4 px-7 py-3.5 bg-gradient-to-r from-bronze-600 to-bronze-500 text-cream-50 text-[11px] uppercase tracking-[0.2em] font-bold rounded-sm hover:from-charcoal-900 hover:to-charcoal-800 hover:-translate-y-0.5 transition-all duration-300 shadow-[0_4px_14px_0_rgba(180,119,73,0.39)] hover:shadow-[0_6px_20px_rgba(0,0,0,0.23)] flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+            Visualizer
+          </a>
+        </div>
+
+        <!-- Mobile Hamburger -->
+        <button id="mobile-menu-btn"
+                class="xl:hidden flex flex-col gap-1.5 p-2 rounded-lg hover:bg-sand-100 transition-colors"
+                aria-label="Toggle mobile menu">
+          <span class="block w-7 h-0.5 bg-charcoal-800 rounded transition-all duration-300" id="burger-line-1"></span>
+          <span class="block w-7 h-0.5 bg-charcoal-800 rounded transition-all duration-300" id="burger-line-2"></span>
+          <span class="block w-5 h-0.5 bg-charcoal-800 rounded transition-all duration-300" id="burger-line-3"></span>
+        </button>
+      </div>
+
+      <!-- Mobile Menu -->
+      <div id="mobile-menu" class="mobile-menu xl:hidden max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+        <div class="pb-6 pt-2 space-y-2 border-t border-sand-200">
+          <a href="/" class="block px-4 py-3 text-[11px] uppercase tracking-[0.2em] font-bold text-stone-600 hover:bg-sand-100 hover:text-bronze-600 rounded-lg transition-colors">Home</a>
+          <a href="/gallery.html" class="block px-4 py-3 text-[11px] uppercase tracking-[0.2em] font-bold text-stone-600 hover:bg-sand-100 hover:text-bronze-600 rounded-lg transition-colors">Gallery</a>
+          <a href="/products.html" class="block px-4 py-3 text-[11px] uppercase tracking-[0.2em] font-bold text-stone-600 hover:bg-sand-100 hover:text-bronze-600 rounded-lg transition-colors">Products</a>
+          <a href="/catalogue.html" class="block px-4 py-3 text-[11px] uppercase tracking-[0.2em] font-bold text-stone-600 hover:bg-sand-100 hover:text-bronze-600 rounded-lg transition-colors">Catalogue</a>
+          <a href="/about.html" class="block px-4 py-3 text-[11px] uppercase tracking-[0.2em] font-bold text-stone-600 hover:bg-sand-100 hover:text-bronze-600 rounded-lg transition-colors">About</a>
+          <a href="/contact.html" class="block px-4 py-3 text-[11px] uppercase tracking-[0.2em] font-bold text-stone-600 hover:bg-sand-100 hover:text-bronze-600 rounded-lg transition-colors">Contact Us</a>
+          <a href="/visualizer.html" class="block px-4 py-3 text-[11px] uppercase tracking-[0.2em] font-bold text-stone-600 hover:bg-sand-100 hover:text-bronze-600 rounded-lg transition-colors flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+            Virtual Visualizer
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+  
+  <script>
+    // Inline script for mobile menu in case it's missing in some files
+    document.addEventListener('DOMContentLoaded', () => {
+      const menuBtn = document.getElementById('mobile-menu-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const burgerLines = [
+        document.getElementById('burger-line-1'),
+        document.getElementById('burger-line-2'),
+        document.getElementById('burger-line-3'),
+      ];
+      let menuOpen = false;
+
+      if(menuBtn) {
+        menuBtn.addEventListener('click', () => {
+          menuOpen = !menuOpen;
+          if (menuOpen) {
+            mobileMenu.style.maxHeight = '500px';
+          } else {
+            mobileMenu.style.maxHeight = '0';
+          }
+          burgerLines[0].style.transform = menuOpen ? 'rotate(45deg) translate(5px, 6px)' : '';
+          burgerLines[1].style.opacity   = menuOpen ? '0' : '1';
+          burgerLines[2].style.transform = menuOpen ? 'rotate(-45deg) translate(4px, -5px)' : '';
+          burgerLines[2].style.width     = menuOpen ? '1.75rem' : '1.25rem';
+        });
+      }
+    });
+  </script>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const menuBtn = document.getElementById('mobile-menu-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const burgerLines = [
+        document.getElementById('burger-line-1'),
+        document.getElementById('burger-line-2'),
+        document.getElementById('burger-line-3'),
+      ];
+      let menuOpen = false;
+
+      if(menuBtn && mobileMenu) {
+        menuBtn.addEventListener('click', () => {
+          menuOpen = !menuOpen;
+          mobileMenu.style.maxHeight = menuOpen ? '400px' : '0';
+          burgerLines[0].style.transform = menuOpen ? 'rotate(45deg) translate(4px, 4px)' : '';
+          burgerLines[1].style.opacity   = menuOpen ? '0' : '1';
+          burgerLines[2].style.transform = menuOpen ? 'rotate(-45deg) translate(3px, -3px)' : '';
+          burgerLines[2].style.width     = menuOpen ? '1.5rem' : '1rem';
+        });
+      }
+    });
+  </script>
+
+  <!-- Header -->
+  <section class="pt-32 pb-10 px-4 sm:px-6 lg:px-8 text-center" data-aos="fade-up">
+    <div class="max-w-3xl mx-auto">
+      <span class="inline-block text-xs font-sans font-semibold tracking-[0.35em] uppercase text-bronze-500 mb-4">Inspiration</span>
+      <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-charcoal-900 mb-5">Gallery</h1>
+    </div>
+  </section>
+
+  <!-- Gallery Swipers Section -->
+  <section class="pb-16" data-aos="fade-up" data-aos-delay="100">
+    <!-- Top Large Preview Swiper (Full Width) -->
+    <div class="swiper previewSwiper">
+      <div class="swiper-wrapper" id="preview-wrapper">
+        <!-- Dynamically populated via JS -->
+      </div>
+      <!-- Preview Navigation (optional, Creanza might not have it or has it on the side) -->
+      <div class="swiper-button-next !text-white !opacity-50 hover:!opacity-100 hidden sm:flex"></div>
+      <div class="swiper-button-prev !text-white !opacity-50 hover:!opacity-100 hidden sm:flex"></div>
+    </div>
+
+    <div class="w-full bg-white pt-8">
+      <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 relative">
+        <!-- Bottom Thumbnails Swiper -->
+        <div class="swiper tileSwiper group">
+          <div class="swiper-wrapper" id="thumb-wrapper">
+             <!-- Dynamically populated via JS -->
+          </div>
+          <!-- Thumb Navigation -->
+          <div class="swiper-button-next tile-next opacity-0 group-hover:opacity-100 transition-opacity !text-charcoal-900 after:!text-xl" style="right: -10px;"></div>
+          <div class="swiper-button-prev tile-prev opacity-0 group-hover:opacity-100 transition-opacity !text-charcoal-900 after:!text-xl" style="left: -10px;"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Discover Our Collections Here -->
+  <section class="py-20 bg-white" data-aos="fade-up">
+    <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="font-serif text-3xl sm:text-4xl font-bold text-charcoal-900 mb-4">Discover Our Collections Here</h2>
+        <p class="text-stone-500 max-w-2xl mx-auto">Whether you're looking for timeless elegance or modern innovation, Ceraria has the ideal tile for your project.</p>
+      </div>
+
+      <div class="swiper discoverSwiper">
+        <div class="swiper-wrapper">
+          
+          <div class="swiper-slide">
+            <div class="discover-box">
+              <img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=80&w=2070&auto=format&fit=crop" alt="Metallic">
+              <div class="discover-overlay">
+                <h3 class="text-cream-50 font-serif text-2xl uppercase tracking-widest">Metallic</h3>
+              </div>
+            </div>
+          </div>
+
+          <div class="swiper-slide">
+            <div class="discover-box">
+              <img src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?q=80&w=1974&auto=format&fit=crop" alt="DG Matt">
+              <div class="discover-overlay">
+                <h3 class="text-cream-50 font-serif text-2xl uppercase tracking-widest">DG Matt</h3>
+              </div>
+            </div>
+          </div>
+
+          <div class="swiper-slide">
+            <div class="discover-box">
+              <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?q=80&w=2070&auto=format&fit=crop" alt="Carving">
+              <div class="discover-overlay">
+                <h3 class="text-cream-50 font-serif text-2xl uppercase tracking-widest">Carving</h3>
+              </div>
+            </div>
+          </div>
+
+          <div class="swiper-slide">
+            <div class="discover-box">
+              <img src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?q=80&w=2070&auto=format&fit=crop" alt="Ghr Decor">
+              <div class="discover-overlay">
+                <h3 class="text-cream-50 font-serif text-2xl uppercase tracking-widest">Ghr Decor</h3>
+              </div>
+            </div>
+          </div>
+
+          <div class="swiper-slide">
+            <div class="discover-box">
+              <img src="https://images.unsplash.com/photo-1620626011761-996317b8d101?q=80&w=2069&auto=format&fit=crop" alt="Moroccan">
+              <div class="discover-overlay">
+                <h3 class="text-cream-50 font-serif text-2xl uppercase tracking-widest">Moroccan</h3>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AI Visualizer Section -->
+  <section class="py-20 bg-sand-100" data-aos="fade-up">
+    <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="font-serif text-3xl sm:text-4xl font-bold text-charcoal-900 mb-4">Visualizer</h2>
+        <p class="text-stone-500 max-w-3xl mx-auto">Experience your dream space before it's even built with our Virtual Room Visualizer. This innovative tool allows you to upload a photo of your room or choose from our templates and see how different tiles will look in real-time.</p>
+      </div>
+
+      <div class="w-full h-[600px] rounded-xl overflow-hidden shadow-2xl border-4 border-white">
+        <iframe src="/visualizer.html" width="100%" height="100%" style="border:none;" title="Ceraria Visualizer"></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose Ceraria Section -->
+  <section class="py-24 bg-white" data-aos="fade-up">
+    <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row gap-16">
+      <div class="lg:w-1/2 flex flex-col justify-center">
+        <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-charcoal-900 mb-6 leading-tight">Why Choose Ceraria</h2>
+        <p class="text-stone-500 text-lg max-w-lg mb-8">A global leader in tile innovation and quality, trusted by thousands worldwide</p>
+        <a href="/about.html" class="inline-block px-8 py-4 bg-charcoal-900 text-cream-50 font-medium tracking-wide hover:bg-bronze-600 transition-colors rounded-full self-start">Learn More</a>
+      </div>
+      <div class="lg:w-1/2">
+        
+        <div class="accordion-item">
+          <div class="accordion-header">
+            <span class="flex items-center gap-4"><span class="text-bronze-400 font-bold text-sm">01</span> Innovation</span>
+            <svg class="w-5 h-5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          </div>
+          <div class="accordion-content">
+            <p>At Ceraria, innovation is the driving force behind our success. Our extensive product range embodies cutting-edge design and unmatched functionality, catering to diverse aesthetic tastes and needs.</p>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <div class="accordion-header">
+            <span class="flex items-center gap-4"><span class="text-bronze-400 font-bold text-sm">02</span> Consistency</span>
+            <svg class="w-5 h-5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          </div>
+          <div class="accordion-content">
+            <p>Quality is the cornerstone of our brand. Each Ceraria product is a testament to rigorous quality control, crafted to meet and exceed global standards.</p>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <div class="accordion-header">
+            <span class="flex items-center gap-4"><span class="text-bronze-400 font-bold text-sm">03</span> Global Reach</span>
+            <svg class="w-5 h-5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          </div>
+          <div class="accordion-content">
+            <p>Our network extends far beyond borders. With a strong presence nationally and globally, we have built a robust distribution network that connects us to diverse markets and customers worldwide.</p>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <div class="accordion-header">
+            <span class="flex items-center gap-4"><span class="text-bronze-400 font-bold text-sm">04</span> Sustainability</span>
+            <svg class="w-5 h-5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          </div>
+          <div class="accordion-content">
+            <p>Ceraria integrates eco-conscious practices into its operations. Sustainability is the foundation of our vision for a greener tomorrow.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Global Demand Section -->
+  <section class="py-20 bg-charcoal-900 text-cream-50" data-aos="fade-up">
+    <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 text-center mb-12">
+      <h2 class="font-serif text-3xl sm:text-4xl font-bold mb-4">Catering to the Global Demand</h2>
+      <p class="text-stone-300 max-w-2xl mx-auto">Unveiling our latest collection! A perfect blend of natural charm and contemporary design, crafted to elevate spaces with timeless sophistication.</p>
+    </div>
+    <div class="w-full relative h-[600px]">
+      <img src="https://images.unsplash.com/photo-1576013551627-142340df6084?q=80&w=2070&auto=format&fit=crop" class="w-full h-full object-cover" alt="Global Demand">
+      <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
+        <div class="bg-black/60 backdrop-blur-md p-10 rounded-2xl max-w-2xl text-center border border-white/10" data-aos="zoom-in" data-aos-delay="200">
+          <h3 class="font-serif text-2xl mb-4 text-bronze-400">Explore the elegance of nature</h3>
+          <p class="text-sand-200 mb-8 leading-relaxed">Designed to bring warmth and character to any space, these premium surfaces offer a seamless blend of rustic charm and modern elegance. Perfect for walls and floors, they redefine interiors with timeless sophistication.</p>
+          <a href="/catalogue.html" class="inline-block px-8 py-3 bg-white text-black font-semibold rounded-full hover:bg-bronze-400 hover:text-white transition-colors">Know More</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-charcoal-900 text-sand-300/80 py-16 px-4 sm:px-6 lg:px-8 border-t border-charcoal-800">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <img src="/assets/images/logo-icon.png" alt="CERARIA icon" class="h-8 w-8 object-contain rounded" />
+        <span class="text-xl text-white tracking-widest font-serif">CERARIA</span>
+      </div>
+      <p class="text-sm text-sand-400/50">&copy; 2026 Ceraria Private Limited. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+  <script>
+    // Initialize AOS
+    AOS.init({ duration: 800, once: true });
+
+    // Accordion Logic
+    document.querySelectorAll('.accordion-header').forEach(button => {
+      button.addEventListener('click', () => {
+        const content = button.nextElementSibling;
+        const icon = button.querySelector('svg');
+        const isOpen = content.style.maxHeight;
+
+        // Close all
+        document.querySelectorAll('.accordion-content').forEach(c => c.style.maxHeight = null);
+        document.querySelectorAll('.accordion-header svg').forEach(i => i.style.transform = 'rotate(0deg)');
+
+        if (!isOpen) {
+          content.style.maxHeight = content.scrollHeight + "px";
+          icon.style.transform = 'rotate(180deg)';
+        }
+      });
+    });
+
+    // Initialize Discover Swiper
+    new Swiper(".discoverSwiper", {
+      slidesPerView: 1,
+      spaceBetween: 20,
+      loop: true,
+      speed: 5000,
+      autoplay: {
+        delay: 0,
+        disableOnInteraction: false,
+      },
+      breakpoints: {
+        640: { slidesPerView: 2 },
+        1024: { slidesPerView: 4 },
+      }
+    });
+
+    // Main Gallery Fetch and Swiper Initialization
+    document.addEventListener('DOMContentLoaded', () => {
+      
+      const defaultPlaceholders = [
+        {
+          id: 0,
+          room: 'https://images.unsplash.com/photo-1620626011761-996317b8d101?q=80&w=2069&auto=format&fit=crop',
+          tile: 'https://images.unsplash.com/photo-1620626011761-996317b8d101?q=80&w=200&auto=format&fit=crop',
+          name: 'Serene Spa Bathroom'
+        },
+        {
+          id: 0,
+          room: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=1974&auto=format&fit=crop',
+          tile: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=200&auto=format&fit=crop',
+          name: 'Modern Living Area'
+        },
+        {
+          id: 0,
+          room: 'https://images.unsplash.com/photo-1556910103-1c02745aae4d?q=80&w=2070&auto=format&fit=crop',
+          tile: 'https://images.unsplash.com/photo-1556910103-1c02745aae4d?q=80&w=200&auto=format&fit=crop',
+          name: 'Minimalist Kitchen'
+        },
+        {
+          id: 0,
+          room: 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?q=80&w=2070&auto=format&fit=crop',
+          tile: 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?q=80&w=200&auto=format&fit=crop',
+          name: 'Luxury Hotel Lobby'
+        },
+        {
+          id: 0,
+          room: 'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?q=80&w=1974&auto=format&fit=crop',
+          tile: 'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?q=80&w=200&auto=format&fit=crop',
+          name: 'Marble Master Bath'
+        }
+      ];
+
+      async function buildGallery() {
+        try {
+          const res = await fetch('/api/products');
+          const json = await res.json();
+          let finalData = [];
+          
+          if (json.success && json.data.length > 0) {
+            // Filter to tiles that actually have images, and reverse to show newest first
+            let validTiles = json.data.filter(p => p.main_image || p.room_scene_url).reverse();
+            
+            const dynamicTiles = validTiles.map(p => ({
+              id: p.id,
+              room: p.room_scene_url || p.main_image || 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=1200&q=80',
+              tile: p.main_image || p.room_scene_url || 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=200&q=80',
+              name: p.name
+            }));
+            
+            if (dynamicTiles.length < 5) {
+               finalData = [...dynamicTiles, ...defaultPlaceholders];
+            } else {
+               finalData = dynamicTiles;
+            }
+          } else {
+            finalData = defaultPlaceholders;
+          }
+
+          renderSwipers(finalData);
+
+        } catch(e) {
+          console.error("Error fetching gallery:", e);
+          renderSwipers(defaultPlaceholders);
+        }
+      }
+
+      function renderSwipers(data) {
+        const previewWrap = document.getElementById('preview-wrapper');
+        const thumbWrap = document.getElementById('thumb-wrapper');
+        
+        previewWrap.innerHTML = '';
+        thumbWrap.innerHTML = '';
+
+        data.forEach(item => {
+          // Add to preview swiper
+          previewWrap.innerHTML += `
+            <div class="swiper-slide relative">
+              <img src="${item.room}" alt="${item.name}" loading="lazy">
+              <div class="absolute bottom-10 left-10 bg-black/60 backdrop-blur-md px-6 py-3 rounded-lg border border-white/20">
+                <h3 class="text-white font-serif text-xl">${item.name}</h3>
+              </div>
+            </div>
+          `;
+
+          // Add to thumb swiper, adding an onclick to handle the product page redirect
+          thumbWrap.innerHTML += `
+            <div class="swiper-slide" onclick="handleTileClick(this, \${item.id})">
+              <img src="${item.tile}" alt="${item.name}" loading="lazy">
+            </div>
+          `;
+        });
+
+        // Initialize Swipers
+        var tileSwiper = new Swiper(".tileSwiper", {
+          spaceBetween: 20,
+          slidesPerView: 'auto',
+          centeredSlides: false,
+          loop: false,
+          watchSlidesProgress: true,
+          slideToClickedSlide: true,
+          navigation: {
+            nextEl: ".tile-next",
+            prevEl: ".tile-prev",
+          }
+        });
+        
+        var previewSwiper = new Swiper(".previewSwiper", {
+          spaceBetween: 0,
+          effect: "fade",
+          loop: false,
+          navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+          },
+          thumbs: {
+            swiper: tileSwiper,
+          },
+          autoplay: {
+            delay: 4000,
+            disableOnInteraction: false,
+          }
+        });
+      }
+
+      buildGallery();
+    });
+
+    // Global click handler for the thumbnails
+    function handleTileClick(element, productId) {
+      if (!productId) return;
+      // If this element is already the active one in the center, redirect to product page!
+      if (element.classList.contains('swiper-slide-thumb-active')) {
+         window.location.href = '/product.html?id=' + productId;
+      }
+    }
+  </script>
+</body>
+</html>
