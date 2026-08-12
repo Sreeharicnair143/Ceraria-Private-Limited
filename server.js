@@ -426,18 +426,15 @@ app.post('/api/products', requireAdmin, upload.fields([{ name: 'main_image', max
     const computedRoomScene = roomSceneUrl || autoRoomScene(application);
 
     const result = await pool.query(
-      `INSERT INTO products (name, series, category, size, thickness, finish, surface, application, description, main_image, room_scene_url, video_url, is_featured, price, offer_price, color, surface_texture)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17)
+      `INSERT INTO products (name, series, category, size, thickness, finish, surface, application, description, main_image, room_scene_url, video_url, is_featured, price)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)
        RETURNING *`,
       [
         name, series, category || 'Porcelain Tiles', size,
         thickness || null, finish || null, surface || null,
         application || '[]',
         description || null, mainImage, computedRoomScene, req.body.video_url || null, is_featured === 'true' || is_featured === true,
-        price ? parseFloat(price) : null,
-        offer_price ? parseFloat(offer_price) : null,
-        color || null,
-        surface_texture || null
+        price ? parseFloat(price) : null
       ]
     );
 
@@ -481,19 +478,15 @@ app.put('/api/products/:id', requireAdmin, upload.fields([{ name: 'main_image', 
         room_scene_url = COALESCE($11, room_scene_url),
         video_url = COALESCE($12, video_url),
         is_featured = COALESCE($13, is_featured),
-        price = COALESCE($14, price),
-        offer_price = COALESCE($15, offer_price),
-        color = COALESCE($16, color),
-        surface_texture = COALESCE($17, surface_texture)
-       WHERE id = $18
+        price = COALESCE($14, price)
+       WHERE id = $15
        RETURNING *`,
       [
         name, series, category, size, thickness, finish, surface, application || null, 
         description, mainImage, roomSceneUrl, video_url, 
         (is_featured !== undefined && is_featured !== null) ? (is_featured === 'true' || is_featured === true) : null, 
         price ? parseFloat(price) : null, 
-        offer_price ? parseFloat(offer_price) : null, 
-        color, surface_texture, id
+        id
       ]
     );
 
