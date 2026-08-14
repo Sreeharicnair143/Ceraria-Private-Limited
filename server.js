@@ -437,8 +437,8 @@ app.post('/api/products', requireAdmin, upload.fields([{ name: 'main_image', max
     }
 
     const result = await pool.query(
-      `INSERT INTO products (name, series, category, size, thickness, finish, surface, application, description, main_image, room_scene_url, video_url, is_featured, price, thumb_images)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15)
+      `INSERT INTO products (name, series, category, size, thickness, finish, surface, application, description, main_image, room_scene_url, video_url, is_featured, price, offer_price, color, surface_texture, thumb_images)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18)
        RETURNING *`,
       [
         name, series, category || 'Porcelain Tiles', size,
@@ -446,6 +446,9 @@ app.post('/api/products', requireAdmin, upload.fields([{ name: 'main_image', max
         application || '[]',
         description || null, mainImage, computedRoomScene, req.body.video_url || null, is_featured === 'true' || is_featured === true,
         price ? parseFloat(price) : null,
+        offer_price ? parseFloat(offer_price) : null,
+        color || null,
+        surface_texture || null,
         JSON.stringify(thumbImagesArray)
       ]
     );
@@ -500,14 +503,20 @@ app.put('/api/products/:id', requireAdmin, upload.fields([{ name: 'main_image', 
         video_url = COALESCE($12, video_url),
         is_featured = COALESCE($13, is_featured),
         price = COALESCE($14, price),
-        thumb_images = COALESCE($15, thumb_images)
-       WHERE id = $16
+        offer_price = COALESCE($15, offer_price),
+        color = COALESCE($16, color),
+        surface_texture = COALESCE($17, surface_texture),
+        thumb_images = COALESCE($18, thumb_images)
+       WHERE id = $19
        RETURNING *`,
       [
         name, series, category, size, thickness, finish, surface, application || null, 
         description, mainImage, roomSceneUrl, video_url, 
         (is_featured !== undefined && is_featured !== null) ? (is_featured === 'true' || is_featured === true) : null, 
         price ? parseFloat(price) : null, 
+        offer_price ? parseFloat(offer_price) : null,
+        color || null,
+        surface_texture || null,
         thumbImagesArray ? JSON.stringify(thumbImagesArray) : null,
         id
       ]
