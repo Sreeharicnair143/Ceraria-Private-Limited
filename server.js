@@ -399,7 +399,7 @@ const storage = new CloudinaryStorage({
 const upload = multer({ storage, limits: { fileSize: 10 * 1024 * 1024 } }); // 10MB
 
 // ── POST /api/products ─────────────────────────────────────
-app.post('/api/products', requireAdmin, upload.fields([{ name: 'main_image', maxCount: 1 }, { name: 'room_scene_url', maxCount: 1 }]), async (req, res) => {
+app.post('/api/products', requireAdmin, upload.fields([{ name: 'main_image', maxCount: 1 }, { name: 'room_scene_url', maxCount: 1 }, { name: 'thumb_images', maxCount: 5 }]), async (req, res) => {
   try {
     const {
       name, series, category, size, thickness,
@@ -422,19 +422,31 @@ app.post('/api/products', requireAdmin, upload.fields([{ name: 'main_image', max
       ? req.files['room_scene_url'][0].path
       : (room_scene_url_text || '');
 
-    // Auto-assign room scene if not provided
     const computedRoomScene = roomSceneUrl || autoRoomScene(application);
 
+    // Extract thumb_images (from multer files or fallback text field)
+    let thumbImagesArray = [];
+    if (req.files && req.files['thumb_images']) {
+      thumbImagesArray = req.files['thumb_images'].map(file => file.path);
+    } else if (req.body.thumb_images_text) {
+      try {
+        thumbImagesArray = JSON.parse(req.body.thumb_images_text);
+      } catch (e) {
+        thumbImagesArray = [];
+      }
+    }
+
     const result = await pool.query(
-      `INSERT INTO products (name, series, category, size, thickness, finish, surface, application, description, main_image, room_scene_url, video_url, is_featured, price)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)
+      `INSERT INTO products (name, series, category, size, thickness, finish, surface, application, description, main_image, room_scene_url, video_url, is_featured, price, thumb_images)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15)
        RETURNING *`,
       [
         name, series, category || 'Porcelain Tiles', size,
         thickness || null, finish || null, surface || null,
         application || '[]',
         description || null, mainImage, computedRoomScene, req.body.video_url || null, is_featured === 'true' || is_featured === true,
-        price ? parseFloat(price) : null
+        price ? parseFloat(price) : null,
+        JSON.stringify(thumbImagesArray)
       ]
     );
 
@@ -447,7 +459,7 @@ app.post('/api/products', requireAdmin, upload.fields([{ name: 'main_image', max
 });
 
 // ── PUT /api/products/:id ──────────────────────────────────
-app.put('/api/products/:id', requireAdmin, upload.fields([{ name: 'main_image', maxCount: 1 }, { name: 'room_scene_url', maxCount: 1 }]), async (req, res) => {
+app.put('/api/products/:id', requireAdmin, upload.fields([{ name: 'main_image', maxCount: 1 }, { name: 'room_scene_url', maxCount: 1 }, { name: 'thumb_images', maxCount: 5 }]), async (req, res) => {
   try {
     const { id } = req.params;
     const {
@@ -462,6 +474,15 @@ app.put('/api/products/:id', requireAdmin, upload.fields([{ name: 'main_image', 
     const roomSceneUrl = req.files && req.files['room_scene_url']
       ? req.files['room_scene_url'][0].path
       : room_scene_url_text;
+
+    let thumbImagesArray = null;
+    if (req.files && req.files['thumb_images']) {
+      thumbImagesArray = req.files['thumb_images'].map(file => file.path);
+    } else if (req.body.thumb_images_text) {
+      try {
+        thumbImagesArray = JSON.parse(req.body.thumb_images_text);
+      } catch (e) {}
+    }
 
     const result = await pool.query(
       `UPDATE products SET
@@ -478,14 +499,16 @@ app.put('/api/products/:id', requireAdmin, upload.fields([{ name: 'main_image', 
         room_scene_url = COALESCE($11, room_scene_url),
         video_url = COALESCE($12, video_url),
         is_featured = COALESCE($13, is_featured),
-        price = COALESCE($14, price)
-       WHERE id = $15
+        price = COALESCE($14, price),
+        thumb_images = COALESCE($15, thumb_images)
+       WHERE id = $16
        RETURNING *`,
       [
         name, series, category, size, thickness, finish, surface, application || null, 
         description, mainImage, roomSceneUrl, video_url, 
         (is_featured !== undefined && is_featured !== null) ? (is_featured === 'true' || is_featured === true) : null, 
         price ? parseFloat(price) : null, 
+        thumbImagesArray ? JSON.stringify(thumbImagesArray) : null,
         id
       ]
     );
