@@ -314,6 +314,55 @@ app.post('/api/settings/homepage-video', requireAdmin, uploadVideo.single('video
   }
 });
 
+// ── GALLERY API ──────────────────────────────────────────────
+const galleryStorage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: 'ceraria/gallery',
+    allowed_formats: ['jpg', 'jpeg', 'png', 'webp'],
+  },
+});
+const uploadGallery = multer({ storage: galleryStorage, limits: { fileSize: 10 * 1024 * 1024 } }); // 10MB limit
+
+app.get('/api/gallery', async (req, res) => {
+  try {
+    const { rows } = await pool.query('SELECT * FROM gallery_images ORDER BY created_at ASC');
+    res.json({ success: true, data: rows });
+  } catch (err) {
+    console.error('GET /api/gallery error:', err);
+    res.status(500).json({ success: false, error: 'Database error' });
+  }
+});
+
+app.post('/api/gallery', requireAdmin, uploadGallery.single('image'), async (req, res) => {
+  try {
+    const { title } = req.body;
+    if (!req.file) {
+      return res.status(400).json({ success: false, error: 'Image file is required' });
+    }
+    const imageUrl = req.file.path;
+    const result = await pool.query(
+      'INSERT INTO gallery_images (title, image_url) VALUES ($1, $2) RETURNING *',
+      [title || null, imageUrl]
+    );
+    res.status(201).json({ success: true, data: result.rows[0] });
+  } catch (err) {
+    console.error('POST /api/gallery error:', err);
+    res.status(500).json({ success: false, error: 'Failed to upload gallery image' });
+  }
+});
+
+app.delete('/api/gallery/:id', requireAdmin, async (req, res) => {
+  try {
+    const { id } = req.params;
+    await pool.query('DELETE FROM gallery_images WHERE id = $1', [id]);
+    res.json({ success: true });
+  } catch (err) {
+    console.error('DELETE /api/gallery/:id error:', err);
+    res.status(500).json({ success: false, error: 'Database error' });
+  }
+});
+
 // ── CATALOGUES API ─────────────────────────────────────────
 
 // Multer config for PDF uploads

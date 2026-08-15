@@ -22,6 +22,34 @@
   ======================================== -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Catalogue Modal -->
+  <!-- Gallery Modal -->
+  <div id="gallery-modal" class="hidden fixed inset-0 z-[100] flex justify-center items-center">
+    <div class="absolute inset-0 bg-charcoal-900/60 backdrop-blur-sm" onclick="closeGalleryModal()"></div>
+    <div class="bg-white w-full max-w-md rounded-2xl shadow-2xl relative z-10 overflow-hidden border border-sand-200">
+      <div class="px-6 py-4 border-b border-sand-100 flex justify-between items-center bg-cream-50">
+        <h2 class="font-serif text-2xl font-bold text-charcoal-900">Upload Gallery Image</h2>
+        <button onclick="closeGalleryModal()" class="p-2 text-stone-400 hover:text-charcoal-900 transition-colors">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <form id="gallery-form" class="p-6 space-y-5" onsubmit="handleGallerySubmit(event)">
+        <div>
+          <label class="block text-xs font-semibold text-stone-500 uppercase tracking-wider mb-2">Title (Optional, e.g. "DG Matt")</label>
+          <input type="text" id="g-title" class="w-full px-4 py-3 bg-sand-50/50 border border-sand-200 rounded-xl focus:outline-none focus:border-bronze-400 transition-colors text-charcoal-900" placeholder="E.g., Moroccan" />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-stone-500 uppercase tracking-wider mb-2">Image File (Required) <span class="text-red-500">*</span></label>
+          <input type="file" id="g-image" accept="image/*" required class="block w-full text-sm text-stone-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-sand-100 file:text-charcoal-900 hover:file:bg-sand-200 transition-colors" />
+        </div>
+        <div class="pt-2 flex gap-3">
+          <button type="button" onclick="closeGalleryModal()" class="flex-1 px-4 py-3 bg-sand-100 text-charcoal-900 font-semibold rounded-xl hover:bg-sand-200 transition-colors">Cancel</button>
+          <button type="submit" id="g-submit-btn" class="flex-1 px-4 py-3 bg-bronze-500 text-cream-50 font-semibold rounded-xl hover:bg-bronze-600 transition-colors shadow-sm">Upload</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Catalogue Modal -->
   <div id="catalogue-modal" class="hidden fixed inset-0 z-[100] flex justify-center items-center">
     <div class="absolute inset-0 bg-charcoal-900/60 backdrop-blur-sm" onclick="closeCatalogueModal()"></div>
     <div class="bg-white w-full max-w-md rounded-3xl shadow-2xl relative z-10 flex flex-col max-h-[90vh]">
@@ -306,6 +334,34 @@
           </button>
         </form>
         <p id="video-upload-msg" class="text-sm mt-2 hidden"></p>
+      </div>
+
+      <!-- ═══ Gallery Management ═══ -->
+      <div class="bg-white rounded-2xl shadow-sm border border-sand-200 overflow-hidden mb-6 flex flex-col">
+        <div class="p-6 border-b border-sand-100 flex justify-between items-center">
+          <div>
+            <h2 class="font-serif text-lg font-bold text-charcoal-900">Manage Gallery Images</h2>
+            <p class="text-xs text-stone-500 mt-1">Upload at least 6 images to replace the demo gallery on the live site.</p>
+          </div>
+          <button onclick="openGalleryModal()" class="px-4 py-2 bg-bronze-500 text-cream-50 text-sm font-semibold rounded-lg hover:bg-bronze-600 transition-colors">
+            Upload Image
+          </button>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse">
+            <thead class="bg-sand-50/50">
+              <tr>
+                <th class="py-3 px-6 text-xs font-semibold text-stone-500 uppercase tracking-wider">Image</th>
+                <th class="py-3 px-6 text-xs font-semibold text-stone-500 uppercase tracking-wider">Title</th>
+                <th class="py-3 px-6 text-xs font-semibold text-stone-500 uppercase tracking-wider">Date Added</th>
+                <th class="py-3 px-6 text-xs font-semibold text-stone-500 uppercase tracking-wider text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="gallery-tbody" class="divide-y divide-sand-100 bg-white">
+              <!-- JS Populated -->
+            </tbody>
+          </table>
+        </div>
       </div>
 
       <!-- ═══ Catalogue Management ═══ -->
