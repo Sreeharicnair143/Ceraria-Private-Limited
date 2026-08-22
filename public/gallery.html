@@ -637,8 +637,8 @@
         const res = await fetch('/api/gallery');
         const json = await res.json();
         
-        // Minimum requirement is 6 photos
-        if (json.success && json.data.length >= 6) {
+        // Minimum requirement is 5 photos
+        if (json.success && json.data.length >= 5) {
           const wrapper = document.getElementById('discover-wrapper');
           wrapper.innerHTML = ''; // Clear demo images
           

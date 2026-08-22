@@ -38,8 +38,8 @@
           <input type="text" id="g-title" class="w-full px-4 py-3 bg-sand-50/50 border border-sand-200 rounded-xl focus:outline-none focus:border-bronze-400 transition-colors text-charcoal-900" placeholder="E.g., Moroccan" />
         </div>
         <div>
-          <label class="block text-xs font-semibold text-stone-500 uppercase tracking-wider mb-2">Image File (Required) <span class="text-red-500">*</span></label>
-          <input type="file" id="g-image" accept="image/*" required class="block w-full text-sm text-stone-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-sand-100 file:text-charcoal-900 hover:file:bg-sand-200 transition-colors" />
+          <label class="block text-xs font-semibold text-stone-500 uppercase tracking-wider mb-2">Image Files (Up to 5) <span class="text-red-500">*</span></label>
+          <input type="file" id="g-image" accept="image/*" multiple required class="block w-full text-sm text-stone-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-sand-100 file:text-charcoal-900 hover:file:bg-sand-200 transition-colors" />
         </div>
         <div class="pt-2 flex gap-3">
           <button type="button" onclick="closeGalleryModal()" class="flex-1 px-4 py-3 bg-sand-100 text-charcoal-900 font-semibold rounded-xl hover:bg-sand-200 transition-colors">Cancel</button>
@@ -287,7 +287,7 @@
         <div class="p-6 border-b border-sand-100 flex justify-between items-center">
           <div>
             <h2 class="font-serif text-lg font-bold text-charcoal-900">Manage Gallery Images</h2>
-            <p class="text-xs text-stone-500 mt-1">Upload at least 6 images to replace the demo gallery on the live site.</p>
+            <p class="text-xs text-stone-500 mt-1">Upload at least 5 images to replace the demo gallery on the live site.</p>
           </div>
           <button onclick="openGalleryModal()" class="px-4 py-2 bg-bronze-500 text-cream-50 text-sm font-semibold rounded-lg hover:bg-bronze-600 transition-colors">
             Upload Image
@@ -1266,9 +1266,19 @@ async function handleGallerySubmit(e) {
   btn.innerText = 'Uploading...';
   btn.disabled = true;
   
+  const files = document.getElementById('g-image').files;
+  if (files.length > 5) {
+    alert('Maximum 5 images allowed per upload');
+    btn.innerText = 'Upload';
+    btn.disabled = false;
+    return;
+  }
+
   const formData = new FormData();
   formData.append('title', document.getElementById('g-title').value);
-  formData.append('image', document.getElementById('g-image').files[0]);
+  for (let i = 0; i < files.length; i++) {
+    formData.append('images', files[i]);
+  }
   
   try {
     const res = await fetch('/api/gallery', {
@@ -1277,7 +1287,7 @@ async function handleGallerySubmit(e) {
     });
     const data = await res.json();
     if (data.success) {
-      alert('Image uploaded successfully!');
+      alert('Images uploaded successfully!');
       closeGalleryModal();
       fetchGalleryImages();
     } else {

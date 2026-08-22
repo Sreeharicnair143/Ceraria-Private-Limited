@@ -318,21 +318,24 @@ app.get('/api/gallery', async (req, res) => {
   }
 });
 
-app.post('/api/gallery', requireAdmin, uploadGallery.single('image'), async (req, res) => {
+app.post('/api/gallery', requireAdmin, uploadGallery.array('images', 5), async (req, res) => {
   try {
     const { title } = req.body;
-    if (!req.file) {
-      return res.status(400).json({ success: false, error: 'Image file is required' });
+    if (!req.files || req.files.length === 0) {
+      return res.status(400).json({ success: false, error: 'At least one image file is required' });
     }
-    const imageUrl = req.file.path;
-    const result = await pool.query(
-      'INSERT INTO gallery_images (title, image_url) VALUES ($1, $2) RETURNING *',
-      [title || null, imageUrl]
-    );
-    res.status(201).json({ success: true, data: result.rows[0] });
+    const inserted = [];
+    for (const file of req.files) {
+      const result = await pool.query(
+        'INSERT INTO gallery_images (title, image_url) VALUES ($1, $2) RETURNING *',
+        [title || null, file.path]
+      );
+      inserted.push(result.rows[0]);
+    }
+    res.status(201).json({ success: true, data: inserted });
   } catch (err) {
     console.error('POST /api/gallery error:', err);
-    res.status(500).json({ success: false, error: 'Failed to upload gallery image' });
+    res.status(500).json({ success: false, error: 'Failed to upload gallery images' });
   }
 });
 
