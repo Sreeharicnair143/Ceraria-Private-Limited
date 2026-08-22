@@ -32,8 +32,6 @@
   </script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
 
   <style>
     html { scroll-behavior: smooth; }
@@ -433,9 +431,6 @@
 
           <!-- Action Buttons -->
           <div class="flex flex-col sm:flex-row gap-4 pt-4">
-            <button onclick="open360Viewer()" class="flex-1 flex items-center justify-center gap-2 py-3.5 bg-charcoal-800 text-cream-50 font-semibold text-sm tracking-widest uppercase rounded-xl hover:bg-black transition-all shadow-md">
-              <i class="fa-solid fa-cube text-lg"></i> 360° Room View
-            </button>
             <button onclick="openInquiryModal()" class="flex-1 flex items-center justify-center gap-2 py-3.5 bg-bronze-500 text-cream-50 font-semibold text-sm tracking-widest uppercase rounded-xl hover:bg-bronze-600 transition-all shadow-md">
               <i class="fa-solid fa-paper-plane"></i> Send Inquiry
             </button>
@@ -464,24 +459,7 @@
     </section>
 
     <!-- ================================================================
-         SECTION 2: ROOM INSPIRATIONS (similar products' room scenes)
-    ================================================================ -->
-    <section class="bg-sand-100/50 py-16 sm:py-20">
-      <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-12 fade-up">
-          <span class="inline-block text-xs font-semibold tracking-[0.35em] uppercase text-bronze-500 mb-3">Visual Inspiration</span>
-          <h2 class="font-serif text-3xl sm:text-4xl font-bold text-charcoal-900">See It In Your Space</h2>
-          <p class="text-stone-500 text-sm mt-3 max-w-xl mx-auto">Discover how this tile transforms interiors across different spaces and styles.</p>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-5 fade-up delay-1" id="room-inspo-grid">
-          <!-- 3 room images for inspiration, populated by JS -->
-        </div>
-      </div>
-    </section>
-
-
-    <!-- ================================================================
-         SECTION 3: RELATED PRODUCTS
+         SECTION: RELATED PRODUCTS
     ================================================================ -->
     <section class="py-16 sm:py-20 bg-cream-50" id="related-section">
       <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
@@ -497,29 +475,6 @@
 
 
         <!-- ================================================================
-         360° ROOM VIEWER OVERLAY
-    ================================================================ -->
-    <div id="viewer-360-overlay" class="fixed inset-0 z-[70] hidden items-center justify-center p-4 bg-black/80 backdrop-blur-md">
-        <div class="relative w-full max-w-5xl h-[80vh] bg-charcoal-900 rounded-3xl overflow-hidden shadow-2xl flex flex-col">
-            <!-- Close Button -->
-            <button onclick="close360Viewer()" class="absolute top-4 right-4 z-20 p-3 rounded-full bg-black/40 hover:bg-black/60 text-white transition-colors">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-            </button>
-            <!-- Loading Indicator -->
-            <div id="viewer-360-loading" class="absolute inset-0 z-10 flex flex-col items-center justify-center bg-charcoal-900 text-white transition-opacity duration-300">
-                <i class="fa-solid fa-spinner fa-spin text-4xl text-bronze-400 mb-4"></i>
-                <p class="text-sm font-semibold tracking-widest uppercase">Initializing 3D Space...</p>
-            </div>
-            <!-- Container for WebGL Canvas -->
-            <div id="viewer-360-container" class="flex-1 w-full h-full cursor-grab active:cursor-grabbing"></div>
-            
-            <!-- Controls (Optional) -->
-            <div class="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex gap-2 bg-black/50 p-2 rounded-xl backdrop-blur-md">
-                 <div class="px-4 py-2 text-xs font-semibold tracking-widest text-white uppercase">Drag to pan</div>
-            </div>
-        </div>
-    </div>
-    
     <!-- FOOTER -->
     <footer class="bg-charcoal-900 border-t border-stone-600/20 px-4 sm:px-6 lg:px-8 py-12">
       <div class="max-w-[1440px] mx-auto">
@@ -749,8 +704,6 @@
       }
 
       // Room inspirations grid
-      buildRoomInspGrid(roomSrc, apps);
-
       // Inquiry modal prefill
       document.getElementById('inquiry-product-name').value = `${product.name} (${product.series})`;
 
@@ -760,39 +713,6 @@
       setTimeout(() => { document.querySelectorAll('.fade-up').forEach(el => el.classList.add('visible')); }, 50);
     }
 
-    // ── BUILD ROOM INSPIRATION GRID ───────────────
-    function buildRoomInspGrid(primaryRoom, apps) {
-      const SCENES = {
-        'Bathroom': ['https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=800&q=80','https://images.unsplash.com/photo-1507652313519-d4e9174996dd?w=800&q=80'],
-        'Kitchen': ['https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=80','https://images.unsplash.com/photo-1565183997392-2f6f122e5912?w=800&q=80'],
-        'Living Room': ['https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&q=80','https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=800&q=80'],
-        'Bedroom': ['https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=800&q=80','https://images.unsplash.com/photo-1540518614846-7eded433c457?w=800&q=80'],
-        'Outdoor': ['https://images.unsplash.com/photo-1613977257363-707ba9348227?w=800&q=80','https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=800&q=80'],
-        'default': ['https://images.unsplash.com/photo-1600210492493-0946911123ea?w=800&q=80','https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=800&q=80','https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=800&q=80']
-      };
-
-      const pool = new Set([primaryRoom]);
-      for (const app of apps) {
-        if (SCENES[app]) SCENES[app].forEach(u => pool.add(u));
-      }
-      SCENES['default'].forEach(u => pool.add(u));
-
-      const images = [...pool].slice(0, 3);
-      const labels = ['Inspiration 1', 'Inspiration 2', 'Inspiration 3'];
-      document.getElementById('room-inspo-grid').innerHTML = images.map((src, i) => `
-        <div class="rounded-2xl overflow-hidden shadow-md group cursor-zoom-in" style="aspect-ratio:4/3;" onclick="showInspo('${src}')">
-          <img src="${src}" alt="${labels[i]}" loading="lazy"
-               class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-        </div>
-      `).join('');
-    }
-    function showInspo(src) {
-      document.getElementById('lightbox-image').src = src;
-      document.getElementById('lightbox-label').textContent = 'Room Inspiration';
-      document.getElementById('lightbox-dots').innerHTML = '';
-      document.getElementById('lightbox').classList.add('open');
-      document.body.style.overflow = 'hidden';
-    }
 
     // ── CAROUSEL ──────────────────────────────────
     function goToSlide(idx) {
@@ -938,210 +858,6 @@
       document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
     }
 
-    // ── 360 DEGREE WEBGL VIEWER ───────────────────────
-    let viewerScene, viewerCamera, viewerRenderer, viewerControls;
-    let roomFloor, roomWalls = [];
-    let currentTexture = null;
-    let activeSurface = 'floor';
-    let viewerInitialized = false;
-
-    function open360Viewer() {
-      const overlay = document.getElementById('viewer-360-overlay');
-      overlay.classList.remove('hidden');
-      overlay.classList.add('flex');
-      document.body.style.overflow = 'hidden';
-
-      if (!viewerInitialized) {
-        init360Viewer();
-        viewerInitialized = true;
-      }
-      
-      if (product && product.main_image) {
-        loadTexture(product.main_image);
-      }
-    }
-
-    function close360Viewer() {
-      const overlay = document.getElementById('viewer-360-overlay');
-      overlay.classList.add('hidden');
-      overlay.classList.remove('flex');
-      document.body.style.overflow = '';
-    }
-
-    function init360Viewer() {
-      const container = document.getElementById('viewer-360-container');
-      const width = container.clientWidth;
-      const height = container.clientHeight;
-
-      viewerScene = new THREE.Scene();
-      viewerScene.background = new THREE.Color(0x1a1a1a);
-
-      viewerCamera = new THREE.PerspectiveCamera(60, width / height, 0.1, 1000);
-      viewerCamera.position.set(0, 1.6, 0);
-
-      viewerRenderer = new THREE.WebGLRenderer({ antialias: true });
-      viewerRenderer.setSize(width, height);
-      viewerRenderer.setPixelRatio(window.devicePixelRatio);
-      viewerRenderer.shadowMap.enabled = true;
-      viewerRenderer.shadowMap.type = THREE.PCFSoftShadowMap;
-      container.appendChild(viewerRenderer.domElement);
-
-      viewerControls = new THREE.OrbitControls(viewerCamera, viewerRenderer.domElement);
-      viewerControls.enablePan = false;
-      viewerControls.enableZoom = true;
-      viewerControls.minDistance = 0.5;
-      viewerControls.maxDistance = 3.5;
-      viewerControls.maxPolarAngle = Math.PI - 0.1;
-      viewerControls.minPolarAngle = 0.1;
-
-      const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
-      viewerScene.add(ambientLight);
-
-      const dirLight = new THREE.DirectionalLight(0xffffff, 0.5);
-      dirLight.position.set(2, 5, 2);
-      dirLight.castShadow = true;
-      viewerScene.add(dirLight);
-
-      const pointLight = new THREE.PointLight(0xfff0dd, 0.3, 10);
-      pointLight.position.set(0, 2.5, 0);
-      viewerScene.add(pointLight);
-
-      buildRoom();
-
-      window.addEventListener('resize', () => {
-        if (!viewerInitialized) return;
-        const w = container.clientWidth;
-        const h = container.clientHeight;
-        viewerCamera.aspect = w / h;
-        viewerCamera.updateProjectionMatrix();
-        viewerRenderer.setSize(w, h);
-      });
-
-      function animate() {
-        requestAnimationFrame(animate);
-        viewerControls.update();
-        viewerRenderer.render(viewerScene, viewerCamera);
-      }
-      animate();
-
-      setTimeout(() => {
-        document.getElementById('viewer-360-loading').style.opacity = '0';
-        setTimeout(() => document.getElementById('viewer-360-loading').style.display = 'none', 300);
-      }, 500);
-    }
-
-    function buildRoom() {
-      const defaultFloorMat = new THREE.MeshStandardMaterial({ color: 0xe0e0e0, roughness: 0.8 });
-      const defaultWallMat = new THREE.MeshStandardMaterial({ color: 0xf5f5f5, roughness: 0.9 });
-      const ceilingMat = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 1.0 });
-
-      const w = 6, d = 6, h = 3;
-
-      const floorGeo = new THREE.PlaneGeometry(w, d);
-      roomFloor = new THREE.Mesh(floorGeo, defaultFloorMat);
-      roomFloor.rotation.x = -Math.PI / 2;
-      roomFloor.receiveShadow = true;
-      viewerScene.add(roomFloor);
-
-      const ceilingGeo = new THREE.PlaneGeometry(w, d);
-      const ceiling = new THREE.Mesh(ceilingGeo, ceilingMat);
-      ceiling.rotation.x = Math.PI / 2;
-      ceiling.position.y = h;
-      viewerScene.add(ceiling);
-
-      const wallGeo = new THREE.PlaneGeometry(w, h);
-      
-      const wall1 = new THREE.Mesh(wallGeo, defaultWallMat);
-      wall1.position.set(0, h/2, -d/2);
-      wall1.receiveShadow = true;
-      viewerScene.add(wall1);
-      roomWalls.push(wall1);
-
-      const wall2 = new THREE.Mesh(wallGeo, defaultWallMat);
-      wall2.position.set(0, h/2, d/2);
-      wall2.rotation.y = Math.PI;
-      wall2.receiveShadow = true;
-      viewerScene.add(wall2);
-      roomWalls.push(wall2);
-
-      const wall3 = new THREE.Mesh(wallGeo, defaultWallMat);
-      wall3.position.set(-w/2, h/2, 0);
-      wall3.rotation.y = Math.PI / 2;
-      wall3.receiveShadow = true;
-      viewerScene.add(wall3);
-      roomWalls.push(wall3);
-
-      const wall4 = new THREE.Mesh(wallGeo, defaultWallMat);
-      wall4.position.set(w/2, h/2, 0);
-      wall4.rotation.y = -Math.PI / 2;
-      wall4.receiveShadow = true;
-      viewerScene.add(wall4);
-      roomWalls.push(wall4);
-    }
-
-    function loadTexture(url) {
-      document.getElementById('viewer-360-loading').style.display = 'flex';
-      document.getElementById('viewer-360-loading').style.opacity = '1';
-
-      new THREE.TextureLoader().load(url, (texture) => {
-        texture.wrapS = THREE.RepeatWrapping;
-        texture.wrapT = THREE.RepeatWrapping;
-        
-        // Exact Mathematical Scaling: Assume physical tile is 0.6m x 0.6m
-        const tileScale = 0.6; 
-        
-        if (activeSurface === 'floor') {
-            texture.repeat.set(6 / tileScale, 6 / tileScale);
-        } else {
-            texture.repeat.set(6 / tileScale, 3 / tileScale);
-        }
-
-        const newMaterial = new THREE.MeshStandardMaterial({ 
-            map: texture,
-            roughness: 0.2,
-            metalness: 0.1
-        });
-
-        if (activeSurface === 'floor') {
-            roomFloor.material = newMaterial;
-            roomWalls.forEach(w => w.material = new THREE.MeshStandardMaterial({ color: 0xf5f5f5, roughness: 0.9 }));
-        } else {
-            roomWalls.forEach(w => w.material = newMaterial);
-            roomFloor.material = new THREE.MeshStandardMaterial({ color: 0xe0e0e0, roughness: 0.8 });
-        }
-        
-        currentTexture = texture;
-        
-        setTimeout(() => {
-            document.getElementById('viewer-360-loading').style.opacity = '0';
-            setTimeout(() => document.getElementById('viewer-360-loading').style.display = 'none', 300);
-        }, 300);
-      }, undefined, (err) => {
-          console.error('Texture load failed', err);
-          document.getElementById('viewer-360-loading').style.opacity = '0';
-          setTimeout(() => document.getElementById('viewer-360-loading').style.display = 'none', 300);
-      });
-    }
-
-    window.applyToSurface = function(surface) {
-      activeSurface = surface;
-      
-      const floorBtn = document.getElementById('btn-surface-floor');
-      const wallBtn = document.getElementById('btn-surface-wall');
-      
-      if (surface === 'floor') {
-          floorBtn.className = 'px-6 py-2 rounded-xl bg-bronze-500 text-white text-xs font-bold uppercase tracking-widest transition-all shadow-md';
-          wallBtn.className = 'px-6 py-2 rounded-xl text-stone-300 hover:text-white text-xs font-bold uppercase tracking-widest transition-all border border-transparent hover:border-white/20';
-      } else {
-          wallBtn.className = 'px-6 py-2 rounded-xl bg-bronze-500 text-white text-xs font-bold uppercase tracking-widest transition-all shadow-md';
-          floorBtn.className = 'px-6 py-2 rounded-xl text-stone-300 hover:text-white text-xs font-bold uppercase tracking-widest transition-all border border-transparent hover:border-white/20';
-      }
-
-      if (product && product.main_image) {
-          loadTexture(product.main_image);
-      }
-    }
-
     // ── KEYBOARD SHORTCUTS ───────────────────────
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') { closeLightbox(); closeInquiryModal(); }
@@ -1153,35 +869,6 @@
     document.getElementById('lightbox').addEventListener('click', (e) => { if (e.target === document.getElementById('lightbox')) closeLightbox(); });
     document.getElementById('inquiry-modal').addEventListener('click', (e) => { if (e.target === document.getElementById('inquiry-modal')) closeInquiryModal(); });
   </script>
-
-  <!-- 360 Viewer Overlay -->
-  <div id="viewer-360-overlay" class="fixed inset-0 z-[100] bg-charcoal-900 hidden flex-col">
-    <!-- Header -->
-    <div class="h-16 flex items-center justify-between px-6 bg-charcoal-800 border-b border-white/10 shrink-0 shadow-lg relative z-20">
-      <div class="flex items-center gap-3">
-        <i class="fa-solid fa-cube text-bronze-400 text-xl"></i>
-        <h3 class="text-white font-bold tracking-widest text-sm uppercase">Interactive 360° Room</h3>
-      </div>
-      <button onclick="close360Viewer()" class="text-stone-400 hover:text-white transition-colors">
-        <i class="fa-solid fa-xmark text-2xl"></i>
-      </button>
-    </div>
-    
-    <!-- Controls/Options -->
-    <div class="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex gap-2 bg-charcoal-800/90 backdrop-blur-md p-2 rounded-2xl border border-white/10 shadow-2xl">
-      <button onclick="applyToSurface('floor')" id="btn-surface-floor" class="px-6 py-2 rounded-xl bg-bronze-500 text-white text-xs font-bold uppercase tracking-widest transition-all shadow-md">Floor</button>
-      <button onclick="applyToSurface('wall')" id="btn-surface-wall" class="px-6 py-2 rounded-xl text-stone-300 hover:text-white text-xs font-bold uppercase tracking-widest transition-all border border-transparent hover:border-white/20">Wall</button>
-    </div>
-
-    <!-- WebGL Container -->
-    <div id="viewer-360-container" class="flex-1 w-full relative overflow-hidden bg-[#111] z-10 cursor-move">
-      <!-- Loading indicator -->
-      <div id="viewer-360-loading" class="absolute inset-0 flex flex-col items-center justify-center bg-charcoal-900/90 backdrop-blur-sm z-30 transition-opacity duration-300">
-        <i class="fa-solid fa-circle-notch fa-spin text-4xl text-bronze-500 mb-4"></i>
-        <p class="text-stone-400 text-xs font-bold tracking-[0.2em] uppercase">Building Room...</p>
-      </div>
-    </div>
-  </div>
 
 </body>
 </html>
