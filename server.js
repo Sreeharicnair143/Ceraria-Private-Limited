@@ -13,15 +13,18 @@ const multer  = require('multer');
 const session = require('express-session');
 const bcrypt  = require('bcryptjs');
 const { Pool } = require('pg');
-const cloudinary = require('cloudinary').v2;
-const { CloudinaryStorage } = require('multer-storage-cloudinary');
+const { S3Client } = require('@aws-sdk/client-s3');
+const multerS3 = require('multer-s3');
 
-// Initialize Cloudinary
-cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET
+// Initialize AWS S3
+const s3 = new S3Client({
+  region: process.env.AWS_REGION || 'us-east-1',
+  credentials: {
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  }
 });
+const S3_BUCKET = process.env.AWS_S3_BUCKET_NAME || 'ceraria-assets';
 
 // ── Room Scene URL helper ───────────────────────────────────
 const ROOM_SCENES = {
@@ -299,12 +302,15 @@ app.get('/api/admin/check', (req, res) => {
 
 
 // ── GALLERY API ──────────────────────────────────────────────
-const galleryStorage = new CloudinaryStorage({
-  cloudinary: cloudinary,
-  params: {
-    folder: 'ceraria/gallery',
-    allowed_formats: ['jpg', 'jpeg', 'png', 'webp'],
-  },
+const galleryStorage = multerS3({
+  s3: s3,
+  bucket: S3_BUCKET,
+  acl: 'public-read',
+  contentType: multerS3.AUTO_CONTENT_TYPE,
+  key: function (req, file, cb) {
+    const ext = path.extname(file.originalname);
+    cb(null, 'gallery/' + Date.now().toString() + ext);
+  }
 });
 const uploadGallery = multer({ storage: galleryStorage, limits: { fileSize: 10 * 1024 * 1024 } }); // 10MB limit
 
@@ -328,7 +334,7 @@ app.post('/api/gallery', requireAdmin, uploadGallery.array('images', 5), async (
     for (const file of req.files) {
       const result = await pool.query(
         'INSERT INTO gallery_images (title, image_url) VALUES ($1, $2) RETURNING *',
-        [title || null, file.path]
+        [title || null, file.location]
       );
       inserted.push(result.rows[0]);
     }
@@ -353,12 +359,15 @@ app.delete('/api/gallery/:id', requireAdmin, async (req, res) => {
 // ── CATALOGUES API ─────────────────────────────────────────
 
 // Multer config for PDF uploads
-const pdfStorage = new CloudinaryStorage({
-  cloudinary: cloudinary,
-  params: {
-    folder: 'ceraria/docs',
-    resource_type: 'auto', // Allows both PDF (raw) and Images
-  },
+const pdfStorage = multerS3({
+  s3: s3,
+  bucket: S3_BUCKET,
+  acl: 'public-read',
+  contentType: multerS3.AUTO_CONTENT_TYPE,
+  key: function (req, file, cb) {
+    const ext = path.extname(file.originalname);
+    cb(null, 'catalogues/' + Date.now().toString() + ext);
+  }
 });
 const uploadCatalogueFiles = multer({ storage: pdfStorage, limits: { fileSize: 50 * 1024 * 1024 } }).fields([
   { name: 'pdf_url', maxCount: 1 },
@@ -381,9 +390,8 @@ app.post('/api/catalogues', requireAdmin, uploadCatalogueFiles, async (req, res)
     if (!title || !req.files || !req.files.pdf_url || !req.files.cover_image) {
       return res.status(400).json({ success: false, error: 'Title, Size, PDF file, and Cover Image are required' });
     }
-    
-    const pdfUrl = req.files.pdf_url[0].path;
-    const coverUrl = req.files.cover_image[0].path;
+    const pdfUrl = req.files.pdf_url[0].location;
+    const coverUrl = req.files.cover_image[0].location;
     
     const result = await pool.query(
       'INSERT INTO catalogues (title, pdf_url, cover_image_url, size_details) VALUES ($1, $2, $3, $4) RETURNING *',
@@ -425,12 +433,15 @@ app.post('/api/admin/logout', (req, res) => {
 // ════════════════════════════════════════════════════════════
 
 // Multer config for image uploads
-const storage = new CloudinaryStorage({
-  cloudinary: cloudinary,
-  params: {
-    folder: 'ceraria/images',
-    allowed_formats: ['jpg', 'jpeg', 'png', 'webp'],
-  },
+const storage = multerS3({
+  s3: s3,
+  bucket: S3_BUCKET,
+  acl: 'public-read',
+  contentType: multerS3.AUTO_CONTENT_TYPE,
+  key: function (req, file, cb) {
+    const ext = path.extname(file.originalname);
+    cb(null, 'products/' + Date.now().toString() + ext);
+  }
 });
 const upload = multer({ storage, limits: { fileSize: 10 * 1024 * 1024 } }); // 10MB
 
@@ -451,11 +462,11 @@ app.post('/api/products', requireAdmin, upload.fields([{ name: 'main_image', max
 
     // Use uploaded files or fallback URLs
     const mainImage = req.files && req.files['main_image']
-      ? req.files['main_image'][0].path
+      ? req.files['main_image'][0].location
       : (image_url || '');
       
     const roomSceneUrl = req.files && req.files['room_scene_url']
-      ? req.files['room_scene_url'][0].path
+      ? req.files['room_scene_url'][0].location
       : (room_scene_url_text || '');
 
     const computedRoomScene = roomSceneUrl || autoRoomScene(application);
@@ -463,7 +474,7 @@ app.post('/api/products', requireAdmin, upload.fields([{ name: 'main_image', max
     // Extract thumb_images (from multer files or fallback text field)
     let thumbImagesArray = [];
     if (req.files && req.files['thumb_images']) {
-      thumbImagesArray = req.files['thumb_images'].map(file => file.path);
+      thumbImagesArray = req.files['thumb_images'].map(file => file.location);
     } else if (req.body.thumb_images_text) {
       try {
         thumbImagesArray = JSON.parse(req.body.thumb_images_text);
@@ -507,16 +518,16 @@ app.put('/api/products/:id', requireAdmin, upload.fields([{ name: 'main_image', 
     } = req.body;
 
     const mainImage = req.files && req.files['main_image']
-      ? req.files['main_image'][0].path
+      ? req.files['main_image'][0].location
       : image_url;
       
     const roomSceneUrl = req.files && req.files['room_scene_url']
-      ? req.files['room_scene_url'][0].path
+      ? req.files['room_scene_url'][0].location
       : room_scene_url_text;
 
     let thumbImagesArray = null;
     if (req.files && req.files['thumb_images']) {
-      thumbImagesArray = req.files['thumb_images'].map(file => file.path);
+      thumbImagesArray = req.files['thumb_images'].map(file => file.location);
     } else if (req.body.thumb_images_text) {
       try {
         thumbImagesArray = JSON.parse(req.body.thumb_images_text);
