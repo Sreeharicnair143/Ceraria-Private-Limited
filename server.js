@@ -297,22 +297,6 @@ app.get('/api/admin/check', (req, res) => {
   res.status(401).json({ success: false, error: 'Not authenticated' });
 });
 
-// ── POST /api/settings/homepage-video ──────────────────────
-const videoStorage = multer.diskStorage({
-  destination: (req, file, cb) => cb(null, path.join(__dirname, 'public', 'assets', 'videos')),
-  filename: (req, file, cb) => cb(null, 'homepage-video.mp4')
-});
-const uploadVideo = multer({ storage: videoStorage, limits: { fileSize: 250 * 1024 * 1024 } }); // 250MB limit
-
-app.post('/api/settings/homepage-video', requireAdmin, uploadVideo.single('video'), (req, res) => {
-  try {
-    if (!req.file) return res.status(400).json({ success: false, error: 'No video uploaded' });
-    res.json({ success: true, message: 'Homepage video updated successfully!' });
-  } catch (err) {
-    console.error('Video upload error:', err);
-    res.status(500).json({ success: false, error: 'Failed to upload video' });
-  }
-});
 
 // ── GALLERY API ──────────────────────────────────────────────
 const galleryStorage = new CloudinaryStorage({

@@ -294,15 +294,6 @@
     </div>
   </section>
 
-  <!-- ================= REEL SECTION ================= -->
-  <section class="reel-section">
-    <img src="https://creanza.in/wp-content/uploads/2025/04/Creanza_GVTPGVT_moodboard-scaled-e1743580106904.jpg" alt="Moodboard" class="bg" data-aos="zoom-in" data-aos-duration="1500" />
-    <div class="absolute inset-0 bg-black/30 z-0"></div>
-    <a href="#homepage-video-modal" class="reel-play-btn popup-video" data-aos="zoom-in" data-aos-delay="500">
-      <i class="fas fa-play"></i>
-    </a>
-  </section>
-
   <!-- ================= IMPACT AT A GLANCE ================= -->
   <section class="impact-section max-w-[1600px] mx-auto overflow-hidden">
     <div class="impact-left" data-aos="fade-right">
@@ -618,28 +609,6 @@
       }
     });
 
-    // 6. Init Magnific Popup
-    $(document).ready(function() {
-      $('.popup-video').magnificPopup({
-        type: 'inline',
-        midClick: true,
-        callbacks: {
-          open: function() {
-            // Add a cache buster so if they upload a new video, it refreshes
-            const video = document.getElementById('homepage-video-player');
-            if(video && !video.src.includes('?v=')) {
-              video.src = '/assets/videos/homepage-video.mp4?v=' + new Date().getTime();
-            }
-            if(video) video.play();
-          },
-          close: function() {
-            const video = document.getElementById('homepage-video-player');
-            if(video) video.pause();
-          }
-        }
-      });
-    });
-
     // 7. Counters Animation
     const counters = document.querySelectorAll('.counter');
     const observer = new IntersectionObserver((entries) => {
@@ -691,12 +660,5 @@
     });
 
   </script>
-  <!-- Video Modal -->
-  <div id="homepage-video-modal" class="mfp-hide bg-black relative max-w-5xl mx-auto rounded-xl overflow-hidden shadow-2xl">
-    <video id="homepage-video-player" controls preload="none" class="w-full h-auto max-h-[80vh] bg-black">
-      <source src="/assets/videos/homepage-video.mp4" type="video/mp4">
-      Your browser does not support the video tag.
-    </video>
-  </div>
 </body>
 </html>
