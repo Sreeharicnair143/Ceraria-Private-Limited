@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Terms of Service — CERARIA | The Art of Ceramic Luxury</title>
+  <meta name="description" content="Read the Terms of Service governing your use of the CERARIA website and services." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            cream:    { 50: '#FFFDF8', 100: '#FFF9ED' },
+            sand:     { 100: '#F5F0E8', 200: '#EDE5D8', 400: '#C4B8A3' },
+            bronze:   { 400: '#C49A6C', 500: '#B07D4F', 600: '#9A673B' },
+            charcoal: { 800: '#2C2824', 900: '#1A1714' },
+          },
+          fontFamily: {
+            serif: ['"Playfair Display"', 'serif'],
+            sans:  ['"Inter"', 'sans-serif'],
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    body { font-family: 'Inter', sans-serif; background: #FFFDF8; overflow-x: hidden; }
+    h1, h2, h3, h4, .font-serif { font-family: 'Playfair Display', serif; }
+  </style>
+</head>
+<body class="bg-cream-50 text-charcoal-900 antialiased pt-20 flex flex-col min-h-screen">
+
+  <!-- NAVIGATION BAR -->
+  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 border-b border-sand-200/60 shadow-sm transition-all duration-300 bg-[#E8E3DF]">
+    <div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-24 py-4">
+        <a href="/" class="flex items-center gap-3 group" id="nav-logo">
+          <img src="/assets/images/logo-icon.jpg" alt="CERARIA logo" class="h-8 sm:h-10 md:h-12 w-auto object-contain group-hover:scale-105 transition-transform duration-500" />
+          <img src="/assets/images/ceraria-text.png" alt="CERARIA" class="h-5 sm:h-6 md:h-8 w-auto object-contain group-hover:opacity-80 transition-opacity duration-500" />
+          <span class="inline-block text-[9px] sm:text-[11px] font-sans font-semibold tracking-[0.15em] sm:tracking-[0.25em] uppercase text-stone-600 border-l border-stone-400 pl-2 sm:pl-3 leading-relaxed">
+            THE ART OF<br/>CERAMIC LUXURY
+          </span>
+        </a>
+        <div class="hidden xl:flex items-center gap-8">
+          <a href="/" class="relative group text-[11px] uppercase tracking-[0.2em] font-bold text-stone-500 hover:text-charcoal-900 transition-colors py-1">Home<span class="absolute bottom-0 left-0 w-0 h-[1.5px] bg-bronze-500 transition-all duration-300 group-hover:w-full"></span></a>
+          <a href="/gallery.html" class="relative group text-[11px] uppercase tracking-[0.2em] font-bold text-stone-500 hover:text-charcoal-900 transition-colors py-1">Gallery<span class="absolute bottom-0 left-0 w-0 h-[1.5px] bg-bronze-500 transition-all duration-300 group-hover:w-full"></span></a>
+          <a href="/products.html" class="relative group text-[11px] uppercase tracking-[0.2em] font-bold text-stone-500 hover:text-charcoal-900 transition-colors py-1">Products<span class="absolute bottom-0 left-0 w-0 h-[1.5px] bg-bronze-500 transition-all duration-300 group-hover:w-full"></span></a>
+          <a href="/catalogue.html" class="relative group text-[11px] uppercase tracking-[0.2em] font-bold text-stone-500 hover:text-charcoal-900 transition-colors py-1">Catalogue<span class="absolute bottom-0 left-0 w-0 h-[1.5px] bg-bronze-500 transition-all duration-300 group-hover:w-full"></span></a>
+          <a href="/about.html" class="relative group text-[11px] uppercase tracking-[0.2em] font-bold text-stone-500 hover:text-charcoal-900 transition-colors py-1">About<span class="absolute bottom-0 left-0 w-0 h-[1.5px] bg-bronze-500 transition-all duration-300 group-hover:w-full"></span></a>
+          <a href="/contact.html" class="relative group text-[11px] uppercase tracking-[0.2em] font-bold text-stone-500 hover:text-charcoal-900 transition-colors py-1">Contact Us<span class="absolute bottom-0 left-0 w-0 h-[1.5px] bg-bronze-500 transition-all duration-300 group-hover:w-full"></span></a>
+        </div>
+        <button id="mobile-menu-btn" class="xl:hidden flex flex-col gap-1.5 p-2 rounded-lg hover:bg-sand-100 transition-colors" aria-label="Toggle mobile menu">
+          <span class="block w-7 h-0.5 bg-charcoal-800 rounded transition-all duration-300" id="burger-line-1"></span>
+          <span class="block w-7 h-0.5 bg-charcoal-800 rounded transition-all duration-300" id="burger-line-2"></span>
+          <span class="block w-5 h-0.5 bg-charcoal-800 rounded transition-all duration-300" id="burger-line-3"></span>
+        </button>
+      </div>
+      <div id="mobile-menu" class="xl:hidden max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+        <div class="pb-6 pt-2 space-y-2 border-t border-sand-200">
+          <a href="/" class="block px-4 py-3 text-[11px] uppercase tracking-[0.2em] font-bold text-stone-600 hover:bg-sand-100 hover:text-bronze-600 rounded-lg transition-colors">Home</a>
+          <a href="/gallery.html" class="block px-4 py-3 text-[11px] uppercase tracking-[0.2em] font-bold text-stone-600 hover:bg-sand-100 hover:text-bronze-600 rounded-lg transition-colors">Gallery</a>
+          <a href="/products.html" class="block px-4 py-3 text-[11px] uppercase tracking-[0.2em] font-bold text-stone-600 hover:bg-sand-100 hover:text-bronze-600 rounded-lg transition-colors">Products</a>
+          <a href="/catalogue.html" class="block px-4 py-3 text-[11px] uppercase tracking-[0.2em] font-bold text-stone-600 hover:bg-sand-100 hover:text-bronze-600 rounded-lg transition-colors">Catalogue</a>
+          <a href="/about.html" class="block px-4 py-3 text-[11px] uppercase tracking-[0.2em] font-bold text-stone-600 hover:bg-sand-100 hover:text-bronze-600 rounded-lg transition-colors">About</a>
+          <a href="/contact.html" class="block px-4 py-3 text-[11px] uppercase tracking-[0.2em] font-bold text-stone-600 hover:bg-sand-100 hover:text-bronze-600 rounded-lg transition-colors">Contact Us</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const menuBtn = document.getElementById('mobile-menu-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const burgerLines = [document.getElementById('burger-line-1'), document.getElementById('burger-line-2'), document.getElementById('burger-line-3')];
+      let menuOpen = false;
+      if(menuBtn) {
+        menuBtn.addEventListener('click', () => {
+          menuOpen = !menuOpen;
+          mobileMenu.style.maxHeight = menuOpen ? '500px' : '0';
+          burgerLines[0].style.transform = menuOpen ? 'rotate(45deg) translate(5px, 6px)' : '';
+          burgerLines[1].style.opacity = menuOpen ? '0' : '1';
+          burgerLines[2].style.transform = menuOpen ? 'rotate(-45deg) translate(4px, -5px)' : '';
+          burgerLines[2].style.width = menuOpen ? '1.75rem' : '1.25rem';
+        });
+      }
+    });
+  </script>
+
+  <!-- ================= TERMS OF SERVICE CONTENT ================= -->
+  <main class="flex-grow">
+    <section class="pt-24 pb-12 px-6 max-w-[1440px] mx-auto text-center">
+      <div class="inline-flex items-center justify-center w-20 h-20 bg-sand-100 rounded-full mb-8">
+        <i class="fa-solid fa-file-contract text-bronze-500 text-3xl"></i>
+      </div>
+      <h1 class="font-serif text-5xl md:text-6xl font-bold text-charcoal-900 mb-6">Terms of Service</h1>
+      <p class="text-stone-500 text-lg max-w-2xl mx-auto">The terms governing your use of the CERARIA website and services.</p>
+      <p class="text-stone-400 text-sm mt-4">Last updated: August 25, 2026</p>
+    </section>
+
+    <section class="pb-24 px-6">
+      <div class="max-w-[900px] mx-auto bg-white rounded-2xl shadow-sm border border-sand-100 p-8 md:p-12 space-y-10">
+
+        <div>
+          <h2 class="font-serif text-2xl font-bold text-charcoal-900 mb-4">1. Acceptance of Terms</h2>
+          <p class="text-stone-600 leading-relaxed">By accessing and using the website <strong>ceraria.in</strong> (the "Site"), operated by CERARIA Private Limited ("we," "our," or "us"), you agree to be bound by these Terms of Service. If you do not agree with any part of these terms, you must discontinue use of the Site immediately.</p>
+        </div>
+
+        <div>
+          <h2 class="font-serif text-2xl font-bold text-charcoal-900 mb-4">2. Use of the Website</h2>
+          <p class="text-stone-600 leading-relaxed mb-4">You agree to use the Site only for lawful purposes and in a way that does not infringe on the rights of others. Specifically, you shall not:</p>
+          <ul class="list-disc list-inside text-stone-600 space-y-2 ml-4">
+            <li>Use the Site for any fraudulent or illegal activity</li>
+            <li>Attempt to gain unauthorized access to any part of the Site or its servers</li>
+            <li>Transmit any viruses, malware, or other harmful code</li>
+            <li>Scrape, crawl, or use automated tools to extract content without written permission</li>
+            <li>Use the Site in any way that could damage, disable, or impair our servers</li>
+          </ul>
+        </div>
+
+        <div>
+          <h2 class="font-serif text-2xl font-bold text-charcoal-900 mb-4">3. Intellectual Property</h2>
+          <p class="text-stone-600 leading-relaxed">All content on the Site — including but not limited to text, photographs, graphics, logos, tile images, product descriptions, design layouts, and software — is the property of CERARIA Private Limited and is protected by Indian copyright and trademark laws. You may not reproduce, distribute, modify, or create derivative works from any content without our prior written consent.</p>
+        </div>
+
+        <div>
+          <h2 class="font-serif text-2xl font-bold text-charcoal-900 mb-4">4. Product Information</h2>
+          <p class="text-stone-600 leading-relaxed">We make every effort to display our products accurately on the Site. However, due to variations in screen settings and display technology, the actual color, texture, and appearance of tiles may differ from what is shown on screen. Product specifications, dimensions, and pricing are subject to change without prior notice and shall be confirmed at the time of order.</p>
+        </div>
+
+        <div>
+          <h2 class="font-serif text-2xl font-bold text-charcoal-900 mb-4">5. Inquiries & Orders</h2>
+          <p class="text-stone-600 leading-relaxed">Submitting an inquiry through our Site does not constitute a binding order or contract. All orders are subject to confirmation, availability, and acceptance by CERARIA. Pricing, payment terms, delivery schedules, and other commercial terms will be communicated and agreed upon separately for each order.</p>
+        </div>
+
+        <div>
+          <h2 class="font-serif text-2xl font-bold text-charcoal-900 mb-4">6. Third-Party Links</h2>
+          <p class="text-stone-600 leading-relaxed">The Site may contain links to external websites that are not operated by us. We have no control over and assume no responsibility for the content, privacy policies, or practices of any third-party websites. Accessing third-party links is at your own risk.</p>
+        </div>
+
+        <div>
+          <h2 class="font-serif text-2xl font-bold text-charcoal-900 mb-4">7. Limitation of Liability</h2>
+          <p class="text-stone-600 leading-relaxed">To the fullest extent permitted by applicable law, CERARIA Private Limited shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising out of your access to or use of the Site. The Site and its content are provided on an "as is" and "as available" basis without warranties of any kind, either express or implied.</p>
+        </div>
+
+        <div>
+          <h2 class="font-serif text-2xl font-bold text-charcoal-900 mb-4">8. Indemnification</h2>
+          <p class="text-stone-600 leading-relaxed">You agree to indemnify and hold harmless CERARIA Private Limited, its directors, employees, and agents from any claims, damages, losses, liabilities, and expenses (including legal fees) arising out of your use of the Site or violation of these Terms.</p>
+        </div>
+
+        <div>
+          <h2 class="font-serif text-2xl font-bold text-charcoal-900 mb-4">9. Governing Law</h2>
+          <p class="text-stone-600 leading-relaxed">These Terms shall be governed by and construed in accordance with the laws of India. Any disputes arising under these Terms shall be subject to the exclusive jurisdiction of the courts in Kochi, Kerala, India.</p>
+        </div>
+
+        <div>
+          <h2 class="font-serif text-2xl font-bold text-charcoal-900 mb-4">10. Changes to These Terms</h2>
+          <p class="text-stone-600 leading-relaxed">We reserve the right to modify these Terms of Service at any time. Changes will be effective upon posting to the Site. Your continued use of the Site after changes are posted constitutes acceptance of the revised Terms.</p>
+        </div>
+
+        <div>
+          <h2 class="font-serif text-2xl font-bold text-charcoal-900 mb-4">11. Contact Us</h2>
+          <p class="text-stone-600 leading-relaxed">For questions regarding these Terms, please contact:</p>
+          <div class="mt-4 bg-sand-100 rounded-xl p-6 space-y-2">
+            <p class="text-charcoal-900 font-semibold">CERARIA Private Limited</p>
+            <p class="text-stone-600"><i class="fa-solid fa-envelope text-bronze-500 mr-2"></i>info@ceraria.in</p>
+            <p class="text-stone-600"><i class="fa-solid fa-location-dot text-bronze-500 mr-2"></i>Kochi, Kerala, India</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-charcoal-900 text-cream-50 pt-16 pb-8 mt-auto border-t border-stone-600/30">
+    <div class="max-w-[1440px] mx-auto px-6 flex flex-col md:flex-row items-center justify-between text-xs text-stone-500">
+      <p>&copy; 2026 CERARIA PRIVATE LIMITED. All rights reserved.</p>
+      <div class="flex gap-4 mt-4 md:mt-0">
+        <a href="/privacy-policy.html" class="hover:text-bronze-400 transition-colors">Privacy Policy</a>
+        <a href="/terms-of-service.html" class="hover:text-bronze-400 transition-colors">Terms of Service</a>
+        <a href="/disclaimer.html" class="hover:text-bronze-400 transition-colors">Disclaimer</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

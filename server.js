@@ -622,9 +622,9 @@ app.get('/admin', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'admin.html'));
 });
 
-// SPA fallback — serve index.html for unmatched routes
+// 404 handler — serve branded 404 page for unmatched routes
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  res.status(404).sendFile(path.join(__dirname, 'public', '404.html'));
 });
 
 // ═══════════════════════════════════════════
@@ -638,7 +638,12 @@ app.use((err, req, res, next) => {
     }
     return res.status(400).json({ success: false, error: err.message });
   }
-  res.status(500).json({ success: false, error: 'Internal Server Error' });
+  // For API requests, return JSON
+  if (req.path.startsWith('/api/')) {
+    return res.status(500).json({ success: false, error: 'Internal Server Error' });
+  }
+  // For browser requests, serve the branded 500 page
+  res.status(500).sendFile(path.join(__dirname, 'public', '500.html'));
 });
 
 // ═══════════════════════════════════════════
