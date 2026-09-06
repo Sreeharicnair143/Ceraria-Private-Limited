@@ -55,7 +55,20 @@
       border-radius: 12px;
     }
     @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
-  </style>
+  
+    /* ── NAVBAR INSTANT VISIBILITY ── */
+    /* Ensure nav is always visible immediately, before any JS/CDN loads */
+    #navbar { opacity: 1 !important; transform: none !important; }
+    #navbar * { opacity: 1 !important; }
+    #navbar [data-aos] { opacity: 1 !important; transform: none !important; }
+    #mobile-menu-btn { display: flex !important; flex-direction: column; gap: 6px; padding: 8px; }
+    #mobile-menu-btn span { display: block; }
+    /* Hide hamburger on xl screens (matching Tailwind xl:hidden) */
+    @media (min-width: 1280px) {
+      #mobile-menu-btn { display: none !important; }
+    }
+
+</style>
 
   <!-- AOS CSS -->
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
