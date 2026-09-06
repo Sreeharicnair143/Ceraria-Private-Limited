@@ -1,82 +1,91 @@
+const API_BASE = "";
 
-    const API_BASE = '';
+// ═══════════════════════════════════════════
+//  LOGOUT
+// ═══════════════════════════════════════════
+async function handleLogout() {
+  try {
+    await fetch("/api/admin/logout", { method: "POST" });
+    window.location.href = "/admin-login";
+  } catch (e) {
+    window.location.href = "/admin-login";
+  }
+}
 
-    // ═══════════════════════════════════════════
-    //  LOGOUT
-    // ═══════════════════════════════════════════
-    async function handleLogout() {
-      try {
-        await fetch('/api/admin/logout', { method: 'POST' });
-        window.location.href = '/admin-login';
-      } catch (e) {
-        window.location.href = '/admin-login';
-      }
+// ═══════════════════════════════════════════
+//  INITIALIZATION
+// ═══════════════════════════════════════════
+document.addEventListener("DOMContentLoaded", () => {
+  fetchStats();
+  fetchAllProducts();
+  initDropZone();
+  initBannerToggle();
+  initFormSubmission();
+});
+
+// ═══════════════════════════════════════════
+//  FETCH STATS
+// ═══════════════════════════════════════════
+async function fetchStats() {
+  try {
+    const res = await fetch(`${API_BASE}/api/products/stats`);
+    const json = await res.json();
+    if (json.success) {
+      const d = json.data;
+      document.getElementById("stat-total").textContent = d.total_products;
+      document.getElementById("stat-active").textContent = d.active;
+      document.getElementById("stat-banners").textContent = d.featured;
+      document.getElementById("stat-stock").textContent = d.total_series;
     }
+  } catch (err) {
+    console.error("Stats fetch failed:", err);
+  }
+}
 
-    // ═══════════════════════════════════════════
-    //  INITIALIZATION
-    // ═══════════════════════════════════════════
-    document.addEventListener('DOMContentLoaded', () => {
-      fetchStats();
-      fetchAllProducts();
-      initDropZone();
-      initBannerToggle();
-      initFormSubmission();
-    });
-
-
-    // ═══════════════════════════════════════════
-    //  FETCH STATS
-    // ═══════════════════════════════════════════
-    async function fetchStats() {
-      try {
-        const res = await fetch(`${API_BASE}/api/products/stats`);
-        const json = await res.json();
-        if (json.success) {
-          const d = json.data;
-          document.getElementById('stat-total').textContent = d.total_products;
-          document.getElementById('stat-active').textContent = d.active;
-          document.getElementById('stat-banners').textContent = d.featured;
-          document.getElementById('stat-stock').textContent = d.total_series;
-        }
-      } catch (err) {
-        console.error('Stats fetch failed:', err);
-      }
-    }
-
-
-    // ═══════════════════════════════════════════
-    //  RENDER TABLE
-    // ═══════════════════════════════════════════
-    function renderTable(products) {
-      const tbody = document.getElementById('products-tbody');
-      if (!products || products.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="7" class="px-6 py-12 text-center text-stone-500 font-medium bg-sand-50/50">No products found. Add one to get started!</td></tr>`;
-        return;
-      }
-      tbody.innerHTML = products.map(p => {
-        const apps = Array.isArray(p.application) ? p.application : (typeof p.application === 'string' ? JSON.parse(p.application || '[]') : []);
-        return `
+// ═══════════════════════════════════════════
+//  RENDER TABLE
+// ═══════════════════════════════════════════
+function renderTable(products) {
+  const tbody = document.getElementById("products-tbody");
+  if (!products || products.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="7" class="px-6 py-12 text-center text-stone-500 font-medium bg-sand-50/50">No products found. Add one to get started!</td></tr>`;
+    return;
+  }
+  tbody.innerHTML = products
+    .map((p) => {
+      const apps = Array.isArray(p.application)
+        ? p.application
+        : typeof p.application === "string"
+          ? JSON.parse(p.application || "[]")
+          : [];
+      return `
         <tr class="border-t border-sand-100 hover:bg-sand-100/50 transition-colors cursor-pointer" onclick="editProduct(${p.id})">
           <td class="px-6 py-4">
             <div class="flex items-center gap-3">
               <div class="relative w-12 h-12 rounded-xl overflow-hidden border border-sand-200 flex-shrink-0">
-                <img src="${p.room_scene_url || p.main_image || ''}" alt="${p.name}" class="w-full h-full object-cover" />
+                <img src="${p.room_scene_url || p.main_image || ""}" alt="${p.name}" class="w-full h-full object-cover" />
               </div>
               <div>
                 <p class="font-semibold text-charcoal-900 text-sm">${p.name}</p>
-                <p class="text-[10px] text-stone-400 flex gap-1">${apps.slice(0,2).map(a => `<span class="bg-sand-100 px-1.5 py-0.5 rounded">${a}</span>`).join('')}</p>
+                <p class="text-[10px] text-stone-400 flex gap-1">${apps
+                  .slice(0, 2)
+                  .map(
+                    (a) =>
+                      `<span class="bg-sand-100 px-1.5 py-0.5 rounded">${a}</span>`,
+                  )
+                  .join("")}</p>
               </div>
             </div>
           </td>
           <td class="px-6 py-4 font-semibold text-charcoal-800">${p.series}</td>
-          <td class="px-6 py-4 hidden sm:table-cell capitalize text-stone-600">${p.category || '—'}</td>
-          <td class="px-6 py-4 hidden md:table-cell text-stone-600">${p.size ? p.size.replace('x', ' × ') + ' mm' : '—'}</td>
-          <td class="px-6 py-4 hidden lg:table-cell text-stone-600">${p.finish || '—'}</td>
+          <td class="px-6 py-4 hidden sm:table-cell capitalize text-stone-600">${p.category || "—"}</td>
+          <td class="px-6 py-4 hidden md:table-cell text-stone-600">${p.size ? p.size.replace("x", " × ") + " mm" : "—"}</td>
+          <td class="px-6 py-4 hidden lg:table-cell text-stone-600">${p.finish || "—"}</td>
           <td class="px-6 py-4">
-            ${p.is_featured
-              ? '<span class="px-2.5 py-1 text-[10px] font-bold tracking-wider uppercase bg-bronze-500/10 text-bronze-600 rounded-full">Featured</span>'
-              : '<span class="text-stone-300">—</span>'
+            ${
+              p.is_featured
+                ? '<span class="px-2.5 py-1 text-[10px] font-bold tracking-wider uppercase bg-bronze-500/10 text-bronze-600 rounded-full">Featured</span>'
+                : '<span class="text-stone-300">—</span>'
             }
           </td>
           <td class="px-6 py-4 text-center" onclick="event.stopPropagation()">
@@ -87,267 +96,304 @@
             </button>
           </td>
         </tr>`;
-      }).join('');
+    })
+    .join("");
+}
+
+// ═══════════════════════════════════════════
+//  DELETE PRODUCT
+// ═══════════════════════════════════════════
+async function deleteProduct(id, name) {
+  if (!confirm(`Delete "${name}"? This cannot be undone.`)) return;
+
+  try {
+    const res = await fetch(`${API_BASE}/api/products/${id}`, {
+      method: "DELETE",
+    });
+    const json = await res.json();
+    if (json.success) {
+      showToast(`Deleted "${name}"`, "success");
+      fetchAllProducts();
+      fetchStats();
+    } else {
+      showToast(json.error || "Failed to delete", "error");
     }
+  } catch (err) {
+    showToast("Network error", "error");
+  }
+}
 
+// ═══════════════════════════════════════════
+//  MODAL CONTROLS
+// ═══════════════════════════════════════════
+function openModal() {
+  document.getElementById("upload-modal").classList.add("open");
+  document.body.style.overflow = "hidden";
+}
 
-    // ═══════════════════════════════════════════
-    //  DELETE PRODUCT
-    // ═══════════════════════════════════════════
-    async function deleteProduct(id, name) {
-      if (!confirm(`Delete "${name}"? This cannot be undone.`)) return;
-
-      try {
-        const res = await fetch(`${API_BASE}/api/products/${id}`, { method: 'DELETE' });
-        const json = await res.json();
-        if (json.success) {
-          showToast(`Deleted "${name}"`, 'success');
-          fetchAllProducts();
-          fetchStats();
-        } else {
-          showToast(json.error || 'Failed to delete', 'error');
-        }
-      } catch (err) {
-        showToast('Network error', 'error');
-      }
-    }
-
-
-    // ═══════════════════════════════════════════
-    //  MODAL CONTROLS
-    // ═══════════════════════════════════════════
-    function openModal() {
-      document.getElementById('upload-modal').classList.add('open');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closeModal() {
-      document.getElementById('upload-modal').classList.remove('open');
-      document.body.style.overflow = '';
-      document.getElementById('upload-form').reset();
-      document.getElementById('file-preview').innerHTML = '';
-      document.getElementById('campaign-video-field') && document.getElementById('campaign-video-field').classList.add('hidden');
-      document.getElementById('modal-title').textContent = 'Add New Product';
-      document.getElementById('modal-submit-btn').innerHTML = `
+function closeModal() {
+  document.getElementById("upload-modal").classList.remove("open");
+  document.body.style.overflow = "";
+  document.getElementById("upload-form").reset();
+  document.getElementById("file-preview").innerHTML = "";
+  document.getElementById("campaign-video-field") &&
+    document.getElementById("campaign-video-field").classList.add("hidden");
+  document.getElementById("modal-title").textContent = "Add New Product";
+  document.getElementById("modal-submit-btn").innerHTML = `
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
         Add Product
       `;
+}
+
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") closeModal();
+});
+
+// Close on backdrop click
+document.getElementById("upload-modal").addEventListener("click", (e) => {
+  if (e.target.id === "upload-modal") closeModal();
+});
+
+// ═══════════════════════════════════════════
+//  BANNER AD TOGGLE — Show/hide campaign video field
+// ═══════════════════════════════════════════
+function initBannerToggle() {
+  const checkbox = document.getElementById("tile-banner");
+  const field = document.getElementById("campaign-video-field");
+
+  checkbox.addEventListener("change", () => {
+    if (checkbox.checked) {
+      field.classList.remove("hidden");
+    } else {
+      field.classList.add("hidden");
+      document.getElementById("tile-campaign-video").value = "";
+    }
+  });
+}
+
+// ═══════════════════════════════════════════
+//  FETCH ALL PRODUCTS
+// ═══════════════════════════════════════════
+async function fetchAllProducts() {
+  try {
+    const searchInput = document.getElementById("admin-search-input");
+    let url = `${API_BASE}/api/products`;
+    if (searchInput && searchInput.value.trim()) {
+      url += `?search=${encodeURIComponent(searchInput.value.trim())}`;
     }
 
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') closeModal();
-    });
-
-    // Close on backdrop click
-    document.getElementById('upload-modal').addEventListener('click', (e) => {
-      if (e.target.id === 'upload-modal') closeModal();
-    });
-
-
-    // ═══════════════════════════════════════════
-    //  BANNER AD TOGGLE — Show/hide campaign video field
-    // ═══════════════════════════════════════════
-    function initBannerToggle() {
-      const checkbox = document.getElementById('tile-banner');
-      const field = document.getElementById('campaign-video-field');
-
-      checkbox.addEventListener('change', () => {
-        if (checkbox.checked) {
-          field.classList.remove('hidden');
-        } else {
-          field.classList.add('hidden');
-          document.getElementById('tile-campaign-video').value = '';
-        }
-      });
+    const res = await fetch(url);
+    const json = await res.json();
+    if (json.success) {
+      allProductsData = json.data;
+      renderTable(json.data);
+      document.getElementById("product-count-label").textContent =
+        `${json.data.length} Products`;
     }
+  } catch (err) {
+    console.error("Failed to fetch products:", err);
+  }
+}
 
+// ═══════════════════════════════════════════
+//  DRAG & DROP IMAGE UPLOAD
+// ═══════════════════════════════════════════
+function setupDropZone(dropZoneId, fileInputId, previewId) {
+  const dropZone = document.getElementById(dropZoneId);
+  const fileInput = document.getElementById(fileInputId);
+  const filePreview = document.getElementById(previewId);
 
-    // ═══════════════════════════════════════════
-    //  FETCH ALL PRODUCTS
-    // ═══════════════════════════════════════════
-    async function fetchAllProducts() {
-      try {
-        const searchInput = document.getElementById('admin-search-input');
-        let url = `${API_BASE}/api/products`;
-        if (searchInput && searchInput.value.trim()) {
-          url += `?search=${encodeURIComponent(searchInput.value.trim())}`;
-        }
-        
-        const res = await fetch(url);
-        const json = await res.json();
-        if (json.success) {
-          allProductsData = json.data;
-          renderTable(json.data);
-          document.getElementById('product-count-label').textContent = `${json.data.length} Products`;
-        }
-      } catch (err) {
-        console.error('Failed to fetch products:', err);
-      }
+  if (!dropZone || !fileInput) return;
+
+  dropZone.addEventListener("click", () => fileInput.click());
+
+  dropZone.addEventListener("dragover", (e) => {
+    e.preventDefault();
+    dropZone.classList.add("dragover");
+  });
+
+  dropZone.addEventListener("dragleave", () => {
+    dropZone.classList.remove("dragover");
+  });
+
+  dropZone.addEventListener("drop", (e) => {
+    e.preventDefault();
+    dropZone.classList.remove("dragover");
+    if (e.dataTransfer.files.length) {
+      fileInput.files = e.dataTransfer.files;
+      updatePreview();
     }
+  });
 
-    // ═══════════════════════════════════════════
-    //  DRAG & DROP IMAGE UPLOAD
-    // ═══════════════════════════════════════════
-    function setupDropZone(dropZoneId, fileInputId, previewId) {
-      const dropZone = document.getElementById(dropZoneId);
-      const fileInput = document.getElementById(fileInputId);
-      const filePreview = document.getElementById(previewId);
+  fileInput.addEventListener("change", updatePreview);
 
-      if(!dropZone || !fileInput) return;
-
-      dropZone.addEventListener('click', () => fileInput.click());
-
-      dropZone.addEventListener('dragover', (e) => {
-        e.preventDefault();
-        dropZone.classList.add('dragover');
-      });
-
-      dropZone.addEventListener('dragleave', () => {
-        dropZone.classList.remove('dragover');
-      });
-
-      dropZone.addEventListener('drop', (e) => {
-        e.preventDefault();
-        dropZone.classList.remove('dragover');
-        if (e.dataTransfer.files.length) {
-          fileInput.files = e.dataTransfer.files;
-          updatePreview();
-        }
-      });
-
-      fileInput.addEventListener('change', updatePreview);
-
-      function updatePreview() {
-        if (fileInput.files.length > 0) {
-          const file = fileInput.files[0];
-          filePreview.innerHTML = `<div class="text-sm text-charcoal-900 bg-sand-100 px-4 py-2 rounded-lg flex items-center gap-2">
+  function updatePreview() {
+    if (fileInput.files.length > 0) {
+      const file = fileInput.files[0];
+      filePreview.innerHTML = `<div class="text-sm text-charcoal-900 bg-sand-100 px-4 py-2 rounded-lg flex items-center gap-2">
             <svg class="w-4 h-4 text-bronze-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
             Selected: ${file.name}
           </div>`;
-        } else {
-          filePreview.innerHTML = '';
-        }
+    } else {
+      filePreview.innerHTML = "";
+    }
+  }
+}
+
+function initDropZone() {
+  setupDropZone("drop-zone", "file-input", "file-preview");
+  setupDropZone("room-drop-zone", "room-file-input", "room-file-preview");
+  setupGalleryDropZone(
+    "gallery-drop-zone",
+    "gallery-file-input",
+    "gallery-file-preview",
+  );
+}
+
+function setupGalleryDropZone(dropZoneId, fileInputId, previewId) {
+  const dropZone = document.getElementById(dropZoneId);
+  const fileInput = document.getElementById(fileInputId);
+  const filePreview = document.getElementById(previewId);
+
+  if (!dropZone || !fileInput) return;
+
+  dropZone.addEventListener("click", () => fileInput.click());
+  dropZone.addEventListener("dragover", (e) => {
+    e.preventDefault();
+    dropZone.classList.add("dragover");
+  });
+  dropZone.addEventListener("dragleave", () =>
+    dropZone.classList.remove("dragover"),
+  );
+  dropZone.addEventListener("drop", (e) => {
+    e.preventDefault();
+    dropZone.classList.remove("dragover");
+    if (e.dataTransfer.files.length) {
+      const dt = new DataTransfer();
+      for (let i = 0; i < Math.min(e.dataTransfer.files.length, 5); i++) {
+        dt.items.add(e.dataTransfer.files[i]);
       }
+      fileInput.files = dt.files;
+      updateGalleryPreview();
     }
+  });
+  fileInput.addEventListener("change", updateGalleryPreview);
 
-    function initDropZone() {
-      setupDropZone('drop-zone', 'file-input', 'file-preview');
-      setupDropZone('room-drop-zone', 'room-file-input', 'room-file-preview');
-      setupGalleryDropZone('gallery-drop-zone', 'gallery-file-input', 'gallery-file-preview');
-    }
-
-    function setupGalleryDropZone(dropZoneId, fileInputId, previewId) {
-      const dropZone = document.getElementById(dropZoneId);
-      const fileInput = document.getElementById(fileInputId);
-      const filePreview = document.getElementById(previewId);
-
-      if(!dropZone || !fileInput) return;
-
-      dropZone.addEventListener('click', () => fileInput.click());
-      dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.classList.add('dragover'); });
-      dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
-      dropZone.addEventListener('drop', (e) => {
-        e.preventDefault();
-        dropZone.classList.remove('dragover');
-        if (e.dataTransfer.files.length) {
-          const dt = new DataTransfer();
-          for (let i = 0; i < Math.min(e.dataTransfer.files.length, 5); i++) {
-            dt.items.add(e.dataTransfer.files[i]);
-          }
-          fileInput.files = dt.files;
-          updateGalleryPreview();
-        }
-      });
-      fileInput.addEventListener('change', updateGalleryPreview);
-
-      function updateGalleryPreview() {
-        if (fileInput.files.length > 0) {
-          let html = '';
-          for (let i = 0; i < fileInput.files.length; i++) {
-            html += `<div class="text-sm text-charcoal-900 bg-sand-100 px-3 py-1.5 rounded-lg flex items-center gap-2 mt-1">
+  function updateGalleryPreview() {
+    if (fileInput.files.length > 0) {
+      let html = "";
+      for (let i = 0; i < fileInput.files.length; i++) {
+        html += `<div class="text-sm text-charcoal-900 bg-sand-100 px-3 py-1.5 rounded-lg flex items-center gap-2 mt-1">
               <svg class="w-4 h-4 text-bronze-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
               ${fileInput.files[i].name}
             </div>`;
-          }
-          filePreview.innerHTML = html;
-        } else {
-          filePreview.innerHTML = '';
-        }
+      }
+      filePreview.innerHTML = html;
+    } else {
+      filePreview.innerHTML = "";
+    }
+  }
+}
+
+// ═══════════════════════════════════════════
+//  FORM SUBMISSION — POST /api/products
+// ═══════════════════════════════════════════
+function initFormSubmission() {
+  const form = document.getElementById("upload-form");
+  const submitBtn = document.getElementById("modal-submit-btn");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    // Build FormData
+    const formData = new FormData();
+
+    // File uploads
+    const fileInput = document.getElementById("file-input");
+    if (fileInput.files.length > 0) {
+      formData.append("main_image", fileInput.files[0]);
+    }
+
+    const roomFileInput = document.getElementById("room-file-input");
+    if (roomFileInput && roomFileInput.files.length > 0) {
+      formData.append("room_scene_url", roomFileInput.files[0]);
+    }
+
+    const galleryFileInput = document.getElementById("gallery-file-input");
+    if (galleryFileInput && galleryFileInput.files.length > 0) {
+      for (let i = 0; i < galleryFileInput.files.length; i++) {
+        formData.append("thumb_images", galleryFileInput.files[i]);
       }
     }
 
-    // ═══════════════════════════════════════════
-    //  FORM SUBMISSION — POST /api/products
-    // ═══════════════════════════════════════════
-    function initFormSubmission() {
-      const form = document.getElementById('upload-form');
-      const submitBtn = document.getElementById('modal-submit-btn');
+    // Basic fields
+    formData.append("name", document.getElementById("tile-name").value);
+    formData.append("series", document.getElementById("tile-series").value);
+    formData.append("category", document.getElementById("tile-category").value);
+    formData.append("size", document.getElementById("tile-size").value);
+    formData.append(
+      "thickness",
+      document.getElementById("tile-thickness").value || "",
+    );
+    formData.append(
+      "finish",
+      document.getElementById("tile-finish").value || "",
+    );
+    formData.append(
+      "surface",
+      document.getElementById("tile-surface").value || "",
+    );
+    formData.append("color", document.getElementById("tile-color").value || "");
+    formData.append(
+      "surface_texture",
+      document.getElementById("tile-texture").value || "",
+    );
+    formData.append(
+      "description",
+      document.getElementById("tile-description").value || "",
+    );
+    formData.append("price", document.getElementById("tile-price").value || "");
+    formData.append(
+      "video_url",
+      document.getElementById("tile-video-url").value || "",
+    );
 
-      form.addEventListener('submit', async (e) => {
-        e.preventDefault();
+    // Applications (checkboxes)
+    const selectedApps = [
+      ...document.querySelectorAll(".application-check:checked"),
+    ].map((cb) => cb.value);
+    formData.append("application", JSON.stringify(selectedApps));
 
-        // Build FormData
-        const formData = new FormData();
+    // URL fallbacks
+    const thumbUrl = document.getElementById("thumbnail-url").value;
+    if (!fileInput.files.length && thumbUrl) {
+      formData.append("image_url", thumbUrl);
+    }
 
-        // File uploads
-        const fileInput = document.getElementById('file-input');
-        if (fileInput.files.length > 0) {
-          formData.append('main_image', fileInput.files[0]);
-        }
-        
-        const roomFileInput = document.getElementById('room-file-input');
-        if (roomFileInput && roomFileInput.files.length > 0) {
-          formData.append('room_scene_url', roomFileInput.files[0]);
-        }
+    const roomSceneUrl = document.getElementById("tile-room-scene")
+      ? document.getElementById("tile-room-scene").value
+      : "";
+    if ((!roomFileInput || !roomFileInput.files.length) && roomSceneUrl) {
+      formData.append("room_scene_url", roomSceneUrl); // Handled as URL fallback
+    }
 
-        const galleryFileInput = document.getElementById('gallery-file-input');
-        if (galleryFileInput && galleryFileInput.files.length > 0) {
-          for (let i = 0; i < galleryFileInput.files.length; i++) {
-            formData.append('thumb_images', galleryFileInput.files[i]);
-          }
-        }
+    const existingThumbsInput = document.getElementById(
+      "existing-thumb-images",
+    );
+    if (
+      (!galleryFileInput || galleryFileInput.files.length === 0) &&
+      existingThumbsInput
+    ) {
+      formData.append("thumb_images_text", existingThumbsInput.value);
+    }
 
-        // Basic fields
-        formData.append('name', document.getElementById('tile-name').value);
-        formData.append('series', document.getElementById('tile-series').value);
-        formData.append('category', document.getElementById('tile-category').value);
-        formData.append('size', document.getElementById('tile-size').value);
-        formData.append('thickness', document.getElementById('tile-thickness').value || '');
-        formData.append('finish', document.getElementById('tile-finish').value || '');
-        formData.append('surface', document.getElementById('tile-surface').value || '');
-        formData.append('color', document.getElementById('tile-color').value || '');
-        formData.append('surface_texture', document.getElementById('tile-texture').value || '');
-        formData.append('description', document.getElementById('tile-description').value || '');
-        formData.append('price', document.getElementById('tile-price').value || '');
-        formData.append('video_url', document.getElementById('tile-video-url').value || '');
+    // Featured flag
+    const isFeatured = document.getElementById("tile-banner").checked;
+    formData.append("is_featured", isFeatured.toString());
 
-        // Applications (checkboxes)
-        const selectedApps = [...document.querySelectorAll('.application-check:checked')].map(cb => cb.value);
-        formData.append('application', JSON.stringify(selectedApps));
-
-        // URL fallbacks
-        const thumbUrl = document.getElementById('thumbnail-url').value;
-        if (!fileInput.files.length && thumbUrl) {
-          formData.append('image_url', thumbUrl);
-        }
-        
-        const roomSceneUrl = document.getElementById('tile-room-scene') ? document.getElementById('tile-room-scene').value : '';
-        if ((!roomFileInput || !roomFileInput.files.length) && roomSceneUrl) {
-          formData.append('room_scene_url', roomSceneUrl); // Handled as URL fallback
-        }
-
-        const existingThumbsInput = document.getElementById('existing-thumb-images');
-        if ((!galleryFileInput || galleryFileInput.files.length === 0) && existingThumbsInput) {
-          formData.append('thumb_images_text', existingThumbsInput.value);
-        }
-
-        // Featured flag
-        const isFeatured = document.getElementById('tile-banner').checked;
-        formData.append('is_featured', isFeatured.toString());
-
-        // Submit
-        submitBtn.disabled = true;
-        submitBtn.innerHTML = `
+    // Submit
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = `
           <svg class="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24">
             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
             <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
@@ -355,170 +401,193 @@
           Saving...
         `;
 
-        try {
-          const editId = document.getElementById('edit-product-id').value;
-          const url = editId ? `${API_BASE}/api/products/${editId}` : `${API_BASE}/api/products`;
-          const method = editId ? 'PUT' : 'POST';
+    try {
+      const editId = document.getElementById("edit-product-id").value;
+      const url = editId
+        ? `${API_BASE}/api/products/${editId}`
+        : `${API_BASE}/api/products`;
+      const method = editId ? "PUT" : "POST";
 
-          const res = await fetch(url, {
-            method: method,
-            body: formData,
-          });
+      const res = await fetch(url, {
+        method: method,
+        body: formData,
+      });
 
-          const json = await res.json();
+      const json = await res.json();
 
-          if (json.success) {
-            showToast(`"${json.data.name}" ${editId ? 'updated' : 'added'} successfully!`, 'success');
-            closeModal();
-            fetchAllProducts();
-            fetchStats();
-          } else {
-            showToast(json.error || 'Failed to save product', 'error');
-          }
-        } catch (err) {
-          console.error('Form submission error:', err);
-          showToast('Network error. Is the server running?', 'error');
-        } finally {
-          submitBtn.disabled = false;
-          submitBtn.innerHTML = `
+      if (json.success) {
+        showToast(
+          `"${json.data.name}" ${editId ? "updated" : "added"} successfully!`,
+          "success",
+        );
+        closeModal();
+        fetchAllProducts();
+        fetchStats();
+      } else {
+        showToast(json.error || "Failed to save product", "error");
+      }
+    } catch (err) {
+      console.error("Form submission error:", err);
+      showToast("Network error. Is the server running?", "error");
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = `
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
             Save Product
           `;
-        }
-      });
     }
+  });
+}
 
-    // Global variable to hold all products for easy editing
-    let allProductsData = [];
+// Global variable to hold all products for easy editing
+let allProductsData = [];
 
-    async function editProduct(id) {
-      const product = allProductsData.find(p => p.id === id);
-      if(!product) return;
-      
-      document.getElementById('upload-form').reset();
-      document.getElementById('edit-product-id').value = product.id;
-      
-      document.getElementById('tile-name').value = product.name || '';
-      document.getElementById('tile-series').value = product.series || '';
-      document.getElementById('tile-category').value = product.category || 'Porcelain Tiles';
-      document.getElementById('tile-size').value = product.size || '';
-      document.getElementById('tile-thickness').value = product.thickness || '';
-      document.getElementById('tile-finish').value = product.finish || '';
-      document.getElementById('tile-surface').value = product.surface || '';
-      document.getElementById('tile-color').value = product.color || '';
-      document.getElementById('tile-texture').value = product.surface_texture || '';
-      document.getElementById('tile-description').value = product.description || '';
-      document.getElementById('tile-price').value = product.price || '';
-      document.getElementById('tile-video-url').value = product.video_url || '';
-      
-      if(document.getElementById('thumbnail-url')) document.getElementById('thumbnail-url').value = product.main_image || '';
-      if(document.getElementById('tile-room-scene')) document.getElementById('tile-room-scene').value = product.room_scene_url || '';
-      
-      let existingThumbs = product.thumb_images || '[]';
-      if(typeof existingThumbs !== 'string') existingThumbs = JSON.stringify(existingThumbs);
-      
-      let existingThumbsInput = document.getElementById('existing-thumb-images');
-      if (!existingThumbsInput) {
-        existingThumbsInput = document.createElement('input');
-        existingThumbsInput.type = 'hidden';
-        existingThumbsInput.id = 'existing-thumb-images';
-        document.getElementById('upload-form').appendChild(existingThumbsInput);
-      }
-      existingThumbsInput.value = existingThumbs;
+async function editProduct(id) {
+  const product = allProductsData.find((p) => p.id === id);
+  if (!product) return;
 
-      const galleryPreview = document.getElementById('gallery-file-preview');
-      if(galleryPreview) {
-        try {
-          const thumbsArr = JSON.parse(existingThumbs);
-          if(Array.isArray(thumbsArr) && thumbsArr.length > 0) {
-            galleryPreview.innerHTML = thumbsArr.map((url, i) => `
+  document.getElementById("upload-form").reset();
+  document.getElementById("edit-product-id").value = product.id;
+
+  document.getElementById("tile-name").value = product.name || "";
+  document.getElementById("tile-series").value = product.series || "";
+  document.getElementById("tile-category").value =
+    product.category || "Porcelain Tiles";
+  document.getElementById("tile-size").value = product.size || "";
+  document.getElementById("tile-thickness").value = product.thickness || "";
+  document.getElementById("tile-finish").value = product.finish || "";
+  document.getElementById("tile-surface").value = product.surface || "";
+  document.getElementById("tile-color").value = product.color || "";
+  document.getElementById("tile-texture").value = product.surface_texture || "";
+  document.getElementById("tile-description").value = product.description || "";
+  document.getElementById("tile-price").value = product.price || "";
+  document.getElementById("tile-video-url").value = product.video_url || "";
+
+  if (document.getElementById("thumbnail-url"))
+    document.getElementById("thumbnail-url").value = product.main_image || "";
+  if (document.getElementById("tile-room-scene"))
+    document.getElementById("tile-room-scene").value =
+      product.room_scene_url || "";
+
+  let existingThumbs = product.thumb_images || "[]";
+  if (typeof existingThumbs !== "string")
+    existingThumbs = JSON.stringify(existingThumbs);
+
+  let existingThumbsInput = document.getElementById("existing-thumb-images");
+  if (!existingThumbsInput) {
+    existingThumbsInput = document.createElement("input");
+    existingThumbsInput.type = "hidden";
+    existingThumbsInput.id = "existing-thumb-images";
+    document.getElementById("upload-form").appendChild(existingThumbsInput);
+  }
+  existingThumbsInput.value = existingThumbs;
+
+  const galleryPreview = document.getElementById("gallery-file-preview");
+  if (galleryPreview) {
+    try {
+      const thumbsArr = JSON.parse(existingThumbs);
+      if (Array.isArray(thumbsArr) && thumbsArr.length > 0) {
+        galleryPreview.innerHTML = thumbsArr
+          .map(
+            (url, i) => `
               <div class="relative w-16 h-16 rounded overflow-hidden border border-sand-200">
                 <img src="${url}" class="w-full h-full object-cover" />
               </div>
-            `).join('');
-          } else {
-            galleryPreview.innerHTML = '';
-          }
-        } catch(e) {
-          galleryPreview.innerHTML = '';
-        }
+            `,
+          )
+          .join("");
+      } else {
+        galleryPreview.innerHTML = "";
       }
-      
-      document.getElementById('tile-banner').checked = product.is_featured || false;
-      
-      // Applications
-      document.querySelectorAll('.application-check').forEach(cb => cb.checked = false);
-      let appsToUse = product.application;
-      if (typeof appsToUse === 'string') {
-         try { appsToUse = JSON.parse(appsToUse); } catch(e) {}
-         if (typeof appsToUse === 'string') {
-            try { appsToUse = JSON.parse(appsToUse); } catch(e) {}
-         }
-      }
-      if(appsToUse && Array.isArray(appsToUse)) {
-         appsToUse.forEach(app => {
-            const cb = document.querySelector(`.application-check[value="${app}"]`);
-            if(cb) cb.checked = true;
-         });
-      }
-      
-      document.getElementById('modal-title').textContent = 'Edit Product';
-      document.getElementById('modal-submit-btn').innerHTML = `
+    } catch (e) {
+      galleryPreview.innerHTML = "";
+    }
+  }
+
+  document.getElementById("tile-banner").checked = product.is_featured || false;
+
+  // Applications
+  document
+    .querySelectorAll(".application-check")
+    .forEach((cb) => (cb.checked = false));
+  let appsToUse = product.application;
+  if (typeof appsToUse === "string") {
+    try {
+      appsToUse = JSON.parse(appsToUse);
+    } catch (e) {}
+    if (typeof appsToUse === "string") {
+      try {
+        appsToUse = JSON.parse(appsToUse);
+      } catch (e) {}
+    }
+  }
+  if (appsToUse && Array.isArray(appsToUse)) {
+    appsToUse.forEach((app) => {
+      const cb = document.querySelector(`.application-check[value="${app}"]`);
+      if (cb) cb.checked = true;
+    });
+  }
+
+  document.getElementById("modal-title").textContent = "Edit Product";
+  document.getElementById("modal-submit-btn").innerHTML = `
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
         Update Product
       `;
-      openModal();
-    }
+  openModal();
+}
 
-    // ═══════════════════════════════════════════
-    //  TOAST NOTIFICATIONS
-    // ═══════════════════════════════════════════
-    function showToast(message, type = 'success') {
-      const container = document.getElementById('toast-container');
-      if (!container) return;
-      const toast = document.createElement('div');
-      toast.className = \`toast flex items-center gap-3 px-5 py-3.5 rounded-xl shadow-lg border \${
-        type === 'success'
-          ? 'bg-green-50 border-green-200 text-green-800'
-          : 'bg-red-50 border-red-200 text-red-800'
-      }\`;
-      toast.innerHTML = \`
+// ═══════════════════════════════════════════
+//  TOAST NOTIFICATIONS
+// ═══════════════════════════════════════════
+function showToast(message, type = "success") {
+  const container = document.getElementById("toast-container");
+  if (!container) return;
+  const toast = document.createElement("div");
+  toast.className = `toast flex items-center gap-3 px-5 py-3.5 rounded-xl shadow-lg border ${
+    type === "success"
+      ? "bg-green-50 border-green-200 text-green-800"
+      : "bg-red-50 border-red-200 text-red-800"
+  }`;
+  toast.innerHTML = `
         <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          \${type === 'success'
-            ? '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>'
-            : '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>'
+          ${
+            type === "success"
+              ? '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>'
+              : '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>'
           }
         </svg>
-        <span class="text-sm font-medium">\${message}</span>
-      \`;
-      container.appendChild(toast);
+        <span class="text-sm font-medium">${message}</span>
+      `;
+  container.appendChild(toast);
 
-      setTimeout(() => {
-        toast.style.opacity = '0';
-        toast.style.transition = 'opacity 0.3s ease';
-        setTimeout(() => toast.remove(), 300);
-      }, 4000);
-    }
-  
-    // --- Catalogue Management ---
-    const catalogueModal = document.getElementById('catalogue-modal');
-    const catalogueForm = document.getElementById('catalogue-form');
-    
-    function openCatalogueModal() {
-      if (catalogueForm) catalogueForm.reset();
-      if (catalogueModal) catalogueModal.classList.remove('hidden');
-    }
-    
-    function closeCatalogueModal() {
-      if (catalogueModal) catalogueModal.classList.add('hidden');
-    }
+  setTimeout(() => {
+    toast.style.opacity = "0";
+    toast.style.transition = "opacity 0.3s ease";
+    setTimeout(() => toast.remove(), 300);
+  }, 4000);
+}
 
-    async function loadCatalogues() {
-      try {
-        const res = await fetch('/api/catalogues');
-        const catalogues = await res.json();
-        const tbody = document.getElementById('catalogues-tbody');
-        tbody.innerHTML = catalogues.map(c => `
+// --- Catalogue Management ---
+const catalogueModal = document.getElementById("catalogue-modal");
+const catalogueForm = document.getElementById("catalogue-form");
+
+function openCatalogueModal() {
+  if (catalogueForm) catalogueForm.reset();
+  if (catalogueModal) catalogueModal.classList.remove("hidden");
+}
+
+function closeCatalogueModal() {
+  if (catalogueModal) catalogueModal.classList.add("hidden");
+}
+
+async function loadCatalogues() {
+  try {
+    const res = await fetch("/api/catalogues");
+    const catalogues = await res.json();
+    const tbody = document.getElementById("catalogues-tbody");
+    tbody.innerHTML = catalogues
+      .map(
+        (c) => `
           <tr class="hover:bg-sand-50/30 transition-colors group">
             <td class="py-4 px-6 text-sm font-medium text-charcoal-800">${c.title}</td>
             <td class="py-4 px-6 text-sm text-stone-500">
@@ -534,95 +603,96 @@
               </button>
             </td>
           </tr>
-        `).join('');
-      } catch (err) {
-        console.error('Failed to load catalogues', err);
-      }
-    }
+        `,
+      )
+      .join("");
+  } catch (err) {
+    console.error("Failed to load catalogues", err);
+  }
+}
 
-        catalogueForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const btn = document.getElementById('cat-save-btn');
-      btn.disabled = true;
-      btn.textContent = 'Uploading...';
+catalogueForm.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const btn = document.getElementById("cat-save-btn");
+  btn.disabled = true;
+  btn.textContent = "Uploading...";
 
-      try {
-        const formData = new FormData();
-        formData.append('title', document.getElementById('cat-title').value);
-        formData.append('size', document.getElementById('cat-size').value);
-        formData.append('cover', document.getElementById('cat-cover').files[0]);
-        formData.append('pdf', document.getElementById('cat-pdf').files[0]);
+  try {
+    const formData = new FormData();
+    formData.append("title", document.getElementById("cat-title").value);
+    formData.append("size", document.getElementById("cat-size").value);
+    formData.append("cover", document.getElementById("cat-cover").files[0]);
+    formData.append("pdf", document.getElementById("cat-pdf").files[0]);
 
-        const res = await fetch('/api/catalogues', {
-          method: 'POST',
-          body: formData
-        });
-
-        if(res.ok) {
-          closeCatalogueModal();
-          loadCatalogues();
-        } else {
-          alert('Failed to upload catalogue');
-        }
-      } catch (err) {
-        alert('Error uploading catalogue');
-      } finally {
-        btn.disabled = false;
-        btn.textContent = 'Upload PDF';
-      }
+    const res = await fetch("/api/catalogues", {
+      method: "POST",
+      body: formData,
     });
 
-    async function deleteCatalogue(id) {
-      if(confirm('Are you sure you want to delete this catalogue?')) {
-        try {
-          await fetch(`/api/catalogues/${id}`, { method: 'DELETE' });
-          loadCatalogues();
-        } catch (err) {
-          alert('Failed to delete catalogue');
-        }
-      }
+    if (res.ok) {
+      closeCatalogueModal();
+      loadCatalogues();
+    } else {
+      alert("Failed to upload catalogue");
     }
+  } catch (err) {
+    alert("Error uploading catalogue");
+  } finally {
+    btn.disabled = false;
+    btn.textContent = "Upload PDF";
+  }
+});
 
-    // Call loadCatalogues alongside loadProducts
-    // Ensure we trigger it when tab switches or on init.
-    loadCatalogues();
+async function deleteCatalogue(id) {
+  if (confirm("Are you sure you want to delete this catalogue?")) {
+    try {
+      await fetch(`/api/catalogues/${id}`, { method: "DELETE" });
+      loadCatalogues();
+    } catch (err) {
+      alert("Failed to delete catalogue");
+    }
+  }
+}
 
+// Call loadCatalogues alongside loadProducts
+// Ensure we trigger it when tab switches or on init.
+loadCatalogues();
 
 // ════════════════════════════════════════════════════════════
 //  GALLERY MANAGEMENT
 // ════════════════════════════════════════════════════════════
 
-const galleryModal = document.getElementById('gallery-modal');
+const galleryModal = document.getElementById("gallery-modal");
 
 function openGalleryModal() {
   if (galleryModal) {
-    galleryModal.classList.remove('hidden');
+    galleryModal.classList.remove("hidden");
   }
 }
 
 function closeGalleryModal() {
   if (galleryModal) {
-    galleryModal.classList.add('hidden');
-    document.getElementById('gallery-form').reset();
+    galleryModal.classList.add("hidden");
+    document.getElementById("gallery-form").reset();
   }
 }
 
 async function fetchGalleryImages() {
   try {
-    const res = await fetch('/api/gallery');
+    const res = await fetch("/api/gallery");
     const json = await res.json();
-    const tbody = document.getElementById('gallery-tbody');
+    const tbody = document.getElementById("gallery-tbody");
     if (!tbody) return;
-    tbody.innerHTML = '';
-    
+    tbody.innerHTML = "";
+
     if (json.success && json.data.length > 0) {
-      json.data.forEach(img => {
+      json.data.forEach((img) => {
         const date = new Date(img.created_at).toLocaleDateString();
-        const tr = document.createElement('tr');
-        tr.className = 'hover:bg-sand-50/50 transition-colors';
+        const tr = document.createElement("tr");
+        tr.className = "hover:bg-sand-50/50 transition-colors";
         tr.innerHTML = `
           <td class="py-3 px-6">
-            <img src="${img.image_url}" alt="${img.title || 'Gallery Image'}" class="h-12 w-16 object-cover rounded shadow-sm" />
+            <img src="${img.image_url}" alt="${img.title || "Gallery Image"}" class="h-12 w-16 object-cover rounded shadow-sm" />
           </td>
           <td class="py-3 px-6 text-sm text-charcoal-900 font-medium">${img.title || '<span class="text-stone-400 italic">Untitled</span>'}</td>
           <td class="py-3 px-6 text-sm text-stone-500">${date}</td>
@@ -635,60 +705,189 @@ async function fetchGalleryImages() {
         tbody.appendChild(tr);
       });
     } else {
-      tbody.innerHTML = '<tr><td colspan="4" class="py-6 text-center text-stone-500 text-sm">No gallery images uploaded yet.</td></tr>';
+      tbody.innerHTML =
+        '<tr><td colspan="4" class="py-6 text-center text-stone-500 text-sm">No gallery images uploaded yet.</td></tr>';
     }
-  } catch(e) {
-    console.error('Failed to fetch gallery images', e);
+  } catch (e) {
+    console.error("Failed to fetch gallery images", e);
   }
 }
 
 async function handleGallerySubmit(e) {
   e.preventDefault();
-  const btn = document.getElementById('g-submit-btn');
-  btn.innerText = 'Uploading...';
+  const btn = document.getElementById("g-submit-btn");
+  btn.innerText = "Uploading...";
   btn.disabled = true;
-  
+
   const formData = new FormData();
-  formData.append('title', document.getElementById('g-title').value);
-  formData.append('image', document.getElementById('g-image').files[0]);
-  
+  formData.append("title", document.getElementById("g-title").value);
+  formData.append("image", document.getElementById("g-image").files[0]);
+
   try {
-    const res = await fetch('/api/gallery', {
-      method: 'POST',
-      body: formData
+    const res = await fetch("/api/gallery", {
+      method: "POST",
+      body: formData,
     });
     const data = await res.json();
     if (data.success) {
-      alert('Image uploaded successfully!');
+      alert("Image uploaded successfully!");
       closeGalleryModal();
       fetchGalleryImages();
     } else {
-      alert('Upload failed: ' + data.error);
+      alert("Upload failed: " + data.error);
     }
-  } catch(err) {
-    alert('An error occurred during upload.');
+  } catch (err) {
+    alert("An error occurred during upload.");
   } finally {
-    btn.innerText = 'Upload';
+    btn.innerText = "Upload";
     btn.disabled = false;
   }
 }
 
 async function deleteGalleryImage(id) {
-  if(!confirm('Are you sure you want to delete this image?')) return;
+  if (!confirm("Are you sure you want to delete this image?")) return;
   try {
-    const res = await fetch('/api/gallery/' + id, { method: 'DELETE' });
+    const res = await fetch("/api/gallery/" + id, { method: "DELETE" });
     const data = await res.json();
-    if(data.success) {
+    if (data.success) {
       fetchGalleryImages();
     } else {
-      alert('Failed to delete image: ' + data.error);
+      alert("Failed to delete image: " + data.error);
     }
-  } catch(e) {
-    alert('An error occurred.');
+  } catch (e) {
+    alert("An error occurred.");
   }
 }
 
 // Call on load
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
   fetchGalleryImages();
 });
+
+// ════════════════════════════════════════════════════════════
+//  SITE CONTENT MANAGEMENT
+// ════════════════════════════════════════════════════════════
+
+let quillEditor = null;
+let currentEditingSlug = null;
+
+function switchAdminTab(tabName) {
+  // Update views
+  document.getElementById("view-products").classList.add("hidden");
+  document.getElementById("view-content").classList.add("hidden");
+
+  if (tabName === "products") {
+    document.getElementById("view-products").classList.remove("hidden");
+    document.getElementById("topbar-title").textContent = "Product Dashboard";
+    document.getElementById("add-product-btn").classList.remove("hidden");
+
+    document
+      .getElementById("nav-products")
+      .classList.replace("text-sand-300", "text-cream-50");
+    document
+      .getElementById("nav-products")
+      .classList.replace("hover:text-cream-50", "bg-bronze-500/20");
+    document
+      .getElementById("nav-products")
+      .classList.remove("hover:bg-charcoal-800");
+
+    document
+      .getElementById("nav-content")
+      .classList.replace("text-cream-50", "text-sand-300");
+    document
+      .getElementById("nav-content")
+      .classList.replace("bg-bronze-500/20", "hover:text-cream-50");
+    document
+      .getElementById("nav-content")
+      .classList.add("hover:bg-charcoal-800");
+  } else if (tabName === "content") {
+    document.getElementById("view-content").classList.remove("hidden");
+    document.getElementById("topbar-title").textContent = "Site Content";
+    document.getElementById("add-product-btn").classList.add("hidden");
+
+    document
+      .getElementById("nav-content")
+      .classList.replace("text-sand-300", "text-cream-50");
+    document
+      .getElementById("nav-content")
+      .classList.replace("hover:text-cream-50", "bg-bronze-500/20");
+    document
+      .getElementById("nav-content")
+      .classList.remove("hover:bg-charcoal-800");
+
+    document
+      .getElementById("nav-products")
+      .classList.replace("text-cream-50", "text-sand-300");
+    document
+      .getElementById("nav-products")
+      .classList.replace("bg-bronze-500/20", "hover:text-cream-50");
+    document
+      .getElementById("nav-products")
+      .classList.add("hover:bg-charcoal-800");
+
+    // Initialize Quill if not done yet
+    if (!quillEditor) {
+      quillEditor = new Quill("#quill-editor", {
+        theme: "snow",
+        modules: {
+          toolbar: [
+            [{ header: [2, 3, 4, false] }],
+            ["bold", "italic", "underline", "strike"],
+            [{ list: "ordered" }, { list: "bullet" }],
+            ["link", "clean"],
+          ],
+        },
+      });
+    }
+  }
+}
+
+async function loadPageContent(slug) {
+  if (!slug) return;
+  currentEditingSlug = slug;
+  const container = document.getElementById("editor-container");
+  container.classList.add("hidden");
+
+  try {
+    const res = await fetch(`/api/pages/${slug}`);
+    const json = await res.json();
+    if (json.success) {
+      quillEditor.root.innerHTML = json.data.content;
+      container.classList.remove("hidden");
+    } else {
+      showToast(json.error || "Failed to load page content", "error");
+    }
+  } catch (err) {
+    showToast("Network error while loading content", "error");
+  }
+}
+
+async function savePageContent() {
+  if (!currentEditingSlug || !quillEditor) return;
+
+  const btn = document.getElementById("save-page-btn");
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Saving...';
+
+  const content = quillEditor.root.innerHTML;
+
+  try {
+    const res = await fetch(`/api/pages/${currentEditingSlug}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ content }),
+    });
+
+    const json = await res.json();
+    if (json.success) {
+      showToast("Page content updated successfully", "success");
+    } else {
+      showToast(json.error || "Failed to update content", "error");
+    }
+  } catch (err) {
+    showToast("Network error while saving", "error");
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fa-solid fa-floppy-disk"></i> Save Content';
+  }
+}

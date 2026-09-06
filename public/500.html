@@ -40,6 +40,9 @@
       transform: rotate(-15deg);
     }
   </style>
+
+  <!-- AOS CSS -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
 <body class="bg-cream-50 text-charcoal-900 antialiased flex flex-col min-h-screen">
 
@@ -107,5 +110,27 @@
     </div>
   </footer>
 
+
+  <!-- AOS JS -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      // Automatically add data-aos to major elements that don't already have it
+      const elementsToAnimate = document.querySelectorAll('section, main > div, .card, .grid > div, .flex > div, h1, h2, h3');
+      
+      elementsToAnimate.forEach(function(el) {
+        // Skip elements that already have data-aos, or are inside nav/footer
+        if (!el.hasAttribute('data-aos') && !el.closest('nav') && !el.closest('footer') && !el.closest('.swiper')) {
+          el.setAttribute('data-aos', 'fade-up');
+          el.setAttribute('data-aos-duration', '1000');
+          el.setAttribute('data-aos-once', 'true');
+        }
+      });
+      
+      if (typeof AOS !== 'undefined') {
+        AOS.init({ once: true, offset: 50 });
+      }
+    });
+  </script>
 </body>
 </html>

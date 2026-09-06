@@ -246,3 +246,24 @@ CREATE TABLE IF NOT EXISTS catalogues (
     pdf_url VARCHAR(500),
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
+
+-- ────────────────────────────────────────────────────────────
+--  TABLE: site_pages
+-- ────────────────────────────────────────────────────────────
+CREATE TABLE IF NOT EXISTS site_pages (
+  id          SERIAL PRIMARY KEY,
+  slug        VARCHAR(100) UNIQUE NOT NULL,
+  content     TEXT,
+  updated_at  TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- ────────────────────────────────────────────────────────────
+--  TABLE: password_resets
+-- ────────────────────────────────────────────────────────────
+CREATE TABLE IF NOT EXISTS password_resets (
+  id          SERIAL PRIMARY KEY,
+  admin_id    INT NOT NULL REFERENCES admins(id) ON DELETE CASCADE,
+  token       VARCHAR(255) NOT NULL,
+  expires_at  TIMESTAMPTZ NOT NULL,
+  created_at  TIMESTAMPTZ DEFAULT NOW()
+);

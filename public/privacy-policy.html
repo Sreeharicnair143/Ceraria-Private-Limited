@@ -34,6 +34,9 @@
     body { font-family: 'Inter', sans-serif; background: #FFFDF8; overflow-x: hidden; }
     h1, h2, h3, h4, .font-serif { font-family: 'Playfair Display', serif; }
   </style>
+
+  <!-- AOS CSS -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
 <body class="bg-cream-50 text-charcoal-900 antialiased pt-20 flex flex-col min-h-screen">
 
@@ -108,91 +111,13 @@
 
     <!-- Content -->
     <section class="pb-24 px-6">
-      <div class="max-w-[900px] mx-auto bg-white rounded-2xl shadow-sm border border-sand-100 p-8 md:p-12 space-y-10">
-
-        <div>
-          <h2 class="font-serif text-2xl font-bold text-charcoal-900 mb-4">1. Introduction</h2>
-          <p class="text-stone-600 leading-relaxed">CERARIA Private Limited ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website <strong>ceraria.in</strong> (the "Site"). By using the Site, you consent to the data practices described in this policy.</p>
+      <div id="page-content" class="max-w-[900px] mx-auto bg-white rounded-2xl shadow-sm border border-sand-100 p-8 md:p-12 space-y-10">
+        <div class="flex justify-center py-20">
+          <svg class="animate-spin h-10 w-10 text-bronze-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>
         </div>
-
-        <div>
-          <h2 class="font-serif text-2xl font-bold text-charcoal-900 mb-4">2. Information We Collect</h2>
-          <p class="text-stone-600 leading-relaxed mb-4">We may collect the following types of personal information when you voluntarily provide it to us through our contact and inquiry forms:</p>
-          <ul class="list-disc list-inside text-stone-600 space-y-2 ml-4">
-            <li><strong>Name</strong> — to address you in communications</li>
-            <li><strong>Email address</strong> — to respond to your inquiries</li>
-            <li><strong>Phone number</strong> — to contact you regarding product inquiries</li>
-            <li><strong>Message content</strong> — details about your product interest or inquiry</li>
-            <li><strong>Product name and quantity</strong> — to process bulk order inquiries</li>
-          </ul>
-          <p class="text-stone-600 leading-relaxed mt-4">We do <strong>not</strong> collect payment information, passwords, government-issued IDs, or any sensitive personal data through the Site.</p>
-        </div>
-
-        <div>
-          <h2 class="font-serif text-2xl font-bold text-charcoal-900 mb-4">3. How We Use Your Information</h2>
-          <p class="text-stone-600 leading-relaxed mb-4">We use the information we collect for the following purposes:</p>
-          <ul class="list-disc list-inside text-stone-600 space-y-2 ml-4">
-            <li>To respond to your inquiries and provide customer support</li>
-            <li>To process and fulfill product consultation requests</li>
-            <li>To communicate with you about our products and services</li>
-            <li>To improve our website and user experience</li>
-            <li>To comply with legal obligations under Indian law</li>
-          </ul>
-        </div>
-
-        <div>
-          <h2 class="font-serif text-2xl font-bold text-charcoal-900 mb-4">4. Data Storage & Security</h2>
-          <p class="text-stone-600 leading-relaxed">Your information is stored on secure cloud servers hosted by Amazon Web Services (AWS). We implement industry-standard security measures including encryption, access controls, and secure communication protocols (HTTPS) to protect your data from unauthorized access, alteration, or disclosure.</p>
-        </div>
-
-        <div>
-          <h2 class="font-serif text-2xl font-bold text-charcoal-900 mb-4">5. Data Sharing</h2>
-          <p class="text-stone-600 leading-relaxed mb-4">We do <strong>not</strong> sell, trade, or rent your personal information to third parties. We may share your information only in the following circumstances:</p>
-          <ul class="list-disc list-inside text-stone-600 space-y-2 ml-4">
-            <li>With trusted service providers who assist us in operating the Site (e.g., hosting providers), bound by confidentiality obligations</li>
-            <li>When required by law, court order, or governmental regulation</li>
-            <li>To protect the rights, property, or safety of CERARIA, our users, or others</li>
-          </ul>
-        </div>
-
-        <div>
-          <h2 class="font-serif text-2xl font-bold text-charcoal-900 mb-4">6. Cookies</h2>
-          <p class="text-stone-600 leading-relaxed">Our Site uses essential cookies only for session management (e.g., admin authentication). We do <strong>not</strong> use tracking cookies, advertising cookies, or third-party analytics that monitor your browsing behavior across websites.</p>
-        </div>
-
-        <div>
-          <h2 class="font-serif text-2xl font-bold text-charcoal-900 mb-4">7. Your Rights</h2>
-          <p class="text-stone-600 leading-relaxed mb-4">Under the Digital Personal Data Protection Act, 2023 (DPDPA) and applicable Indian laws, you have the right to:</p>
-          <ul class="list-disc list-inside text-stone-600 space-y-2 ml-4">
-            <li>Request access to the personal data we hold about you</li>
-            <li>Request correction of inaccurate or incomplete data</li>
-            <li>Request deletion of your personal data</li>
-            <li>Withdraw consent for data processing at any time</li>
-          </ul>
-          <p class="text-stone-600 leading-relaxed mt-4">To exercise any of these rights, please contact us at <a href="mailto:info@ceraria.in" class="text-bronze-500 hover:text-bronze-600 underline">info@ceraria.in</a>.</p>
-        </div>
-
-        <div>
-          <h2 class="font-serif text-2xl font-bold text-charcoal-900 mb-4">8. Third-Party Links</h2>
-          <p class="text-stone-600 leading-relaxed">Our Site may contain links to third-party websites. We are not responsible for the privacy practices of those websites. We encourage you to review the privacy policies of any third-party site you visit.</p>
-        </div>
-
-        <div>
-          <h2 class="font-serif text-2xl font-bold text-charcoal-900 mb-4">9. Changes to This Policy</h2>
-          <p class="text-stone-600 leading-relaxed">We may update this Privacy Policy from time to time. Any changes will be posted on this page with the updated date. Continued use of the Site after any modifications constitutes your acceptance of the revised policy.</p>
-        </div>
-
-        <div>
-          <h2 class="font-serif text-2xl font-bold text-charcoal-900 mb-4">10. Contact Us</h2>
-          <p class="text-stone-600 leading-relaxed">If you have any questions or concerns about this Privacy Policy, please contact us:</p>
-          <div class="mt-4 bg-sand-100 rounded-xl p-6 space-y-2">
-            <p class="text-charcoal-900 font-semibold">CERARIA Private Limited</p>
-            <p class="text-stone-600"><i class="fa-solid fa-envelope text-bronze-500 mr-2"></i>info@ceraria.in</p>
-            <p class="text-stone-600"><i class="fa-solid fa-phone text-bronze-500 mr-2"></i>+91 XXXXX XXXXX</p>
-            <p class="text-stone-600"><i class="fa-solid fa-location-dot text-bronze-500 mr-2"></i>Kochi, Kerala, India</p>
-          </div>
-        </div>
-
       </div>
     </section>
   </main>
@@ -209,5 +134,50 @@
     </div>
   </footer>
 
+
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      try {
+        const res = await fetch('/api/pages/privacy-policy');
+        const json = await res.json();
+        const container = document.getElementById('page-content');
+        if (json.success && json.data.content) {
+          container.innerHTML = json.data.content;
+          
+          // Style the injected HTML slightly for better reading (if quill didn't apply classes)
+          container.querySelectorAll('h2').forEach(el => el.classList.add('font-serif', 'text-2xl', 'font-bold', 'text-charcoal-900', 'mb-4', 'mt-8'));
+          container.querySelectorAll('p').forEach(el => el.classList.add('text-stone-600', 'leading-relaxed', 'mb-4'));
+          container.querySelectorAll('ul').forEach(el => el.classList.add('list-disc', 'list-inside', 'text-stone-600', 'space-y-2', 'ml-4', 'mb-4'));
+          container.querySelectorAll('li').forEach(el => el.classList.add('pl-2'));
+        } else {
+          container.innerHTML = '<p class="text-center text-red-500 py-10">Failed to load content.</p>';
+        }
+      } catch (err) {
+        document.getElementById('page-content').innerHTML = '<p class="text-center text-red-500 py-10">Network error.</p>';
+      }
+    });
+  </script>
+
+  <!-- AOS JS -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      // Automatically add data-aos to major elements that don't already have it
+      const elementsToAnimate = document.querySelectorAll('section, main > div, .card, .grid > div, .flex > div, h1, h2, h3');
+      
+      elementsToAnimate.forEach(function(el) {
+        // Skip elements that already have data-aos, or are inside nav/footer
+        if (!el.hasAttribute('data-aos') && !el.closest('nav') && !el.closest('footer') && !el.closest('.swiper')) {
+          el.setAttribute('data-aos', 'fade-up');
+          el.setAttribute('data-aos-duration', '1000');
+          el.setAttribute('data-aos-once', 'true');
+        }
+      });
+      
+      if (typeof AOS !== 'undefined') {
+        AOS.init({ once: true, offset: 50 });
+      }
+    });
+  </script>
 </body>
 </html>

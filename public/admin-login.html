@@ -13,7 +13,7 @@
   <!-- ========================================
        FONTS
   ======================================== -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 
@@ -33,7 +33,7 @@
             copper:   { 400: '#C87941', 500: '#A8612E', 600: '#8B4F24' },
             charcoal: { 700: '#3A342E', 800: '#2C2824', 900: '#1A1714' },
           },
-                    fontFamily: {
+          fontFamily: {
             serif: ['"Playfair Display"', 'serif'],
             sans:  ['"Inter"', 'sans-serif'],
           },
@@ -76,22 +76,28 @@
 
     /* ── Login card entrance ── */
     @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(30px); }
+      from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
-    .login-card {
-      animation: fadeInUp 0.6s ease-out;
+    .view-card {
+      animation: fadeInUp 0.4s ease-out forwards;
+    }
+    .hidden-view {
+      display: none !important;
     }
 
     /* ── Spinner ── */
     @keyframes spin { to { transform: rotate(360deg); } }
     .spinner { animation: spin 0.7s linear infinite; }
   </style>
+
+  <!-- AOS CSS -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
 
 <body class="login-bg bg-cream-50 min-h-screen flex items-center justify-center p-4 antialiased">
 
-  <div class="login-card w-full max-w-md">
+  <div class="w-full max-w-md">
 
     <!-- ── Logo ── -->
     <div class="text-center mb-8">
@@ -102,53 +108,160 @@
       <p class="text-xs tracking-[0.3em] uppercase text-stone-400 mt-1">Admin Portal</p>
     </div>
 
-    <!-- ── Login Card ── -->
-    <div class="bg-white/80 backdrop-blur-2xl rounded-3xl p-8 sm:p-10 shadow-xl border border-sand-200/60" id="login-card">
-
-      <div class="mb-6">
-        <h2 class="font-serif text-xl font-bold text-charcoal-900">Welcome Back</h2>
-        <p class="text-sm text-stone-400 mt-1">Sign in to manage your inventory</p>
+    <!-- ================== VIEW: LOGIN ================== -->
+    <div id="view-login" class="view-card bg-white/80 backdrop-blur-2xl rounded-3xl p-8 sm:p-10 shadow-xl border border-sand-200/60">
+      <div class="mb-6 flex justify-between items-start">
+        <div>
+          <h2 class="font-serif text-xl font-bold text-charcoal-900">Welcome Back</h2>
+          <p class="text-sm text-stone-400 mt-1">Sign in to manage your inventory</p>
+        </div>
       </div>
 
-      <!-- Error Alert -->
-      <div id="error-alert" class="hidden mb-4 p-3 bg-red-50 border border-red-200 rounded-xl text-sm text-red-600 font-medium flex items-center gap-2">
+      <div id="login-error-alert" class="hidden mb-4 p-3 bg-red-50 border border-red-200 rounded-xl text-sm text-red-600 font-medium flex items-center gap-2">
         <i class="fa-solid fa-circle-exclamation"></i>
-        <span id="error-message">Invalid credentials</span>
+        <span id="login-error-message">Invalid credentials</span>
       </div>
 
-      <!-- Login Form -->
       <form id="login-form" class="space-y-5">
         <div>
           <label for="login-email" class="block text-sm font-semibold text-charcoal-900 mb-2">Email Address</label>
           <div class="relative">
-            <div class="absolute left-4 top-1/2 -translate-y-1/2">
-              <i class="fa-solid fa-envelope text-stone-400 text-sm"></i>
-            </div>
-            <input type="email" id="login-email" name="email" required autofocus
-                   placeholder="admin@ceraria.in"
-                   class="login-input w-full pl-11 pr-4 py-3.5 border border-sand-200 rounded-xl text-sm text-charcoal-800 bg-cream-50/50 transition-all" />
+            <div class="absolute left-4 top-1/2 -translate-y-1/2"><i class="fa-solid fa-envelope text-stone-400 text-sm"></i></div>
+            <input type="email" id="login-email" name="email" required placeholder="admin@ceraria.in" class="login-input w-full pl-11 pr-4 py-3.5 border border-sand-200 rounded-xl text-sm text-charcoal-800 bg-cream-50/50 transition-all" />
           </div>
         </div>
 
         <div>
-          <label for="login-password" class="block text-sm font-semibold text-charcoal-900 mb-2">Password</label>
+          <div class="flex justify-between items-center mb-2">
+            <label for="login-password" class="block text-sm font-semibold text-charcoal-900">Password</label>
+            <button type="button" onclick="switchView('forgot')" class="text-xs text-bronze-500 hover:text-bronze-600 font-medium">Forgot?</button>
+          </div>
           <div class="relative">
-            <div class="absolute left-4 top-1/2 -translate-y-1/2">
-              <i class="fa-solid fa-lock text-stone-400 text-sm"></i>
-            </div>
-            <input type="password" id="login-password" name="password" required
-                   placeholder="••••••••••"
-                   class="login-input w-full pl-11 pr-12 py-3.5 border border-sand-200 rounded-xl text-sm text-charcoal-800 bg-cream-50/50 transition-all" />
-            <button type="button" onclick="togglePassword()" class="absolute right-4 top-1/2 -translate-y-1/2 text-stone-400 hover:text-stone-600 transition-colors" aria-label="Toggle password visibility">
-              <i class="fa-solid fa-eye" id="password-toggle-icon"></i>
+            <div class="absolute left-4 top-1/2 -translate-y-1/2"><i class="fa-solid fa-lock text-stone-400 text-sm"></i></div>
+            <input type="password" id="login-password" name="password" required placeholder="••••••••••" class="login-input w-full pl-11 pr-12 py-3.5 border border-sand-200 rounded-xl text-sm text-charcoal-800 bg-cream-50/50 transition-all" />
+            <button type="button" onclick="togglePassword('login-password', 'login-toggle-icon')" class="absolute right-4 top-1/2 -translate-y-1/2 text-stone-400 hover:text-stone-600 transition-colors" aria-label="Toggle password visibility">
+              <i class="fa-solid fa-eye" id="login-toggle-icon"></i>
             </button>
           </div>
         </div>
 
-        <button type="submit" id="login-submit-btn"
-                class="w-full py-3.5 bg-bronze-500 text-cream-50 font-semibold text-sm tracking-widest uppercase rounded-xl hover:bg-bronze-600 transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2">
-          <i class="fa-solid fa-right-to-bracket"></i>
-          Sign In
+        <button type="submit" id="login-submit-btn" class="w-full py-3.5 bg-bronze-500 text-cream-50 font-semibold text-sm tracking-widest uppercase rounded-xl hover:bg-bronze-600 transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2">
+          <i class="fa-solid fa-right-to-bracket"></i> Sign In
+        </button>
+      </form>
+
+      <div class="mt-6 text-center text-sm text-stone-500 border-t border-sand-200 pt-4">
+        Don't have an account? <button type="button" onclick="switchView('register')" class="text-bronze-500 hover:text-bronze-600 font-semibold">Register Here</button>
+      </div>
+    </div>
+
+    <!-- ================== VIEW: REGISTER ================== -->
+    <div id="view-register" class="view-card hidden-view bg-white/80 backdrop-blur-2xl rounded-3xl p-8 sm:p-10 shadow-xl border border-sand-200/60">
+      <div class="mb-6">
+        <h2 class="font-serif text-xl font-bold text-charcoal-900">Create Account</h2>
+        <p class="text-sm text-stone-400 mt-1">Register for admin access</p>
+      </div>
+
+      <div id="reg-error-alert" class="hidden mb-4 p-3 bg-red-50 border border-red-200 rounded-xl text-sm text-red-600 font-medium flex items-center gap-2">
+        <i class="fa-solid fa-circle-exclamation"></i>
+        <span id="reg-error-message">Error</span>
+      </div>
+
+      <form id="register-form" class="space-y-4">
+        <div>
+          <label class="block text-sm font-semibold text-charcoal-900 mb-2">Full Name</label>
+          <div class="relative">
+            <div class="absolute left-4 top-1/2 -translate-y-1/2"><i class="fa-solid fa-user text-stone-400 text-sm"></i></div>
+            <input type="text" id="reg-name" required placeholder="John Doe" class="login-input w-full pl-11 pr-4 py-3 border border-sand-200 rounded-xl text-sm text-charcoal-800 bg-cream-50/50" />
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-semibold text-charcoal-900 mb-2">Email Address</label>
+          <div class="relative">
+            <div class="absolute left-4 top-1/2 -translate-y-1/2"><i class="fa-solid fa-envelope text-stone-400 text-sm"></i></div>
+            <input type="email" id="reg-email" required placeholder="name@company.com" class="login-input w-full pl-11 pr-4 py-3 border border-sand-200 rounded-xl text-sm text-charcoal-800 bg-cream-50/50" />
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-semibold text-charcoal-900 mb-2">Password</label>
+          <div class="relative">
+            <div class="absolute left-4 top-1/2 -translate-y-1/2"><i class="fa-solid fa-lock text-stone-400 text-sm"></i></div>
+            <input type="password" id="reg-password" required placeholder="••••••••••" minlength="8" class="login-input w-full pl-11 pr-12 py-3 border border-sand-200 rounded-xl text-sm text-charcoal-800 bg-cream-50/50" />
+            <button type="button" onclick="togglePassword('reg-password', 'reg-toggle-icon')" class="absolute right-4 top-1/2 -translate-y-1/2 text-stone-400 hover:text-stone-600">
+              <i class="fa-solid fa-eye" id="reg-toggle-icon"></i>
+            </button>
+          </div>
+        </div>
+
+        <button type="submit" id="reg-submit-btn" class="w-full mt-2 py-3.5 bg-charcoal-900 text-cream-50 font-semibold text-sm tracking-widest uppercase rounded-xl hover:bg-charcoal-800 transition-all shadow-md flex items-center justify-center gap-2">
+          <i class="fa-solid fa-user-plus"></i> Register
+        </button>
+      </form>
+
+      <div class="mt-6 text-center text-sm text-stone-500">
+        Already have an account? <button type="button" onclick="switchView('login')" class="text-charcoal-900 hover:text-bronze-500 font-semibold">Sign In</button>
+      </div>
+    </div>
+
+    <!-- ================== VIEW: FORGOT PASSWORD ================== -->
+    <div id="view-forgot" class="view-card hidden-view bg-white/80 backdrop-blur-2xl rounded-3xl p-8 sm:p-10 shadow-xl border border-sand-200/60">
+      <div class="mb-6">
+        <h2 class="font-serif text-xl font-bold text-charcoal-900">Reset Password</h2>
+        <p class="text-sm text-stone-400 mt-1">Enter your email to receive a reset link.</p>
+      </div>
+
+      <div id="forgot-alert" class="hidden mb-4 p-3 rounded-xl text-sm font-medium flex items-center gap-2">
+        <i id="forgot-icon" class="fa-solid fa-circle-exclamation"></i>
+        <span id="forgot-message">Error</span>
+      </div>
+
+      <form id="forgot-form" class="space-y-5">
+        <div>
+          <label class="block text-sm font-semibold text-charcoal-900 mb-2">Email Address</label>
+          <div class="relative">
+            <div class="absolute left-4 top-1/2 -translate-y-1/2"><i class="fa-solid fa-envelope text-stone-400 text-sm"></i></div>
+            <input type="email" id="forgot-email" required placeholder="admin@ceraria.in" class="login-input w-full pl-11 pr-4 py-3.5 border border-sand-200 rounded-xl text-sm text-charcoal-800 bg-cream-50/50 transition-all" />
+          </div>
+        </div>
+
+        <button type="submit" id="forgot-submit-btn" class="w-full py-3.5 bg-charcoal-900 text-cream-50 font-semibold text-sm tracking-widest uppercase rounded-xl hover:bg-charcoal-800 transition-all shadow-md flex items-center justify-center gap-2">
+          <i class="fa-solid fa-paper-plane"></i> Send Link
+        </button>
+      </form>
+
+      <div class="mt-6 text-center text-sm text-stone-500">
+        Remembered your password? <button type="button" onclick="switchView('login')" class="text-charcoal-900 hover:text-bronze-500 font-semibold">Sign In</button>
+      </div>
+    </div>
+
+    <!-- ================== VIEW: RESET PASSWORD ================== -->
+    <div id="view-reset" class="view-card hidden-view bg-white/80 backdrop-blur-2xl rounded-3xl p-8 sm:p-10 shadow-xl border border-sand-200/60">
+      <div class="mb-6">
+        <h2 class="font-serif text-xl font-bold text-charcoal-900">Create New Password</h2>
+        <p class="text-sm text-stone-400 mt-1">Please enter your new secure password.</p>
+      </div>
+
+      <div id="reset-alert" class="hidden mb-4 p-3 bg-red-50 border border-red-200 rounded-xl text-sm text-red-600 font-medium flex items-center gap-2">
+        <i class="fa-solid fa-circle-exclamation"></i>
+        <span id="reset-message">Error</span>
+      </div>
+
+      <form id="reset-form" class="space-y-4">
+        <input type="hidden" id="reset-token" />
+        <div>
+          <label class="block text-sm font-semibold text-charcoal-900 mb-2">New Password</label>
+          <div class="relative">
+            <div class="absolute left-4 top-1/2 -translate-y-1/2"><i class="fa-solid fa-lock text-stone-400 text-sm"></i></div>
+            <input type="password" id="reset-password" required placeholder="••••••••••" minlength="8" class="login-input w-full pl-11 pr-12 py-3 border border-sand-200 rounded-xl text-sm text-charcoal-800 bg-cream-50/50" />
+            <button type="button" onclick="togglePassword('reset-password', 'reset-toggle-icon')" class="absolute right-4 top-1/2 -translate-y-1/2 text-stone-400 hover:text-stone-600">
+              <i class="fa-solid fa-eye" id="reset-toggle-icon"></i>
+            </button>
+          </div>
+        </div>
+        <button type="submit" id="reset-submit-btn" class="w-full mt-2 py-3.5 bg-bronze-500 text-cream-50 font-semibold text-sm tracking-widest uppercase rounded-xl hover:bg-bronze-600 transition-all shadow-md flex items-center justify-center gap-2">
+          <i class="fa-solid fa-key"></i> Update Password
         </button>
       </form>
     </div>
@@ -164,21 +277,34 @@
        JAVASCRIPT
        ================================================================ -->
   <script>
-    // Check if already authenticated
-    (async () => {
-      try {
-        const res = await fetch('/api/admin/check');
-        const json = await res.json();
-        if (json.success) {
-          window.location.href = '/admin.html';
-        }
-      } catch (e) { /* Not authenticated, stay on login */ }
-    })();
+    // ── INITIALIZATION ──
+    document.addEventListener('DOMContentLoaded', () => {
+      // Check if URL has a reset token
+      const urlParams = new URLSearchParams(window.location.search);
+      const token = urlParams.get('token');
+      if (token) {
+        document.getElementById('reset-token').value = token;
+        switchView('reset');
+      } else {
+        // Check if already logged in
+        fetch('/api/admin/check').then(res => res.json()).then(json => {
+          if (json.success) window.location.href = '/admin.html';
+        }).catch(() => {});
+      }
+    });
 
-    // Toggle password visibility
-    function togglePassword() {
-      const input = document.getElementById('login-password');
-      const icon = document.getElementById('password-toggle-icon');
+    // ── VIEW SWITCHER ──
+    function switchView(viewName) {
+      document.getElementById('view-login').classList.add('hidden-view');
+      document.getElementById('view-register').classList.add('hidden-view');
+      document.getElementById('view-forgot').classList.add('hidden-view');
+      document.getElementById('view-reset').classList.add('hidden-view');
+      document.getElementById(`view-${viewName}`).classList.remove('hidden-view');
+    }
+
+    function togglePassword(inputId, iconId) {
+      const input = document.getElementById(inputId);
+      const icon = document.getElementById(iconId);
       if (input.type === 'password') {
         input.type = 'text';
         icon.className = 'fa-solid fa-eye-slash';
@@ -188,64 +314,180 @@
       }
     }
 
-    // Login form submission
+    function showError(alertId, msgId, cardId, message, isSuccess = false) {
+      const alert = document.getElementById(alertId);
+      const msg = document.getElementById(msgId);
+      const card = document.getElementById(cardId);
+      msg.textContent = message;
+      
+      if (isSuccess) {
+        alert.className = 'mb-4 p-3 bg-green-50 border border-green-200 rounded-xl text-sm text-green-700 font-medium flex items-center gap-2';
+        alert.querySelector('i').className = 'fa-solid fa-circle-check';
+      } else {
+        alert.className = 'mb-4 p-3 bg-red-50 border border-red-200 rounded-xl text-sm text-red-600 font-medium flex items-center gap-2';
+        alert.querySelector('i').className = 'fa-solid fa-circle-exclamation';
+        card.classList.add('shake');
+        setTimeout(() => card.classList.remove('shake'), 500);
+      }
+      alert.classList.remove('hidden');
+    }
+
+    // ── LOGIN HANDLER ──
     document.getElementById('login-form').addEventListener('submit', async (e) => {
       e.preventDefault();
-
       const btn = document.getElementById('login-submit-btn');
-      const errorAlert = document.getElementById('error-alert');
-      const errorMessage = document.getElementById('error-message');
-      const card = document.getElementById('login-card');
-
-      // Hide previous error
-      errorAlert.classList.add('hidden');
-
-      // Loading state
+      document.getElementById('login-error-alert').classList.add('hidden');
       btn.disabled = true;
       btn.innerHTML = '<div class="w-5 h-5 border-2 border-cream-50 border-t-transparent rounded-full spinner"></div> Signing in...';
-
-      const email = document.getElementById('login-email').value.trim();
-      const password = document.getElementById('login-password').value;
 
       try {
         const res = await fetch('/api/admin/login', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email, password })
+          body: JSON.stringify({
+            email: document.getElementById('login-email').value,
+            password: document.getElementById('login-password').value
+          })
         });
-
         const json = await res.json();
-
         if (json.success) {
-          // Success animation
           btn.innerHTML = '<i class="fa-solid fa-check"></i> Success!';
-          btn.classList.remove('bg-bronze-500', 'hover:bg-bronze-600');
-          btn.classList.add('bg-green-600');
-
-          setTimeout(() => {
-            window.location.href = '/admin.html';
-          }, 600);
+          btn.className = 'w-full py-3.5 bg-green-600 text-cream-50 font-semibold text-sm tracking-widest uppercase rounded-xl shadow-md flex items-center justify-center gap-2';
+          setTimeout(() => window.location.href = '/admin.html', 600);
         } else {
-          // Error
-          errorMessage.textContent = json.error || 'Invalid credentials';
-          errorAlert.classList.remove('hidden');
-          card.classList.add('shake');
-          setTimeout(() => card.classList.remove('shake'), 500);
-
+          showError('login-error-alert', 'login-error-message', 'view-login', json.error || 'Invalid credentials');
           btn.disabled = false;
           btn.innerHTML = '<i class="fa-solid fa-right-to-bracket"></i> Sign In';
         }
       } catch (err) {
-        errorMessage.textContent = 'Network error. Please try again.';
-        errorAlert.classList.remove('hidden');
-        card.classList.add('shake');
-        setTimeout(() => card.classList.remove('shake'), 500);
-
+        showError('login-error-alert', 'login-error-message', 'view-login', 'Network error.');
         btn.disabled = false;
         btn.innerHTML = '<i class="fa-solid fa-right-to-bracket"></i> Sign In';
       }
     });
+
+    // ── REGISTER HANDLER ──
+    document.getElementById('register-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById('reg-submit-btn');
+      document.getElementById('reg-error-alert').classList.add('hidden');
+      btn.disabled = true;
+      btn.innerHTML = '<div class="w-5 h-5 border-2 border-cream-50 border-t-transparent rounded-full spinner"></div> Registering...';
+
+      try {
+        const res = await fetch('/api/admin/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: document.getElementById('reg-name').value,
+            email: document.getElementById('reg-email').value,
+            password: document.getElementById('reg-password').value
+          })
+        });
+        const json = await res.json();
+        if (json.success) {
+          btn.innerHTML = '<i class="fa-solid fa-check"></i> Success!';
+          btn.className = 'w-full py-3.5 bg-green-600 text-cream-50 font-semibold text-sm tracking-widest uppercase rounded-xl shadow-md flex items-center justify-center gap-2';
+          setTimeout(() => window.location.href = '/admin.html', 1000);
+        } else {
+          showError('reg-error-alert', 'reg-error-message', 'view-register', json.error);
+          btn.disabled = false;
+          btn.innerHTML = '<i class="fa-solid fa-user-plus"></i> Register';
+        }
+      } catch (err) {
+        showError('reg-error-alert', 'reg-error-message', 'view-register', 'Network error.');
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fa-solid fa-user-plus"></i> Register';
+      }
+    });
+
+    // ── FORGOT PASSWORD HANDLER ──
+    document.getElementById('forgot-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById('forgot-submit-btn');
+      document.getElementById('forgot-alert').classList.add('hidden');
+      btn.disabled = true;
+      btn.innerHTML = '<div class="w-5 h-5 border-2 border-cream-50 border-t-transparent rounded-full spinner"></div> Sending...';
+
+      try {
+        const res = await fetch('/api/admin/forgot-password', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: document.getElementById('forgot-email').value })
+        });
+        const json = await res.json();
+        if (json.success) {
+          showError('forgot-alert', 'forgot-message', 'view-forgot', json.message, true);
+          btn.innerHTML = '<i class="fa-solid fa-check"></i> Sent';
+        } else {
+          showError('forgot-alert', 'forgot-message', 'view-forgot', json.error);
+          btn.disabled = false;
+          btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Send Link';
+        }
+      } catch (err) {
+        showError('forgot-alert', 'forgot-message', 'view-forgot', 'Network error.');
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Send Link';
+      }
+    });
+
+    // ── RESET PASSWORD HANDLER ──
+    document.getElementById('reset-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById('reset-submit-btn');
+      document.getElementById('reset-alert').classList.add('hidden');
+      btn.disabled = true;
+      btn.innerHTML = '<div class="w-5 h-5 border-2 border-cream-50 border-t-transparent rounded-full spinner"></div> Updating...';
+
+      try {
+        const res = await fetch('/api/admin/reset-password', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            token: document.getElementById('reset-token').value,
+            newPassword: document.getElementById('reset-password').value
+          })
+        });
+        const json = await res.json();
+        if (json.success) {
+          showError('reset-alert', 'reset-message', 'view-reset', 'Password updated! Please login.', true);
+          btn.innerHTML = '<i class="fa-solid fa-check"></i> Updated';
+          setTimeout(() => {
+            window.location.href = '/admin-login.html';
+          }, 2000);
+        } else {
+          showError('reset-alert', 'reset-message', 'view-reset', json.error);
+          btn.disabled = false;
+          btn.innerHTML = '<i class="fa-solid fa-key"></i> Update Password';
+        }
+      } catch (err) {
+        showError('reset-alert', 'reset-message', 'view-reset', 'Network error.');
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fa-solid fa-key"></i> Update Password';
+      }
+    });
   </script>
 
+  <!-- AOS JS -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      // Automatically add data-aos to major elements that don't already have it
+      const elementsToAnimate = document.querySelectorAll('section, main > div, .card, .grid > div, .flex > div, h1, h2, h3');
+      
+      elementsToAnimate.forEach(function(el) {
+        // Skip elements that already have data-aos, or are inside nav/footer
+        if (!el.hasAttribute('data-aos') && !el.closest('nav') && !el.closest('footer') && !el.closest('.swiper')) {
+          el.setAttribute('data-aos', 'fade-up');
+          el.setAttribute('data-aos-duration', '1000');
+          el.setAttribute('data-aos-once', 'true');
+        }
+      });
+      
+      if (typeof AOS !== 'undefined') {
+        AOS.init({ once: true, offset: 50 });
+      }
+    });
+  </script>
 </body>
 </html>

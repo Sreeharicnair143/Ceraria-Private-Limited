@@ -52,17 +52,8 @@
     #main-header.scrolled .nav-link:hover { color: #B07D4F; }
     #main-header.scrolled .nav-logo { color: #1A1714; border-color: #B07D4F; }
 
-    /* ── HERO SWIPER ── */
-    .hero-swiper { width: 100vw; height: 100vh; position: relative; }
-    .hero-swiper .swiper-slide { position: relative; overflow: hidden; }
-    .hero-swiper video { width: 100%; height: 100%; object-fit: cover; }
-    .hero-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.4); display: flex; flex-direction: column; justify-content: center; align-items: flex-start; padding: 10%; z-index: 10; }
-    /* Hero slide-in animations */
-    .hero-overlay h2, .hero-overlay p, .hero-overlay a { opacity: 0; transform: translateY(30px); }
-    .swiper-slide-active .hero-overlay h2 { animation: heroFadeUp 0.8s 0.2s ease forwards; }
-    .swiper-slide-active .hero-overlay p  { animation: heroFadeUp 0.8s 0.4s ease forwards; }
-    .swiper-slide-active .hero-overlay a  { animation: heroFadeUp 0.8s 0.6s ease forwards; }
-    @keyframes heroFadeUp { to { opacity: 1; transform: translateY(0); } }
+    /* ================= HERO VIDEO SCENE ================= */
+    .hero-video-scene { position: relative; height: 100vh; width: 100vw; }
     
     /* ── CUSTOM BUTTON ── */
     .btn-outline { 
@@ -118,10 +109,25 @@
     .tab-content.active { display: block; }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
     
+    .stack-swiper { padding-bottom: 50px; } /* Prevent pagination from overlapping buttons */
     .stack-swiper .swiper-slide { padding: 20px; }
     .stack-box img { width: 100%; height: 350px; object-fit: cover; border-radius: 12px; margin-bottom: 20px; }
     .stack-hdn { font-family: 'Playfair Display', serif; font-size: 1.5rem; margin-bottom: 10px; }
     .stack-para { color: rgba(255,255,255,0.7); font-size: 0.9rem; line-height: 1.6; margin-bottom: 20px; min-height: 70px; }
+    
+    /* Swiper Pagination Styling */
+    .swiper-pagination-bullet { background: rgba(255,255,255,0.5); }
+    .swiper-pagination-bullet-active { background: #B07D4F !important; }
+
+    /* ── GSAP INITIAL STATES ── */
+    .gsap-reveal { opacity: 0; transform: translateY(30px); will-change: transform, opacity; }
+    
+    /* ── LENIS SMOOTH SCROLL ── */
+    html.lenis, html.lenis body { height: auto; width: 100vw; }
+    .lenis.lenis-smooth { scroll-behavior: auto !important; }
+    .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+    .lenis.lenis-stopped { overflow: hidden; }
+    .lenis.lenis-smooth iframe { pointer-events: none; }
 
   </style>
 </head>
@@ -257,46 +263,25 @@
     });
   </script>
 
-  <!-- ================= HERO SLIDER ================= -->
-  <section class="hero-swiper">
-    <div class="swiper banner-swiper h-full w-full">
-      <div class="swiper-wrapper h-full">
-        <!-- Slide 1 -->
-        <div class="swiper-slide h-full">
-          <video autoplay loop muted playsinline>
-            <source src="https://creanza.in/wp-content/uploads/2025/03/banner1.mp4" type="video/mp4">
-          </video>
-          <div class="hero-overlay">
-            <h2 class="text-white font-serif text-5xl md:text-7xl font-bold mb-4">The Pinnacle<br>of Excellence</h2>
-            <p class="text-white/80 text-lg md:text-xl max-w-lg mb-8">Elevate your spaces with tiles that blend innovation, artistry, and timeless sophistication.</p>
-            <a href="/products.html" class="btn-outline">Explore Now</a>
-          </div>
-        </div>
-        <!-- Slide 2 -->
-        <div class="swiper-slide h-full">
-          <video autoplay loop muted playsinline>
-            <source src="https://creanza.in/wp-content/uploads/2025/03/banner2.mp4" type="video/mp4">
-          </video>
-          <div class="hero-overlay">
-            <h2 class="text-white font-serif text-5xl md:text-7xl font-bold mb-4">Unveiling the Art<br>of Surfaces</h2>
-            <p class="text-white/80 text-lg md:text-xl max-w-lg mb-8">Immerse yourself in a world of exquisite tiles, designed to redefine elegance and luxury.</p>
-            <a href="/products.html" class="btn-outline">Explore Now</a>
-          </div>
-        </div>
-        <!-- Slide 3 -->
-        <div class="swiper-slide h-full">
-          <video autoplay loop muted playsinline>
-            <source src="https://creanza.in/wp-content/uploads/2025/03/banner3.mp4" type="video/mp4">
-          </video>
-          <div class="hero-overlay">
-            <h2 class="text-white font-serif text-5xl md:text-7xl font-bold mb-4">A Symphony of<br>Texture & Design</h2>
-            <p class="text-white/80 text-lg md:text-xl max-w-lg mb-8">Discover an unparalleled fusion of intricate details and refined aesthetics.</p>
-            <a href="/products.html" class="btn-outline">Explore Now</a>
-          </div>
-        </div>
+  <!-- ================= HERO VIDEO SCENE ================= -->
+  <section class="hero-video-scene relative w-full h-[100dvh] bg-charcoal-900 overflow-hidden flex items-center justify-center">
+    
+    <!-- Video Background (Using object-cover for full-bleed immersive experience) -->
+    <video class="absolute inset-0 w-full h-full object-cover" autoplay loop muted playsinline>
+      <source src="/assets/videos/gemini_watermark_removed.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+
+    <!-- Overlay Gradient (Lightened so the video stays vibrant, but text remains readable) -->
+    <div class="absolute inset-0 bg-gradient-to-t from-charcoal-900/60 via-transparent to-charcoal-900/20"></div>
+
+    <!-- Hero Overlay Content -->
+    <div class="hero-content relative z-10 text-center px-4 max-w-4xl mx-auto flex flex-col items-center">
+      <h1 class="text-white font-serif text-5xl md:text-7xl lg:text-8xl font-bold mb-6 drop-shadow-[0_4px_10px_rgba(0,0,0,0.5)]" data-aos="fade-up" data-aos-duration="1200">The Foundation<br>of Luxury</h1>
+      <p class="text-white/90 text-lg md:text-2xl font-light mb-10 drop-shadow-[0_2px_5px_rgba(0,0,0,0.5)] max-w-2xl" data-aos="fade-up" data-aos-duration="1200" data-aos-delay="200">Transform your spaces with meticulously crafted ceramic tiles that bring enduring beauty and sophisticated design to every room.</p>
+      <div data-aos="fade-up" data-aos-duration="1200" data-aos-delay="400">
+        <a href="/products.html" class="btn-outline bg-black/30 backdrop-blur-sm border-white/50 hover:bg-white hover:text-black hover:border-white transition-all duration-300">Explore Collection</a>
       </div>
-      <!-- Pagination -->
-      <div class="swiper-pagination"></div>
     </div>
   </section>
 
@@ -305,19 +290,19 @@
     <div class="impact-left" data-aos="fade-right">
       <h3 class="font-serif text-4xl md:text-5xl font-bold text-charcoal-900 mb-6">Our Impact<br>at a Glance</h3>
       <div class="impact-grid">
-        <div class="impact-box">
+        <div class="impact-box gsap-reveal">
           <div class="impact-num"><span class="counter" data-target="75">0</span>+</div>
           <div class="impact-label">Countries Served</div>
         </div>
-        <div class="impact-box">
+        <div class="impact-box gsap-reveal">
           <div class="impact-num"><span class="counter" data-target="25">0</span>M</div>
           <div class="impact-label">Sqmtr Production / Year</div>
         </div>
-        <div class="impact-box">
+        <div class="impact-box gsap-reveal">
           <div class="impact-num"><span class="counter" data-target="20">0</span>+</div>
           <div class="impact-label">Years of Excellence</div>
         </div>
-        <div class="impact-box">
+        <div class="impact-box gsap-reveal">
           <div class="impact-num"><span class="counter" data-target="1000">0</span>+</div>
           <div class="impact-label">Channel Partners</div>
         </div>
@@ -326,9 +311,9 @@
     <div class="impact-right mt-10 md:mt-0" data-aos="fade-left">
       <div class="swiper glance-swiper h-full">
         <div class="swiper-wrapper">
-          <div class="swiper-slide"><img src="https://creanza.in/wp-content/uploads/2025/03/Property-1Default.png" alt="Impact 1" /></div>
-          <div class="swiper-slide"><img src="https://creanza.in/wp-content/uploads/2025/03/Property-1Variant2.png" alt="Impact 2" /></div>
-          <div class="swiper-slide"><img src="https://creanza.in/wp-content/uploads/2025/03/Property-1Variant3.png" alt="Impact 3" /></div>
+          <div class="swiper-slide"><img src="/assets/images/generated/commercial_space_tile.jpg" alt="Impact 1" /></div>
+          <div class="swiper-slide"><img src="/assets/images/generated/luxury_bathroom_tile.jpg" alt="Impact 2" /></div>
+          <div class="swiper-slide"><img src="/assets/images/generated/luxury_kitchen_tile.jpg" alt="Impact 3" /></div>
         </div>
       </div>
     </div>
@@ -341,14 +326,14 @@
       <p class="text-stone-500 max-w-2xl mx-auto">With a collection for every taste, our tiles seamlessly blend functionality and style, transforming your space into a work of art.</p>
     </div>
     <div class="transform-grid">
-      <div class="transform-img-box" data-aos="fade-up" data-aos-delay="100">
-        <img src="https://creanza.in/wp-content/uploads/2025/03/REGAL-KLINKER-GREY-scaled.jpg" alt="Regal" />
+      <div class="transform-img-box gsap-reveal" data-aos="fade-up" data-aos-delay="100">
+        <img src="/assets/images/generated/commercial_space_tile.jpg" alt="Regal" class="gsap-parallax" />
       </div>
-      <div class="transform-img-box" data-aos="fade-up" data-aos-delay="200">
-        <img src="https://creanza.in/wp-content/uploads/2025/03/REGAL-FERROL-WHITE-DECOR-scaled.jpg" alt="Regal Decor" />
+      <div class="transform-img-box gsap-reveal" data-aos="fade-up" data-aos-delay="200">
+        <img src="/assets/images/generated/luxury_bathroom_tile.jpg" alt="Regal Decor" class="gsap-parallax" />
       </div>
-      <div class="transform-img-box" data-aos="fade-up" data-aos-delay="300">
-        <img src="https://creanza.in/wp-content/uploads/2025/03/ROYAL-SVEZIA-GRIS-1-scaled.jpg" alt="Royal" />
+      <div class="transform-img-box gsap-reveal" data-aos="fade-up" data-aos-delay="300">
+        <img src="/assets/images/generated/luxury_kitchen_tile.jpg" alt="Royal" class="gsap-parallax" />
       </div>
     </div>
     <div class="text-center mt-12" data-aos="fade-up">
@@ -372,32 +357,32 @@
         <div class="swiper stack-swiper">
           <div class="swiper-wrapper">
             <div class="swiper-slide">
-              <div class="stack-box">
-                <img src="https://creanza.in/wp-content/uploads/2025/04/GRANDE-LISTELLO-WHITE_GHR-scaled.jpg" alt="Infinia+" />
+              <div class="stack-box gsap-reveal">
+                <img src="/assets/images/generated/commercial_space_tile.jpg" alt="Infinia+" />
                 <h4 class="stack-hdn">INFINIA+</h4>
                 <p class="stack-para">Exquisite large-format tiles combining grandeur with unmatched precision. Perfect for expansive spaces.</p>
                 <a href="/products.html" class="btn-outline">View Collection</a>
               </div>
             </div>
             <div class="swiper-slide">
-              <div class="stack-box">
-                <img src="https://creanza.in/wp-content/uploads/2025/03/ROYAL-VOLTERRA-TAN_GHR-1-scaled.jpg" alt="Solido" />
+              <div class="stack-box gsap-reveal">
+                <img src="/assets/images/generated/commercial_space_tile.jpg" alt="Solido" />
                 <h4 class="stack-hdn">SOLIDO</h4>
                 <p class="stack-para">Premium matt granulla structured surface that mimics the feel of real stone.</p>
                 <a href="/products.html" class="btn-outline">View Collection</a>
               </div>
             </div>
             <div class="swiper-slide">
-              <div class="stack-box">
-                <img src="https://creanza.in/wp-content/uploads/2025/04/ROYAL-TRASIA-SAND_EVAN_PARKING-scaled.jpg" alt="Panache" />
+              <div class="stack-box gsap-reveal">
+                <img src="/assets/images/generated/outdoor_terrazzo_tile.jpg" alt="Panache" />
                 <h4 class="stack-hdn">PANACHE</h4>
                 <p class="stack-para">A minimal anti-reflective surface with a natural feel and flat surface.</p>
                 <a href="/products.html" class="btn-outline">View Collection</a>
               </div>
             </div>
             <div class="swiper-slide">
-              <div class="stack-box">
-                <img src="https://creanza.in/wp-content/uploads/2025/04/ROYAL-NATURAL-TERAZZO-SILVER-GREY-scaled.jpg" alt="Evoq" />
+              <div class="stack-box gsap-reveal">
+                <img src="/assets/images/generated/outdoor_terrazzo_tile.jpg" alt="Evoq" />
                 <h4 class="stack-hdn">EVOQ</h4>
                 <p class="stack-para">Consistent color and pattern throughout the thickness. Ensures uniform appearance even on exposed edges.</p>
                 <a href="/products.html" class="btn-outline">View Collection</a>
@@ -414,7 +399,7 @@
           <div class="swiper-wrapper">
             <div class="swiper-slide">
               <div class="stack-box">
-                <img src="https://creanza.in/wp-content/uploads/2025/04/ROYAL-DOLOMITE-GREY-scaled.jpg" alt="Glossy" />
+                <img src="/assets/images/generated/luxury_kitchen_tile.jpg" alt="Glossy" />
                 <h4 class="stack-hdn">GLOSSY</h4>
                 <p class="stack-para">Crafted to perfection to provide the ultimate comfort and luxurious experience in culinary spaces.</p>
                 <a href="/products.html" class="btn-outline">View Collection</a>
@@ -422,7 +407,7 @@
             </div>
             <div class="swiper-slide">
               <div class="stack-box">
-                <img src="https://creanza.in/wp-content/uploads/2025/03/REGAL-KLINKER-GREY-scaled.jpg" alt="Regal" />
+                <img src="/assets/images/generated/commercial_space_tile.jpg" alt="Regal" />
                 <h4 class="stack-hdn">REGAL</h4>
                 <p class="stack-para">Timeless and elegant, offering heat and stain resistance for the most demanding kitchen environments.</p>
                 <a href="/products.html" class="btn-outline">View Collection</a>
@@ -430,7 +415,7 @@
             </div>
             <div class="swiper-slide">
               <div class="stack-box">
-                <img src="https://creanza.in/wp-content/uploads/2025/03/ROYAL-SVEZIA-GRIS-1-scaled.jpg" alt="Svezia" />
+                <img src="/assets/images/generated/luxury_kitchen_tile.jpg" alt="Svezia" />
                 <h4 class="stack-hdn">SVEZIA</h4>
                 <p class="stack-para">A stunningly smooth surface designed to be easy to clean while maintaining a premium look.</p>
                 <a href="/products.html" class="btn-outline">View Collection</a>
@@ -447,7 +432,7 @@
           <div class="swiper-wrapper">
             <div class="swiper-slide">
               <div class="stack-box">
-                <img src="https://creanza.in/wp-content/uploads/2025/04/ROYAL-ESTONIA-BIANCO-scaled.jpg" alt="Evoq" />
+                <img src="/assets/images/generated/luxury_bathroom_tile.jpg" alt="Evoq" />
                 <h4 class="stack-hdn">EVOQ BIANCO</h4>
                 <p class="stack-para">Water resistant finish specifically tuned for modern bathrooms and wet areas.</p>
                 <a href="/products.html" class="btn-outline">View Collection</a>
@@ -455,7 +440,7 @@
             </div>
             <div class="swiper-slide">
               <div class="stack-box">
-                <img src="https://creanza.in/wp-content/uploads/2025/03/REGAL-FERROL-WHITE-DECOR-scaled.jpg" alt="Ferrol Decor" />
+                <img src="/assets/images/generated/luxury_bathroom_tile.jpg" alt="Ferrol Decor" />
                 <h4 class="stack-hdn">FERROL DECOR</h4>
                 <p class="stack-para">Intricate decorative elements that bring a spa-like tranquility to your private sanctuary.</p>
                 <a href="/products.html" class="btn-outline">View Collection</a>
@@ -472,7 +457,7 @@
           <div class="swiper-wrapper">
             <div class="swiper-slide">
               <div class="stack-box">
-                <img src="https://creanza.in/wp-content/uploads/2025/03/ROYAL-VOLTERRA-TAN_GHR-1-scaled.jpg" alt="Volterra Tan" />
+                <img src="/assets/images/generated/commercial_space_tile.jpg" alt="Volterra Tan" />
                 <h4 class="stack-hdn">VOLTERRA</h4>
                 <p class="stack-para">Warm, earthy tones with a subtle texture that creates a cozy and inviting bedroom atmosphere.</p>
                 <a href="/products.html" class="btn-outline">View Collection</a>
@@ -480,7 +465,7 @@
             </div>
             <div class="swiper-slide">
               <div class="stack-box">
-                <img src="https://creanza.in/wp-content/uploads/2025/04/ROYAL-TRASIA-SAND_EVAN_PARKING-scaled.jpg" alt="Trasia Sand" />
+                <img src="/assets/images/generated/outdoor_terrazzo_tile.jpg" alt="Trasia Sand" />
                 <h4 class="stack-hdn">TRASİA SAND</h4>
                 <p class="stack-para">A gentle, minimalist design ensuring a peaceful and serene environment for rest.</p>
                 <a href="/products.html" class="btn-outline">View Collection</a>
@@ -497,7 +482,7 @@
           <div class="swiper-wrapper">
             <div class="swiper-slide">
               <div class="stack-box">
-                <img src="https://creanza.in/wp-content/uploads/2025/04/ROYAL-TRASIA-SAND_EVAN_PARKING-scaled.jpg" alt="Parking" />
+                <img src="/assets/images/generated/outdoor_terrazzo_tile.jpg" alt="Parking" />
                 <h4 class="stack-hdn">EXTERIOR PRO</h4>
                 <p class="stack-para">Heavy-duty, slip-resistant tiles engineered to withstand the elements without losing their charm.</p>
                 <a href="/products.html" class="btn-outline">View Collection</a>
@@ -505,7 +490,7 @@
             </div>
             <div class="swiper-slide">
               <div class="stack-box">
-                <img src="https://creanza.in/wp-content/uploads/2025/04/ROYAL-NATURAL-TERAZZO-SILVER-GREY-scaled.jpg" alt="Terazzo" />
+                <img src="/assets/images/generated/outdoor_terrazzo_tile.jpg" alt="Terazzo" />
                 <h4 class="stack-hdn">TERRAZZO OUTDOOR</h4>
                 <p class="stack-para">Durable and visually striking, perfect for patios, driveways, and garden walkways.</p>
                 <a href="/products.html" class="btn-outline">View Collection</a>
@@ -567,6 +552,11 @@
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+
+  <script src="/assets/js/animations.js"></script>
 
   <script>
     // 1. Header scroll effect
@@ -614,30 +604,7 @@
       }
     });
 
-    // 7. Counters Animation
-    const counters = document.querySelectorAll('.counter');
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const counter = entry.target;
-          const target = +counter.getAttribute('data-target');
-          let count = 0;
-          const updateCount = () => {
-            const increment = target / 40;
-            if (count < target) {
-              count += increment;
-              counter.innerText = Math.ceil(count);
-              setTimeout(updateCount, 40);
-            } else {
-              counter.innerText = target;
-            }
-          };
-          updateCount();
-          observer.unobserve(counter);
-        }
-      });
-    }, { threshold: 0.5 });
-    counters.forEach(counter => observer.observe(counter));
+    // 7. Counters Animation is now handled by GSAP in animations.js
 
     // 8. Tabs Logic
     document.querySelectorAll('.stack-tabs li').forEach(tab => {

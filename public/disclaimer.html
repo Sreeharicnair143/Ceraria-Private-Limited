@@ -34,6 +34,9 @@
     body { font-family: 'Inter', sans-serif; background: #FFFDF8; overflow-x: hidden; }
     h1, h2, h3, h4, .font-serif { font-family: 'Playfair Display', serif; }
   </style>
+
+  <!-- AOS CSS -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
 <body class="bg-cream-50 text-charcoal-900 antialiased pt-20 flex flex-col min-h-screen">
 
@@ -106,51 +109,13 @@
     </section>
 
     <section class="pb-24 px-6">
-      <div class="max-w-[900px] mx-auto bg-white rounded-2xl shadow-sm border border-sand-100 p-8 md:p-12 space-y-10">
-
-        <div>
-          <h2 class="font-serif text-2xl font-bold text-charcoal-900 mb-4">1. Color & Texture Variation</h2>
-          <div class="bg-amber-50 border border-amber-200 rounded-xl p-5 mb-4">
-            <p class="text-amber-800 text-sm"><i class="fa-solid fa-info-circle mr-2"></i><strong>Important:</strong> The colors, textures, patterns, and finishes of tiles displayed on this website are for representational purposes only.</p>
-          </div>
-          <p class="text-stone-600 leading-relaxed">Due to variations in monitor calibration, screen resolution, brightness settings, and ambient lighting, the actual appearance of tiles may differ from what is displayed on your screen. We strongly recommend viewing physical tile samples at our showroom or through our authorized channel partners before placing an order. Natural stone and ceramic products may also exhibit inherent variations in shade, veining, and texture — this is a characteristic of the material and not a defect.</p>
+      <div id="page-content" class="max-w-[900px] mx-auto bg-white rounded-2xl shadow-sm border border-sand-100 p-8 md:p-12 space-y-10">
+        <div class="flex justify-center py-20">
+          <svg class="animate-spin h-10 w-10 text-bronze-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>
         </div>
-
-        <div>
-          <h2 class="font-serif text-2xl font-bold text-charcoal-900 mb-4">2. Pricing & Availability</h2>
-          <p class="text-stone-600 leading-relaxed">All prices displayed on the Site are indicative and subject to change without prior notice. Final pricing will be confirmed at the time of quotation or order confirmation. Product availability is subject to stock levels and may vary by region. CERARIA reserves the right to discontinue any product without advance notice.</p>
-        </div>
-
-        <div>
-          <h2 class="font-serif text-2xl font-bold text-charcoal-900 mb-4">3. Product Specifications</h2>
-          <p class="text-stone-600 leading-relaxed">While we strive to provide accurate and up-to-date product specifications (including dimensions, thickness, weight, and technical properties), these are approximate and may vary slightly due to manufacturing tolerances. Always refer to the official product data sheet for precise specifications, which can be requested by contacting our sales team.</p>
-        </div>
-
-        <div>
-          <h2 class="font-serif text-2xl font-bold text-charcoal-900 mb-4">4. Installation & Usage</h2>
-          <p class="text-stone-600 leading-relaxed">CERARIA is not responsible for issues arising from improper installation, handling, or use of tiles. Tiles must be installed by qualified professionals following industry-standard practices and the manufacturer's installation guidelines. Improper installation, use of unsuitable adhesives, or exposure to conditions outside the recommended parameters may result in damage not covered by any warranty.</p>
-        </div>
-
-        <div>
-          <h2 class="font-serif text-2xl font-bold text-charcoal-900 mb-4">5. Website Content</h2>
-          <p class="text-stone-600 leading-relaxed">The information on this Site is provided in good faith and for general informational purposes only. CERARIA makes no representation or warranty of any kind, express or implied, regarding the accuracy, adequacy, validity, reliability, or completeness of any information on the Site. Under no circumstances shall we have any liability for any loss or damage incurred as a result of relying on information provided on the Site.</p>
-        </div>
-
-        <div>
-          <h2 class="font-serif text-2xl font-bold text-charcoal-900 mb-4">6. Room Scene Images</h2>
-          <p class="text-stone-600 leading-relaxed">Room scene images, lifestyle photographs, and application visualizations shown on the Site are for inspirational purposes only. They may include digitally rendered environments, staged settings, or composite images. The actual installation result will depend on your specific space, lighting conditions, grout color, tile layout, and other factors.</p>
-        </div>
-
-        <div>
-          <h2 class="font-serif text-2xl font-bold text-charcoal-900 mb-4">7. Contact</h2>
-          <p class="text-stone-600 leading-relaxed">If you have questions about this Disclaimer, please reach out to us:</p>
-          <div class="mt-4 bg-sand-100 rounded-xl p-6 space-y-2">
-            <p class="text-charcoal-900 font-semibold">CERARIA Private Limited</p>
-            <p class="text-stone-600"><i class="fa-solid fa-envelope text-bronze-500 mr-2"></i>info@ceraria.in</p>
-            <p class="text-stone-600"><i class="fa-solid fa-location-dot text-bronze-500 mr-2"></i>Kochi, Kerala, India</p>
-          </div>
-        </div>
-
       </div>
     </section>
   </main>
@@ -167,5 +132,50 @@
     </div>
   </footer>
 
+
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      try {
+        const res = await fetch('/api/pages/disclaimer');
+        const json = await res.json();
+        const container = document.getElementById('page-content');
+        if (json.success && json.data.content) {
+          container.innerHTML = json.data.content;
+          
+          // Style the injected HTML slightly for better reading (if quill didn't apply classes)
+          container.querySelectorAll('h2').forEach(el => el.classList.add('font-serif', 'text-2xl', 'font-bold', 'text-charcoal-900', 'mb-4', 'mt-8'));
+          container.querySelectorAll('p').forEach(el => el.classList.add('text-stone-600', 'leading-relaxed', 'mb-4'));
+          container.querySelectorAll('ul').forEach(el => el.classList.add('list-disc', 'list-inside', 'text-stone-600', 'space-y-2', 'ml-4', 'mb-4'));
+          container.querySelectorAll('li').forEach(el => el.classList.add('pl-2'));
+        } else {
+          container.innerHTML = '<p class="text-center text-red-500 py-10">Failed to load content.</p>';
+        }
+      } catch (err) {
+        document.getElementById('page-content').innerHTML = '<p class="text-center text-red-500 py-10">Network error.</p>';
+      }
+    });
+  </script>
+
+  <!-- AOS JS -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      // Automatically add data-aos to major elements that don't already have it
+      const elementsToAnimate = document.querySelectorAll('section, main > div, .card, .grid > div, .flex > div, h1, h2, h3');
+      
+      elementsToAnimate.forEach(function(el) {
+        // Skip elements that already have data-aos, or are inside nav/footer
+        if (!el.hasAttribute('data-aos') && !el.closest('nav') && !el.closest('footer') && !el.closest('.swiper')) {
+          el.setAttribute('data-aos', 'fade-up');
+          el.setAttribute('data-aos-duration', '1000');
+          el.setAttribute('data-aos-once', 'true');
+        }
+      });
+      
+      if (typeof AOS !== 'undefined') {
+        AOS.init({ once: true, offset: 50 });
+      }
+    });
+  </script>
 </body>
 </html>

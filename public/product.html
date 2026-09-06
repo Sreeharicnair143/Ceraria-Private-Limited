@@ -129,6 +129,9 @@
     /* Breadcrumb separator */
     .bc-sep { color: #C4B8A3; }
   </style>
+
+  <!-- AOS CSS -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
 
 <body class="bg-cream-50 text-charcoal-900 antialiased">
@@ -152,7 +155,7 @@
                alt="CERARIA logo"
                class="h-8 sm:h-10 md:h-12 w-auto object-contain group-hover:scale-105 transition-transform duration-500" />
           <img src="/assets/images/ceraria-text.png" alt="CERARIA" class="h-5 sm:h-6 md:h-8 w-auto object-contain group-hover:opacity-80 transition-opacity duration-500" />
-          <span class="inline-block text-[8px] sm:text-[10px] font-sans font-medium tracking-[0.15em] sm:tracking-[0.25em] uppercase text-stone-400 border-l border-stone-300 pl-2 sm:pl-3 leading-relaxed">
+          <span class="inline-block text-[9px] sm:text-[11px] font-sans font-semibold tracking-[0.15em] sm:tracking-[0.25em] uppercase text-stone-600 border-l border-stone-400 pl-2 sm:pl-3 leading-relaxed">
             THE ART OF<br/>CERAMIC LUXURY
           </span>
         </a>
@@ -289,7 +292,7 @@
   <!-- ================================================================
        LOADING SKELETON
   ================================================================ -->
-  <div id="page-loader" class="pt-[70px]">
+  <div id="page-loader" class="pt-[120px]">
     <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <div class="flex items-center gap-2 mb-8">
         <div class="skeleton h-4 w-12 rounded"></div>
@@ -316,7 +319,7 @@
   <!-- ================================================================
        MAIN PRODUCT CONTENT
   ================================================================ -->
-  <main id="product-content" class="hidden pt-[70px]">
+  <main id="product-content" class="hidden pt-[120px]">
 
     <!-- Breadcrumb -->
     <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 pt-5 pb-1">
@@ -870,5 +873,27 @@
     document.getElementById('inquiry-modal').addEventListener('click', (e) => { if (e.target === document.getElementById('inquiry-modal')) closeInquiryModal(); });
   </script>
 
+
+  <!-- AOS JS -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      // Automatically add data-aos to major elements that don't already have it
+      const elementsToAnimate = document.querySelectorAll('section, main > div, .card, .grid > div, .flex > div, h1, h2, h3');
+      
+      elementsToAnimate.forEach(function(el) {
+        // Skip elements that already have data-aos, or are inside nav/footer
+        if (!el.hasAttribute('data-aos') && !el.closest('nav') && !el.closest('footer') && !el.closest('.swiper')) {
+          el.setAttribute('data-aos', 'fade-up');
+          el.setAttribute('data-aos-duration', '1000');
+          el.setAttribute('data-aos-once', 'true');
+        }
+      });
+      
+      if (typeof AOS !== 'undefined') {
+        AOS.init({ once: true, offset: 50 });
+      }
+    });
+  </script>
 </body>
 </html>

@@ -21,6 +21,9 @@
        TAILWIND CSS via CDN
   ======================================== -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Quill Editor -->
+  <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+  <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
   <!-- Catalogue Modal -->
   <!-- Gallery Modal -->
   <div id="gallery-modal" class="hidden fixed inset-0 z-[100] flex justify-center items-center">
@@ -212,6 +215,9 @@
       }
     })();
   </script>
+
+  <!-- AOS CSS -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
 
 <body class="bg-sand-100 antialiased min-h-screen flex">
@@ -236,9 +242,13 @@
 
     <!-- Nav Links -->
     <nav class="flex-1 p-4 space-y-1">
-      <a href="#" class="flex items-center gap-3 px-4 py-3 text-sm font-medium text-cream-50 bg-bronze-500/20 rounded-xl">
+      <a href="#" id="nav-products" onclick="switchAdminTab('products')" class="flex items-center gap-3 px-4 py-3 text-sm font-medium text-cream-50 bg-bronze-500/20 rounded-xl">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/></svg>
         Products
+      </a>
+      <a href="#" id="nav-content" onclick="switchAdminTab('content')" class="flex items-center gap-3 px-4 py-3 text-sm font-medium text-sand-300 hover:text-cream-50 hover:bg-charcoal-800 rounded-xl transition-colors">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5L18.5 6M4 9h16"/></svg>
+        Site Content
       </a>
       <a href="/" class="flex items-center gap-3 px-4 py-3 text-sm font-medium text-sand-300 hover:text-cream-50 hover:bg-charcoal-800 rounded-xl transition-colors">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
@@ -269,8 +279,8 @@
         <div class="lg:hidden flex items-center gap-3">
           <img src="/assets/images/logo-icon.jpg" alt="CERARIA" class="h-9 w-auto rounded-lg" />
         </div>
-        <h1 class="hidden lg:block font-serif text-2xl font-bold text-charcoal-900">Product Dashboard</h1>
-        <button onclick="openModal()" class="flex items-center gap-2 px-5 py-2.5 bg-bronze-500 text-cream-50 text-sm font-semibold rounded-xl hover:bg-bronze-600 transition-colors shadow-md hover:shadow-lg">
+        <h1 id="topbar-title" class="hidden lg:block font-serif text-2xl font-bold text-charcoal-900">Product Dashboard</h1>
+        <button id="add-product-btn" onclick="openModal()" class="flex items-center gap-2 px-5 py-2.5 bg-bronze-500 text-cream-50 text-sm font-semibold rounded-xl hover:bg-bronze-600 transition-colors shadow-md hover:shadow-lg">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
           Add Product
         </button>
@@ -279,7 +289,7 @@
 
 
     <!-- ── Dashboard Content ── -->
-    <div class="p-4 sm:p-6 space-y-4">
+    <div id="view-products" class="p-4 sm:p-6 space-y-4">
 
 
       <!-- ═══ Gallery Management ═══ -->
@@ -391,6 +401,46 @@
       </div>
 
     </div>
+    
+    <!-- ── Site Content View ── -->
+    <div id="view-content" class="hidden p-4 sm:p-6 space-y-4">
+      <div class="bg-white rounded-2xl shadow-sm border border-sand-200 overflow-hidden mb-6 flex flex-col">
+        <div class="p-6 border-b border-sand-100 flex justify-between items-center bg-cream-50/30">
+          <div>
+            <h2 class="font-serif text-lg font-bold text-charcoal-900">Edit Site Pages</h2>
+            <p class="text-xs text-stone-500 mt-1">Select a page to edit its content. Changes reflect immediately on the live site.</p>
+          </div>
+        </div>
+        
+        <div class="p-6 space-y-6">
+          <div>
+            <label for="page-selector" class="block text-sm font-semibold text-charcoal-900 mb-2">Select Page</label>
+            <select id="page-selector" class="admin-input w-full max-w-md px-4 py-3 border border-sand-200 rounded-xl text-sm text-charcoal-800 bg-cream-50/50 appearance-none cursor-pointer transition-all" onchange="loadPageContent(this.value)">
+              <option value="" disabled selected>Select a page...</option>
+              <option value="privacy-policy">Privacy Policy</option>
+              <option value="terms-of-service">Terms of Service</option>
+              <option value="disclaimer">Disclaimer</option>
+            </select>
+          </div>
+          
+          <div id="editor-container" class="hidden space-y-4">
+            <div>
+              <label class="block text-sm font-semibold text-charcoal-900 mb-2">Page Content</label>
+              <div class="border border-sand-200 rounded-xl overflow-hidden bg-white">
+                <div id="quill-editor" class="h-[500px] text-charcoal-800 font-sans"></div>
+              </div>
+            </div>
+            
+            <div class="flex justify-end pt-4">
+              <button id="save-page-btn" onclick="savePageContent()" class="px-8 py-3 text-sm font-semibold text-cream-50 bg-bronze-500 rounded-xl hover:bg-bronze-600 transition-colors shadow-md flex items-center gap-2">
+                <i class="fa-solid fa-floppy-disk"></i> Save Content
+              </button>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
   </main>
 
 
@@ -466,7 +516,15 @@
               <option value="" disabled selected>Select series</option>
               <option value="Metallic">Metallic</option>
               <option value="DG Matt">DG Matt</option>
+              <option value="DG Matt Decor">DG Matt Decor</option>
               <option value="Ghr Decor">Ghr Decor</option>
+              <option value="Ghr">Ghr</option>
+              <option value="Ghr Max Surface">Ghr Max Surface</option>
+              <option value="Ghr Max Decor">Ghr Max Decor</option>
+              <option value="Lush">Lush</option>
+              <option value="Matt Granula">Matt Granula</option>
+              <option value="Glossy Granula">Glossy Granula</option>
+              <option value="Chromica & Subway Decors">Chromica & Subway Decors</option>
               <option value="Moroccan">Moroccan</option>
               <option value="Strip Punch + Carving">Strip Punch + Carving</option>
             </select>
@@ -1321,10 +1379,135 @@ document.addEventListener('DOMContentLoaded', () => {
   fetchGalleryImages();
 });
 
+// ════════════════════════════════════════════════════════════
+//  SITE CONTENT MANAGEMENT
+// ════════════════════════════════════════════════════════════
+
+let quillEditor = null;
+let currentEditingSlug = null;
+
+function switchAdminTab(tabName) {
+  // Update views
+  document.getElementById('view-products').classList.add('hidden');
+  document.getElementById('view-content').classList.add('hidden');
+  
+  if (tabName === 'products') {
+    document.getElementById('view-products').classList.remove('hidden');
+    document.getElementById('topbar-title').textContent = 'Product Dashboard';
+    document.getElementById('add-product-btn').classList.remove('hidden');
+    
+    document.getElementById('nav-products').classList.replace('text-sand-300', 'text-cream-50');
+    document.getElementById('nav-products').classList.replace('hover:text-cream-50', 'bg-bronze-500/20');
+    document.getElementById('nav-products').classList.remove('hover:bg-charcoal-800');
+    
+    document.getElementById('nav-content').classList.replace('text-cream-50', 'text-sand-300');
+    document.getElementById('nav-content').classList.replace('bg-bronze-500/20', 'hover:text-cream-50');
+    document.getElementById('nav-content').classList.add('hover:bg-charcoal-800');
+  } else if (tabName === 'content') {
+    document.getElementById('view-content').classList.remove('hidden');
+    document.getElementById('topbar-title').textContent = 'Site Content';
+    document.getElementById('add-product-btn').classList.add('hidden');
+    
+    document.getElementById('nav-content').classList.replace('text-sand-300', 'text-cream-50');
+    document.getElementById('nav-content').classList.replace('hover:text-cream-50', 'bg-bronze-500/20');
+    document.getElementById('nav-content').classList.remove('hover:bg-charcoal-800');
+    
+    document.getElementById('nav-products').classList.replace('text-cream-50', 'text-sand-300');
+    document.getElementById('nav-products').classList.replace('bg-bronze-500/20', 'hover:text-cream-50');
+    document.getElementById('nav-products').classList.add('hover:bg-charcoal-800');
+
+    // Initialize Quill if not done yet
+    if (!quillEditor) {
+      quillEditor = new Quill('#quill-editor', {
+        theme: 'snow',
+        modules: {
+          toolbar: [
+            [{ 'header': [2, 3, 4, false] }],
+            ['bold', 'italic', 'underline', 'strike'],
+            [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+            ['link', 'clean']
+          ]
+        }
+      });
+    }
+  }
+}
+
+async function loadPageContent(slug) {
+  if (!slug) return;
+  currentEditingSlug = slug;
+  const container = document.getElementById('editor-container');
+  container.classList.add('hidden');
+  
+  try {
+    const res = await fetch(`/api/pages/${slug}`);
+    const json = await res.json();
+    if (json.success) {
+      quillEditor.root.innerHTML = json.data.content;
+      container.classList.remove('hidden');
+    } else {
+      showToast(json.error || 'Failed to load page content', 'error');
+    }
+  } catch (err) {
+    showToast('Network error while loading content', 'error');
+  }
+}
+
+async function savePageContent() {
+  if (!currentEditingSlug || !quillEditor) return;
+  
+  const btn = document.getElementById('save-page-btn');
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Saving...';
+  
+  const content = quillEditor.root.innerHTML;
+  
+  try {
+    const res = await fetch(`/api/pages/${currentEditingSlug}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ content })
+    });
+    
+    const json = await res.json();
+    if (json.success) {
+      showToast('Page content updated successfully', 'success');
+    } else {
+      showToast(json.error || 'Failed to update content', 'error');
+    }
+  } catch (err) {
+    showToast('Network error while saving', 'error');
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fa-solid fa-floppy-disk"></i> Save Content';
+  }
+}
 </script>
 
 
 
       
+
+  <!-- AOS JS -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      // Automatically add data-aos to major elements that don't already have it
+      const elementsToAnimate = document.querySelectorAll('section, main > div, .card, .grid > div, .flex > div, h1, h2, h3');
+      
+      elementsToAnimate.forEach(function(el) {
+        // Skip elements that already have data-aos, or are inside nav/footer
+        if (!el.hasAttribute('data-aos') && !el.closest('nav') && !el.closest('footer') && !el.closest('.swiper')) {
+          el.setAttribute('data-aos', 'fade-up');
+          el.setAttribute('data-aos-duration', '1000');
+          el.setAttribute('data-aos-once', 'true');
+        }
+      });
+      
+      if (typeof AOS !== 'undefined') {
+        AOS.init({ once: true, offset: 50 });
+      }
+    });
+  </script>
 </body>
 </html>

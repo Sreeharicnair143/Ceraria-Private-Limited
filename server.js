@@ -285,6 +285,8 @@ app.post('/api/admin/login', async (req, res) => {
   }
 });
 
+const crypto = require('crypto');
+
 // ── GET /api/admin/check ───────────────────────────────────
 app.get('/api/admin/check', (req, res) => {
   if (req.session && req.session.adminId) {
@@ -299,6 +301,162 @@ app.get('/api/admin/check', (req, res) => {
   }
   res.status(401).json({ success: false, error: 'Not authenticated' });
 });
+
+// ── POST /api/admin/register ───────────────────────────────
+// Only allows registration if it's the first non-demo admin, or we can just allow it 
+// and the client can delete the demo admin later. 
+// For security, if there's already > 1 admin, block registration (so only client can register once).
+app.post('/api/admin/register', async (req, res) => {
+  try {
+    const { name, email, password } = req.body;
+    if (!name || !email || !password) {
+      return res.status(400).json({ success: false, error: 'All fields are required' });
+    }
+
+    // Check how many admins exist
+    const countRes = await pool.query('SELECT COUNT(*) FROM admins');
+    const adminCount = parseInt(countRes.rows[0].count, 10);
+    
+    // We allow 1 demo admin (already seeded). If count > 1, registration is locked.
+    if (adminCount > 1) {
+      return res.status(403).json({ success: false, error: 'Registration is locked. Please contact support.' });
+    }
+
+    // Check if email exists
+    const existing = await pool.query('SELECT * FROM admins WHERE email = $1', [email.toLowerCase().trim()]);
+    if (existing.rows.length > 0) {
+      return res.status(400).json({ success: false, error: 'Email already exists' });
+    }
+
+    const salt = await bcrypt.genSalt(10);
+    const hash = await bcrypt.hash(password, salt);
+
+    const result = await pool.query(
+      'INSERT INTO admins (name, email, password_hash) VALUES ($1, $2, $3) RETURNING id, name, email',
+      [name.trim(), email.toLowerCase().trim(), hash]
+    );
+
+    // Optional: Log them in immediately
+    req.session.adminId = result.rows[0].id;
+    req.session.adminEmail = result.rows[0].email;
+    req.session.adminName = result.rows[0].name;
+
+    res.status(201).json({ success: true, message: 'Registration successful', admin: result.rows[0] });
+  } catch (err) {
+    console.error('Registration error:', err);
+    res.status(500).json({ success: false, error: 'Registration failed' });
+  }
+});
+
+// ── POST /api/admin/forgot-password ────────────────────────
+app.post('/api/admin/forgot-password', async (req, res) => {
+  try {
+    const { email } = req.body;
+    if (!email) return res.status(400).json({ success: false, error: 'Email is required' });
+
+    const result = await pool.query('SELECT * FROM admins WHERE email = $1', [email.toLowerCase().trim()]);
+    if (result.rows.length === 0) {
+      // Don't leak that email doesn't exist
+      return res.json({ success: true, message: 'If the email exists, a reset link has been generated.' });
+    }
+    const admin = result.rows[0];
+
+    // Generate token
+    const token = crypto.randomBytes(32).toString('hex');
+    const expiresAt = new Date(Date.now() + 3600000); // 1 hour
+
+    await pool.query(
+      'INSERT INTO password_resets (admin_id, token, expires_at) VALUES ($1, $2, $3)',
+      [admin.id, token, expiresAt]
+    );
+
+    const resetLink = `http://localhost:${PORT}/admin-login.html?token=${token}`; // For local dev. On production, use req.headers.host
+    console.log('\n==================================================');
+    console.log('🔐 PASSWORD RESET LINK GENERATED');
+    console.log(`   User: ${admin.email}`);
+    console.log(`   Link: ${resetLink}`);
+    console.log('   (In production, this would be sent via email)');
+    console.log('==================================================\n');
+
+    res.json({ success: true, message: 'If the email exists, a reset link has been generated (check console).' });
+  } catch (err) {
+    console.error('Forgot password error:', err);
+    res.status(500).json({ success: false, error: 'Failed to process request' });
+  }
+});
+
+// ── POST /api/admin/reset-password ─────────────────────────
+app.post('/api/admin/reset-password', async (req, res) => {
+  try {
+    const { token, newPassword } = req.body;
+    if (!token || !newPassword) return res.status(400).json({ success: false, error: 'Token and new password are required' });
+
+    // Validate token
+    const result = await pool.query(
+      'SELECT * FROM password_resets WHERE token = $1 AND expires_at > NOW()',
+      [token]
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(400).json({ success: false, error: 'Invalid or expired token' });
+    }
+
+    const resetRecord = result.rows[0];
+    const salt = await bcrypt.genSalt(10);
+    const hash = await bcrypt.hash(newPassword, salt);
+
+    // Update password
+    await pool.query('UPDATE admins SET password_hash = $1 WHERE id = $2', [hash, resetRecord.admin_id]);
+    
+    // Delete token
+    await pool.query('DELETE FROM password_resets WHERE id = $1', [resetRecord.id]);
+
+    res.json({ success: true, message: 'Password has been reset successfully' });
+  } catch (err) {
+    console.error('Reset password error:', err);
+    res.status(500).json({ success: false, error: 'Failed to reset password' });
+  }
+});
+
+
+// ════════════════════════════════════════════════════════════
+//  SITE PAGES CMS API
+// ════════════════════════════════════════════════════════════
+
+// ── GET /api/pages/:slug ───────────────────────────────────
+app.get('/api/pages/:slug', async (req, res) => {
+  try {
+    const { slug } = req.params;
+    const result = await pool.query('SELECT * FROM site_pages WHERE slug = $1', [slug]);
+    if (result.rows.length === 0) {
+      return res.status(404).json({ success: false, error: 'Page not found' });
+    }
+    res.json({ success: true, data: result.rows[0] });
+  } catch (err) {
+    console.error('GET /api/pages error:', err);
+    res.status(500).json({ success: false, error: 'Failed to fetch page content' });
+  }
+});
+
+// ── PUT /api/pages/:slug ───────────────────────────────────
+app.put('/api/pages/:slug', requireAdmin, async (req, res) => {
+  try {
+    const { slug } = req.params;
+    const { content } = req.body;
+    
+    const result = await pool.query(
+      `INSERT INTO site_pages (slug, content) VALUES ($1, $2)
+       ON CONFLICT (slug) DO UPDATE SET content = EXCLUDED.content, updated_at = NOW() RETURNING *`,
+      [slug, content]
+    );
+    
+    res.json({ success: true, data: result.rows[0] });
+  } catch (err) {
+    console.error('PUT /api/pages error:', err);
+    res.status(500).json({ success: false, error: 'Failed to update page content' });
+  }
+});
+
 
 
 // ── GALLERY API ──────────────────────────────────────────────
@@ -316,7 +474,7 @@ const uploadGallery = multer({ storage: galleryStorage, limits: { fileSize: 10 *
 
 app.get('/api/gallery', async (req, res) => {
   try {
-    const { rows } = await pool.query('SELECT * FROM gallery_images ORDER BY created_at ASC');
+    const { rows } = await pool.query('SELECT * FROM gallery_images ORDER BY created_at DESC');
     res.json({ success: true, data: rows });
   } catch (err) {
     console.error('GET /api/gallery error:', err);

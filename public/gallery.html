@@ -169,7 +169,7 @@
                alt="CERARIA logo"
                class="h-8 sm:h-10 md:h-12 w-auto object-contain group-hover:scale-105 transition-transform duration-500" />
           <img src="/assets/images/ceraria-text.png" alt="CERARIA" class="h-5 sm:h-6 md:h-8 w-auto object-contain group-hover:opacity-80 transition-opacity duration-500" />
-          <span class="inline-block text-[8px] sm:text-[10px] font-sans font-medium tracking-[0.15em] sm:tracking-[0.25em] uppercase text-stone-400 border-l border-stone-300 pl-2 sm:pl-3 leading-relaxed">
+          <span class="inline-block text-[9px] sm:text-[11px] font-sans font-semibold tracking-[0.15em] sm:tracking-[0.25em] uppercase text-stone-600 border-l border-stone-400 pl-2 sm:pl-3 leading-relaxed">
             THE ART OF<br/>CERAMIC LUXURY
           </span>
         </a>
@@ -436,7 +436,7 @@
       <p class="text-stone-300 max-w-2xl mx-auto">Unveiling our latest collection! A perfect blend of natural charm and contemporary design, crafted to elevate spaces with timeless sophistication.</p>
     </div>
     <div class="w-full relative h-[600px]">
-      <img src="https://images.unsplash.com/photo-1576013551627-142340df6084?q=80&w=2070&auto=format&fit=crop" class="w-full h-full object-cover" alt="Global Demand">
+      <img src="/assets/images/generated/gallery_global_demand.jpg" class="w-full h-full object-cover" alt="Global Demand">
       <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
         <div class="bg-black/60 backdrop-blur-md p-10 rounded-2xl max-w-2xl text-center border border-white/10" data-aos="zoom-in" data-aos-delay="200">
           <h3 class="font-serif text-2xl mb-4 text-bronze-400">Explore the elegance of nature</h3>
@@ -543,8 +543,13 @@
           let finalData = [];
           
           if (json.success && json.data.length > 0) {
-            // Filter to tiles that actually have images, and reverse to show newest first
-            let validTiles = json.data.filter(p => p.main_image || p.room_scene_url).reverse();
+            // Filter to tiles that actually have images, sort by featured first, then newest
+            let validTiles = json.data.filter(p => p.main_image || p.room_scene_url);
+            validTiles.sort((a, b) => {
+              if (a.is_featured && !b.is_featured) return -1;
+              if (!a.is_featured && b.is_featured) return 1;
+              return b.id - a.id;
+            });
             
             const dynamicTiles = validTiles.map(p => ({
               id: p.id,
