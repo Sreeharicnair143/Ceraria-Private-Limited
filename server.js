@@ -642,6 +642,15 @@ app.post('/api/products', requireAdmin, upload.fields([{ name: 'main_image', max
       });
     }
 
+    // Check if product already exists
+    const existing = await pool.query('SELECT id FROM products WHERE name = $1 AND size = $2', [name, size]);
+    if (existing.rows.length > 0) {
+      return res.status(409).json({
+        success: false,
+        error: 'Product is already available'
+      });
+    }
+
     // Use uploaded files or fallback URLs
     const mainImage = req.files && req.files['main_image']
       ? req.files['main_image'][0].location
