@@ -459,6 +459,30 @@ app.put('/api/pages/:slug', requireAdmin, async (req, res) => {
 
 
 
+// ── POST /api/admin/upload-image ───────────────────────────
+// Generic upload endpoint for site images (e.g., homepage banners)
+const genericStorage = multerS3({
+  s3: s3,
+  bucket: S3_BUCKET,
+  acl: 'public-read',
+  contentType: multerS3.AUTO_CONTENT_TYPE,
+  key: function (req, file, cb) {
+    const ext = path.extname(file.originalname);
+    cb(null, 'site/' + Date.now().toString() + ext);
+  }
+});
+const uploadGeneric = multer({ storage: genericStorage, limits: { fileSize: 10 * 1024 * 1024 } });
+
+app.post('/api/admin/upload-image', requireAdmin, uploadGeneric.single('image'), (req, res) => {
+  try {
+    if (!req.file) return res.status(400).json({ success: false, error: 'No image uploaded' });
+    res.json({ success: true, url: req.file.location });
+  } catch (err) {
+    console.error('Upload image error:', err);
+    res.status(500).json({ success: false, error: 'Failed to upload image' });
+  }
+});
+
 // ── GALLERY API ──────────────────────────────────────────────
 const galleryStorage = multerS3({
   s3: s3,

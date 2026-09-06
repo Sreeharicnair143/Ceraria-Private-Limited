@@ -404,6 +404,26 @@
     
     <!-- ── Site Content View ── -->
     <div id="view-content" class="hidden p-4 sm:p-6 space-y-4">
+      
+      <!-- ═══ Homepage Dynamic Images ═══ -->
+      <div class="bg-white rounded-2xl shadow-sm border border-sand-200 overflow-hidden mb-6 flex flex-col">
+        <div class="p-6 border-b border-sand-100 flex justify-between items-center bg-cream-50/30">
+          <div>
+            <h2 class="font-serif text-lg font-bold text-charcoal-900">Homepage Dynamic Images</h2>
+            <p class="text-xs text-stone-500 mt-1">Update images on the homepage without touching the code.</p>
+          </div>
+        </div>
+        <div class="p-6">
+          <form onsubmit="uploadHomepageImage(event, 'homepage_luxury_image')" class="flex flex-col sm:flex-row gap-4 items-end">
+            <div class="flex-1 w-full">
+              <label class="block text-sm font-semibold text-charcoal-900 mb-2">"The Art of Ceramic Luxury" Section Image</label>
+              <input type="file" id="upload_homepage_luxury_image" accept="image/*" required class="block w-full text-sm text-stone-500 file:mr-4 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-sand-100 file:text-charcoal-900 hover:file:bg-sand-200 transition-colors" />
+            </div>
+            <button type="submit" class="px-6 py-2.5 bg-bronze-500 text-cream-50 text-sm font-semibold rounded-xl hover:bg-bronze-600 transition-all shadow-md shrink-0">Upload & Update</button>
+          </form>
+        </div>
+      </div>
+
       <div class="bg-white rounded-2xl shadow-sm border border-sand-200 overflow-hidden mb-6 flex flex-col">
         <div class="p-6 border-b border-sand-100 flex justify-between items-center bg-cream-50/30">
           <div>
@@ -1480,6 +1500,61 @@ async function savePageContent() {
   } finally {
     btn.disabled = false;
     btn.innerHTML = '<i class="fa-solid fa-floppy-disk"></i> Save Content';
+  }
+}
+
+// ═══════════════════════════════════════════
+//  DYNAMIC HOMEPAGE IMAGES
+// ═══════════════════════════════════════════
+async function uploadHomepageImage(e, slug) {
+  e.preventDefault();
+  const fileInput = document.getElementById(`upload_${slug}`);
+  const file = fileInput.files[0];
+  if (!file) return;
+
+  const submitBtn = e.target.querySelector('button[type="submit"]');
+  const originalText = submitBtn.innerText;
+  submitBtn.disabled = true;
+  submitBtn.innerText = 'Uploading...';
+
+  try {
+    // 1. Upload the image to S3
+    const formData = new FormData();
+    formData.append('image', file);
+
+    const uploadRes = await fetch('/api/admin/upload-image', {
+      method: 'POST',
+      body: formData
+    });
+    const uploadJson = await uploadRes.json();
+
+    if (!uploadJson.success) {
+      showToast(uploadJson.error || 'Upload failed', 'error');
+      submitBtn.disabled = false;
+      submitBtn.innerText = originalText;
+      return;
+    }
+
+    // 2. Save the URL to site_pages
+    const saveRes = await fetch(`/api/pages/${slug}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ content: uploadJson.url })
+    });
+    const saveJson = await saveRes.json();
+
+    if (saveJson.success) {
+      showToast('Homepage image updated! It will reflect live immediately.', 'success');
+      fileInput.value = ''; // clear input
+    } else {
+      showToast('Failed to save image reference', 'error');
+    }
+  } catch (err) {
+    console.error(err);
+    showToast('Network error during upload', 'error');
+  } finally {
+    submitBtn.disabled = false;
+    submitBtn.innerText = originalText;
   }
 }
 </script>

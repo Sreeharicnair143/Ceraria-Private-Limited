@@ -285,37 +285,43 @@
     </div>
   </section>
 
-  <!-- ================= IMPACT AT A GLANCE ================= -->
-  <section class="impact-section max-w-[1600px] mx-auto overflow-hidden">
-    <div class="impact-left" data-aos="fade-right">
-      <h3 class="font-serif text-4xl md:text-5xl font-bold text-charcoal-900 mb-6">Our Impact<br>at a Glance</h3>
-      <div class="impact-grid">
-        <div class="impact-box gsap-reveal">
-          <div class="impact-num"><span class="counter" data-target="75">0</span>+</div>
-          <div class="impact-label">Countries Served</div>
-        </div>
-        <div class="impact-box gsap-reveal">
-          <div class="impact-num"><span class="counter" data-target="25">0</span>M</div>
-          <div class="impact-label">Sqmtr Production / Year</div>
-        </div>
-        <div class="impact-box gsap-reveal">
-          <div class="impact-num"><span class="counter" data-target="20">0</span>+</div>
-          <div class="impact-label">Years of Excellence</div>
-        </div>
-        <div class="impact-box gsap-reveal">
-          <div class="impact-num"><span class="counter" data-target="1000">0</span>+</div>
-          <div class="impact-label">Channel Partners</div>
+  <!-- ================= THE ART OF CERAMIC LUXURY ================= -->
+  <section class="w-full bg-[#F9F6F0] py-24 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-[1440px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+      
+      <!-- Left Column: Typography & Story -->
+      <div data-aos="fade-right">
+        <h2 class="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-charcoal-900 mb-6 leading-tight">
+          The Art of Ceramic Luxury
+        </h2>
+        <p class="text-lg text-stone-600 mb-12 leading-relaxed max-w-lg">
+          Our commitment to precision engineering and enduring materials culminates in timeless design. Each collection is meticulously crafted to transform spaces with elegance, reflecting a legacy of quality and sophisticated aesthetics.
+        </p>
+        
+        <!-- Signature Collections List -->
+        <div class="flex flex-col gap-6">
+          <a href="/products.html?series=Moroccan" class="group flex items-center justify-between border-b border-stone-300 pb-4 hover:border-bronze-500 transition-colors">
+            <span class="font-serif text-xl sm:text-2xl text-charcoal-800 group-hover:text-bronze-600 transition-colors">The Moroccan Series</span>
+            <svg class="w-6 h-6 text-stone-400 group-hover:text-bronze-500 transform group-hover:translate-x-2 transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+          </a>
+          
+          <a href="/products.html?series=Metallic" class="group flex items-center justify-between border-b border-stone-300 pb-4 hover:border-bronze-500 transition-colors">
+            <span class="font-serif text-xl sm:text-2xl text-charcoal-800 group-hover:text-bronze-600 transition-colors">Metallic Finishes</span>
+            <svg class="w-6 h-6 text-stone-400 group-hover:text-bronze-500 transform group-hover:translate-x-2 transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+          </a>
+          
+          <a href="/products.html?series=DG+Matt" class="group flex items-center justify-between border-b border-stone-300 pb-4 hover:border-bronze-500 transition-colors">
+            <span class="font-serif text-xl sm:text-2xl text-charcoal-800 group-hover:text-bronze-600 transition-colors">DG Matt Collection</span>
+            <svg class="w-6 h-6 text-stone-400 group-hover:text-bronze-500 transform group-hover:translate-x-2 transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+          </a>
         </div>
       </div>
-    </div>
-    <div class="impact-right mt-10 md:mt-0" data-aos="fade-left">
-      <div class="swiper glance-swiper h-full">
-        <div class="swiper-wrapper">
-          <div class="swiper-slide"><img src="/assets/images/generated/commercial_space_tile.jpg" alt="Impact 1" /></div>
-          <div class="swiper-slide"><img src="/assets/images/generated/luxury_bathroom_tile.jpg" alt="Impact 2" /></div>
-          <div class="swiper-slide"><img src="/assets/images/generated/luxury_kitchen_tile.jpg" alt="Impact 3" /></div>
-        </div>
+      
+      <!-- Right Column: Visual -->
+      <div class="relative h-[500px] lg:h-[700px] w-full rounded-2xl overflow-hidden shadow-2xl" data-aos="fade-left">
+        <img id="dynamic-luxury-image" src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=1200&q=80" alt="Luxury Ceramic Kitchen Interior" class="w-full h-full object-cover transition-transform duration-700 hover:scale-105" />
       </div>
+      
     </div>
   </section>
 
@@ -550,6 +556,44 @@
   <!-- ================= SCRIPTS ================= -->
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  
+  <script>
+    // ═══════════════════════════════════════════
+    //  FETCH DYNAMIC HOMEPAGE IMAGE
+    // ═══════════════════════════════════════════
+    document.addEventListener('DOMContentLoaded', async () => {
+      try {
+        const res = await fetch('/api/pages/homepage_luxury_image');
+        const json = await res.json();
+        if (json.success && json.data.content) {
+          const img = document.getElementById('dynamic-luxury-image');
+          if (img) img.src = json.data.content;
+        }
+      } catch (e) {
+        // silently fail and use fallback image
+      }
+    });
+  </script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      // Automatically add data-aos to major elements that don't already have it
+      const elementsToAnimate = document.querySelectorAll('section, main > div, .card, .grid > div, .flex > div, h1, h2, h3');
+      
+      elementsToAnimate.forEach(function(el) {
+        // Skip elements that already have data-aos, or are inside nav/footer
+        if (!el.hasAttribute('data-aos') && !el.closest('nav') && !el.closest('footer') && !el.closest('.swiper')) {
+          el.setAttribute('data-aos', 'fade-up');
+          el.setAttribute('data-aos-duration', '1000');
+          el.setAttribute('data-aos-once', 'true');
+        }
+      });
+      
+      if (typeof AOS !== 'undefined') {
+        AOS.init({ once: true, offset: 50 });
+      }
+    });
+  </script>
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
