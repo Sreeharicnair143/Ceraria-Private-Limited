@@ -45,6 +45,9 @@ CREATE TABLE products (
   thumb_images  JSONB          DEFAULT '[]'::jsonb,
   video_url     VARCHAR(500),
   price         NUMERIC(10, 2),
+  offer_price   NUMERIC(10, 2),
+  color         VARCHAR(100),
+  surface_texture VARCHAR(100),
   is_featured   BOOLEAN        DEFAULT false,
   created_at    TIMESTAMPTZ    DEFAULT NOW()
 );
@@ -244,6 +247,18 @@ CREATE TABLE IF NOT EXISTS catalogues (
     id SERIAL PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
     pdf_url VARCHAR(500),
+    cover_image_url VARCHAR(500),
+    size_details VARCHAR(255),
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+-- ────────────────────────────────────────────────────────────
+--  TABLE: gallery_images
+-- ────────────────────────────────────────────────────────────
+CREATE TABLE IF NOT EXISTS gallery_images (
+    id SERIAL PRIMARY KEY,
+    title VARCHAR(255),
+    image_url VARCHAR(500) NOT NULL,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
