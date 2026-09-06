@@ -150,6 +150,78 @@
       padding-bottom: 1.5rem;
       color: #5C554B;
     }
+
+    /* ═══════ MOBILE RESPONSIVE ═══════ */
+    @media (max-width: 640px) {
+      /* Hero preview shorter on mobile */
+      .previewSwiper {
+        height: 45vh;
+      }
+      .previewSwiper .swiper-slide .absolute {
+        bottom: 6px !important;
+        left: 6px !important;
+        padding: 8px 14px !important;
+      }
+      .previewSwiper .swiper-slide .absolute h3 {
+        font-size: 0.875rem !important;
+      }
+
+      /* Smaller thumb tiles on mobile */
+      .tileSwiper .swiper-slide {
+        width: 100px !important;
+        height: 70px;
+        border-radius: 6px;
+      }
+
+      /* Hide desktop swiper arrows on mobile (swipe is enough) */
+      .swiper-button-next,
+      .swiper-button-prev {
+        display: none !important;
+      }
+
+      /* Discover cards: better mobile sizing */
+      .discover-box {
+        aspect-ratio: 3/4;
+        border-radius: 0.75rem;
+      }
+      .discover-overlay {
+        padding: 1rem;
+      }
+      .discover-overlay h3 {
+        font-size: 1.125rem !important;
+      }
+
+      /* Global demand section shorter on mobile */
+      .global-demand-image {
+        height: 400px !important;
+      }
+      .global-demand-card {
+        padding: 1.5rem !important;
+        margin: 0 1rem;
+      }
+      .global-demand-card h3 {
+        font-size: 1.125rem !important;
+      }
+      .global-demand-card p {
+        font-size: 0.875rem !important;
+      }
+
+      /* Accordion tighter on mobile */
+      .accordion-header {
+        padding: 1rem 0;
+        font-size: 0.9rem;
+      }
+    }
+
+    @media (max-width: 380px) {
+      .previewSwiper {
+        height: 38vh;
+      }
+      .tileSwiper .swiper-slide {
+        width: 80px !important;
+        height: 56px;
+      }
+    }
   </style>
 </head>
 
@@ -280,10 +352,10 @@
   </script>
 
   <!-- Header -->
-  <section class="pt-32 pb-10 px-4 sm:px-6 lg:px-8 text-center" data-aos="fade-up">
+  <section class="pt-28 sm:pt-32 pb-6 sm:pb-10 px-4 sm:px-6 lg:px-8 text-center" data-aos="fade-up">
     <div class="max-w-3xl mx-auto">
-      <span class="inline-block text-xs font-sans font-semibold tracking-[0.35em] uppercase text-bronze-500 mb-4">Inspiration</span>
-      <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-charcoal-900 mb-5">Gallery</h1>
+      <span class="inline-block text-[10px] sm:text-xs font-sans font-semibold tracking-[0.35em] uppercase text-bronze-500 mb-3 sm:mb-4">Inspiration</span>
+      <h1 class="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold text-charcoal-900 mb-3 sm:mb-5">Gallery</h1>
     </div>
   </section>
 
@@ -317,9 +389,9 @@
   <!-- Discover Our Collections Here -->
   <section class="py-20 bg-white" data-aos="fade-up">
     <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-12">
-        <h2 class="font-serif text-3xl sm:text-4xl font-bold text-charcoal-900 mb-4">Discover Our Collections Here</h2>
-        <p class="text-stone-500 max-w-2xl mx-auto">Whether you're looking for timeless elegance or modern innovation, Ceraria has the ideal tile for your project.</p>
+      <div class="text-center mb-8 sm:mb-12">
+        <h2 class="font-serif text-2xl sm:text-4xl font-bold text-charcoal-900 mb-3 sm:mb-4">Discover Our Collections Here</h2>
+        <p class="text-stone-500 max-w-2xl mx-auto text-sm sm:text-base">Whether you're looking for timeless elegance or modern innovation, Ceraria has the ideal tile for your project.</p>
       </div>
 
       <div class="swiper discoverSwiper">
@@ -376,12 +448,12 @@
   </section>
 
   <!-- Why Choose Ceraria Section -->
-  <section class="py-24 bg-white" data-aos="fade-up">
-    <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row gap-16">
+  <section class="py-14 sm:py-24 bg-white" data-aos="fade-up">
+    <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row gap-10 sm:gap-16">
       <div class="lg:w-1/2 flex flex-col justify-center">
-        <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-charcoal-900 mb-6 leading-tight">Why Choose Ceraria</h2>
-        <p class="text-stone-500 text-lg max-w-lg mb-8">A global leader in tile innovation and quality, trusted by thousands worldwide</p>
-        <a href="/about.html" class="inline-block px-8 py-4 bg-charcoal-900 text-cream-50 font-medium tracking-wide hover:bg-bronze-600 transition-colors rounded-full self-start">Learn More</a>
+        <h2 class="font-serif text-2xl sm:text-4xl lg:text-5xl font-bold text-charcoal-900 mb-4 sm:mb-6 leading-tight">Why Choose Ceraria</h2>
+        <p class="text-stone-500 text-base sm:text-lg max-w-lg mb-6 sm:mb-8">A global leader in tile innovation and quality, trusted by thousands worldwide</p>
+        <a href="/about.html" class="inline-block px-6 sm:px-8 py-3 sm:py-4 bg-charcoal-900 text-cream-50 font-medium tracking-wide hover:bg-bronze-600 transition-colors rounded-full self-start text-sm sm:text-base">Learn More</a>
       </div>
       <div class="lg:w-1/2">
         
@@ -430,18 +502,18 @@
   </section>
 
   <!-- Global Demand Section -->
-  <section class="py-20 bg-charcoal-900 text-cream-50" data-aos="fade-up">
-    <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 text-center mb-12">
-      <h2 class="font-serif text-3xl sm:text-4xl font-bold mb-4">Catering to the Global Demand</h2>
-      <p class="text-stone-300 max-w-2xl mx-auto">Unveiling our latest collection! A perfect blend of natural charm and contemporary design, crafted to elevate spaces with timeless sophistication.</p>
+  <section class="py-12 sm:py-20 bg-charcoal-900 text-cream-50" data-aos="fade-up">
+    <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 text-center mb-8 sm:mb-12">
+      <h2 class="font-serif text-2xl sm:text-4xl font-bold mb-3 sm:mb-4">Catering to the Global Demand</h2>
+      <p class="text-stone-300 max-w-2xl mx-auto text-sm sm:text-base">Unveiling our latest collection! A perfect blend of natural charm and contemporary design, crafted to elevate spaces with timeless sophistication.</p>
     </div>
-    <div class="w-full relative h-[600px]">
+    <div class="w-full relative global-demand-image h-[400px] sm:h-[600px]">
       <img src="/assets/images/generated/gallery_global_demand.jpg" class="w-full h-full object-cover" alt="Global Demand">
-      <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
-        <div class="bg-black/60 backdrop-blur-md p-10 rounded-2xl max-w-2xl text-center border border-white/10" data-aos="zoom-in" data-aos-delay="200">
-          <h3 class="font-serif text-2xl mb-4 text-bronze-400">Explore the elegance of nature</h3>
-          <p class="text-sand-200 mb-8 leading-relaxed">Designed to bring warmth and character to any space, these premium surfaces offer a seamless blend of rustic charm and modern elegance. Perfect for walls and floors, they redefine interiors with timeless sophistication.</p>
-          <a href="/catalogue.html" class="inline-block px-8 py-3 bg-white text-black font-semibold rounded-full hover:bg-bronze-400 hover:text-white transition-colors">Know More</a>
+      <div class="absolute inset-0 bg-black/40 flex items-center justify-center px-4">
+        <div class="global-demand-card bg-black/60 backdrop-blur-md p-6 sm:p-10 rounded-2xl max-w-2xl text-center border border-white/10" data-aos="zoom-in" data-aos-delay="200">
+          <h3 class="font-serif text-lg sm:text-2xl mb-3 sm:mb-4 text-bronze-400">Explore the elegance of nature</h3>
+          <p class="text-sand-200 mb-6 sm:mb-8 leading-relaxed text-sm sm:text-base">Designed to bring warmth and character to any space, these premium surfaces offer a seamless blend of rustic charm and modern elegance. Perfect for walls and floors, they redefine interiors with timeless sophistication.</p>
+          <a href="/catalogue.html" class="inline-block px-6 sm:px-8 py-3 bg-white text-black font-semibold rounded-full hover:bg-bronze-400 hover:text-white transition-colors text-sm sm:text-base">Know More</a>
         </div>
       </div>
     </div>
