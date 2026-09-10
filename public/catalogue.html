@@ -206,9 +206,48 @@
     </div>
   </main>
 
-  <footer class="bg-charcoal-900 text-sand-300/80 py-16 px-4 sm:px-6 lg:px-8 mt-auto">
-    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-charcoal-800 pt-8">
-      <p class="text-xs text-sand-400/50">&copy; 2026 Ceraria Private Limited. All rights reserved.</p>
+    <!-- ================= FOOTER ================= -->
+  <footer class="bg-charcoal-900 text-cream-50 pt-16 pb-8 border-t border-stone-600/30 mt-auto">
+    <div class="max-w-[1440px] mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-10">
+      <div>
+        <h3 class="font-serif text-2xl font-bold mb-4 tracking-wide text-bronze-400">CERARIA</h3>
+        <p class="text-stone-400 text-sm leading-relaxed mb-6">The art of ceramic luxury. Curating world-class ceramic surfaces for architects, builders, and homeowners across India.</p>
+      </div>
+      <div>
+        <h4 class="font-serif text-lg font-bold mb-4">Collections</h4>
+        <ul class="space-y-2 text-sm text-stone-400">
+          <li><a href="/products.html" class="hover:text-bronze-400 transition-colors">Infinia+</a></li>
+          <li><a href="/products.html" class="hover:text-bronze-400 transition-colors">Solido</a></li>
+          <li><a href="/products.html" class="hover:text-bronze-400 transition-colors">Evoq</a></li>
+          <li><a href="/products.html" class="hover:text-bronze-400 transition-colors">Panache</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-serif text-lg font-bold mb-4">Company</h4>
+        <ul class="space-y-2 text-sm text-stone-400">
+          <li><a href="/about.html" class="hover:text-bronze-400 transition-colors">About Us</a></li>
+          <li><a href="/gallery.html" class="hover:text-bronze-400 transition-colors">Gallery</a></li>
+          <li><a href="/catalogue.html" class="hover:text-bronze-400 transition-colors">Catalogue</a></li>
+          <li><a href="/contact.html" class="hover:text-bronze-400 transition-colors">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-serif text-lg font-bold mb-4">Reach Us</h4>
+        <ul class="space-y-3 text-sm text-stone-400">
+          <li><a href="tel:+919995311459" class="hover:text-bronze-400 transition-colors">+91 9995311459</a></li>
+          <li><a href="tel:+919847311459" class="hover:text-bronze-400 transition-colors">+91 9847311459</a></li>
+          <li><a href="mailto:cerariatile@gmail.com" class="hover:text-bronze-400 transition-colors">cerariatile@gmail.com</a></li>
+          <li class="text-stone-500 leading-relaxed">Gottigere, Bengaluru,<br/>Karnataka 560083</li>
+        </ul>
+      </div>
+    </div>
+    <div class="max-w-[1440px] mx-auto px-6 mt-12 pt-8 border-t border-stone-600/30 flex flex-col md:flex-row items-center justify-between text-xs text-stone-500">
+      <p>&copy; 2026 CERARIA PRIVATE LIMITED. All rights reserved.</p>
+      <div class="flex gap-4 mt-4 md:mt-0">
+        <a href="/privacy-policy.html" class="hover:text-bronze-400 transition-colors">Privacy Policy</a>
+        <a href="/terms-of-service.html" class="hover:text-bronze-400 transition-colors">Terms of Service</a>
+        <a href="/disclaimer.html" class="hover:text-bronze-400 transition-colors">Disclaimer</a>
+      </div>
     </div>
   </footer>
 
@@ -281,5 +320,16 @@
       }
     });
   </script>
+
+  <!-- ═══ FLOATING CONTACT BUTTONS ═══ -->
+  <div id="floating-contact" style="position:fixed;bottom:24px;right:24px;z-index:9999;display:flex;flex-direction:column;gap:12px;">
+    <a href="tel:+919995311459" aria-label="Call us" style="width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#B07D4F,#9A673B);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 15px rgba(176,125,79,0.4);transition:transform 0.3s,box-shadow 0.3s;text-decoration:none;" onmouseover="this.style.transform='scale(1.1)';this.style.boxShadow='0 6px 20px rgba(176,125,79,0.5)';" onmouseout="this.style.transform='scale(1)';this.style.boxShadow='0 4px 15px rgba(176,125,79,0.4)';">
+      <svg width="22" height="22" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+    </a>
+    <a href="mailto:cerariatile@gmail.com" aria-label="Email us" style="width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#2C2824,#1A1714);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 15px rgba(0,0,0,0.3);transition:transform 0.3s,box-shadow 0.3s;text-decoration:none;" onmouseover="this.style.transform='scale(1.1)';this.style.boxShadow='0 6px 20px rgba(0,0,0,0.4)';" onmouseout="this.style.transform='scale(1)';this.style.boxShadow='0 4px 15px rgba(0,0,0,0.3)';">
+      <svg width="22" height="22" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+    </a>
+  </div>
+
 </body>
 </html>
