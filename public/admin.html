@@ -550,21 +550,36 @@
             </select>
           </div>
         </div>
+        <div class="bg-sand-100/50 rounded-2xl border border-sand-200 p-4 mb-4">
+          <!-- Toggle -->
+          <div class="flex items-center justify-between pt-1">
+            <div>
+              <p class="text-sm font-semibold text-charcoal-900">Mark as Featured</p>
+              <p class="text-xs text-stone-400 mt-0.5">Features this tile on the homepage hero carousel</p>
+            </div>
+            <div class="flex items-center">
+              <input type="checkbox" id="tile-banner" name="is_featured" value="true" class="toggle-input" />
+              <label for="tile-banner" class="toggle-switch" aria-label="Toggle featured"></label>
+            </div>
+          </div>
+        </div>
         <!-- ── Category + Size + Price ── -->
         <!-- ── Category + Size + Price + Offer Price ── -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <div>
             <label for="tile-category" class="block text-sm font-semibold text-charcoal-900 mb-2">Category *</label>
-            <select id="tile-category" name="category" required
+            <select id="tile-category" onchange="toggleOther(this)" name="category" required
                     class="admin-input w-full px-4 py-3 border border-sand-200 rounded-xl text-sm text-charcoal-800 bg-cream-50/50 appearance-none cursor-pointer transition-all">
               <option value="" disabled selected>Select category</option>
               <option value="Porcelain Tiles">Porcelain Tiles</option>
               <option value="Ceramic Tiles">Ceramic Tiles</option>
+              <option value="other">Other...</option>
             </select>
+            <input type="text" id="tile-category-other" class="admin-input w-full px-4 py-3 border border-sand-200 rounded-xl text-sm text-charcoal-800 bg-cream-50/50 transition-all hidden mt-2" placeholder="Enter custom category" />
           </div>
           <div>
             <label for="tile-size" class="block text-sm font-semibold text-charcoal-900 mb-2">Size *</label>
-            <select id="tile-size" name="size" required
+            <select id="tile-size" onchange="toggleOther(this)" name="size" required
                     class="admin-input w-full px-4 py-3 border border-sand-200 rounded-xl text-sm text-charcoal-800 bg-cream-50/50 appearance-none cursor-pointer transition-all">
               <option value="" disabled selected>Select size</option>
               <option value="75x300">75 × 300 mm</option>
@@ -575,7 +590,9 @@
               <option value="200x1200">200 × 1200 mm</option>
               <option value="800x1600">800 × 1600 mm</option>
               <option value="1200x1800">1200 × 1800 mm</option>
+              <option value="other">Other...</option>
             </select>
+            <input type="text" id="tile-size-other" class="admin-input w-full px-4 py-3 border border-sand-200 rounded-xl text-sm text-charcoal-800 bg-cream-50/50 transition-all hidden mt-2" placeholder="Enter custom size" />
           </div>
           <div>
             <label for="tile-price" class="block text-sm font-semibold text-charcoal-900 mb-2">Price (₹)</label>
@@ -595,7 +612,7 @@
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div>
             <label for="tile-thickness" class="block text-sm font-semibold text-charcoal-900 mb-2">Thickness</label>
-            <select id="tile-thickness" name="thickness"
+            <select id="tile-thickness" onchange="toggleOther(this)" name="thickness"
                     class="admin-input w-full px-4 py-3 border border-sand-200 rounded-xl text-sm text-charcoal-800 bg-cream-50/50 appearance-none cursor-pointer transition-all">
               <option value="" disabled selected>Select</option>
               <option value="8 mm">8 mm</option>
@@ -603,17 +620,21 @@
               <option value="10 mm">10 mm</option>
               <option value="12 mm">12 mm</option>
               <option value="15 mm">15 mm</option>
+              <option value="other">Other...</option>
             </select>
+            <input type="text" id="tile-thickness-other" class="admin-input w-full px-4 py-3 border border-sand-200 rounded-xl text-sm text-charcoal-800 bg-cream-50/50 transition-all hidden mt-2" placeholder="Enter custom thickness" />
           </div>
           <div>
             <label for="tile-finish" class="block text-sm font-semibold text-charcoal-900 mb-2">Finish</label>
-            <select id="tile-finish" name="finish"
+            <select id="tile-finish" onchange="toggleOther(this)" name="finish"
                     class="admin-input w-full px-4 py-3 border border-sand-200 rounded-xl text-sm text-charcoal-800 bg-cream-50/50 appearance-none cursor-pointer transition-all">
               <option value="" disabled selected>Select finish</option>
               <option value="Matt">Matt</option>
               <option value="Glossy">Glossy</option>
               <option value="Carving">Carving</option>
+              <option value="other">Other...</option>
             </select>
+            <input type="text" id="tile-finish-other" class="admin-input w-full px-4 py-3 border border-sand-200 rounded-xl text-sm text-charcoal-800 bg-cream-50/50 transition-all hidden mt-2" placeholder="Enter custom finish" />
           </div>
           <div>
             <label for="tile-surface" class="block text-sm font-semibold text-charcoal-900 mb-2">Surface</label>
@@ -626,7 +647,7 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <label for="tile-color" class="block text-sm font-semibold text-charcoal-900 mb-2">Color</label>
-            <select id="tile-color" name="color"
+            <select id="tile-color" onchange="toggleOther(this)" name="color"
                     class="admin-input w-full px-4 py-3 border border-sand-200 rounded-xl text-sm text-charcoal-800 bg-cream-50/50 appearance-none cursor-pointer transition-all">
               <option value="" disabled selected>Select Color</option>
               <option value="Ivory/White">Ivory/White</option>
@@ -635,11 +656,13 @@
               <option value="Charcoal/Black">Charcoal/Black</option>
               <option value="Natural Brown">Natural Brown</option>
               <option value="Aqua/Blue">Aqua/Blue</option>
+              <option value="other">Other...</option>
             </select>
+            <input type="text" id="tile-color-other" class="admin-input w-full px-4 py-3 border border-sand-200 rounded-xl text-sm text-charcoal-800 bg-cream-50/50 transition-all hidden mt-2" placeholder="Enter custom color" />
           </div>
           <div>
             <label for="tile-texture" class="block text-sm font-semibold text-charcoal-900 mb-2">Surface Texture</label>
-            <select id="tile-texture" name="surface_texture"
+            <select id="tile-texture" onchange="toggleOther(this)" name="surface_texture"
                     class="admin-input w-full px-4 py-3 border border-sand-200 rounded-xl text-sm text-charcoal-800 bg-cream-50/50 appearance-none cursor-pointer transition-all">
               <option value="" disabled selected>Select Texture</option>
               <option value="Terrazzo & Chips">Terrazzo & Chips</option>
@@ -648,7 +671,9 @@
               <option value="Art & Decor">Art & Decor</option>
               <option value="Wood Planks">Wood Planks</option>
               <option value="Natural Stone">Natural Stone</option>
+              <option value="other">Other...</option>
             </select>
+            <input type="text" id="tile-texture-other" class="admin-input w-full px-4 py-3 border border-sand-200 rounded-xl text-sm text-charcoal-800 bg-cream-50/50 transition-all hidden mt-2" placeholder="Enter custom texture" />
           </div>
         </div>
 
@@ -702,17 +727,6 @@
                    class="admin-input w-full px-4 py-2.5 border border-sand-200 rounded-xl text-sm text-charcoal-800 bg-cream-50/50 transition-all" />
           </div>
 
-          <!-- Toggle -->
-          <div class="flex items-center justify-between pt-1">
-            <div>
-              <p class="text-sm font-semibold text-charcoal-900">Mark as Featured</p>
-              <p class="text-xs text-stone-400 mt-0.5">Features this tile on the homepage hero carousel</p>
-            </div>
-            <div class="flex items-center">
-              <input type="checkbox" id="tile-banner" name="is_featured" value="true" class="toggle-input" />
-              <label for="tile-banner" class="toggle-switch" aria-label="Toggle featured"></label>
-            </div>
-          </div>
         </div>
 
         <!-- ── Form Actions ── -->
@@ -1584,5 +1598,21 @@ async function uploadHomepageImage(e, slug) {
       }
     });
   </script>
+
+<script>
+function toggleOther(selectElem) {
+  const otherInput = document.getElementById(selectElem.id + '-other');
+  if (otherInput) {
+    if (selectElem.value === 'other') {
+      otherInput.classList.remove('hidden');
+      otherInput.required = true;
+    } else {
+      otherInput.classList.add('hidden');
+      otherInput.required = false;
+      otherInput.value = '';
+    }
+  }
+}
+</script>
 </body>
 </html>

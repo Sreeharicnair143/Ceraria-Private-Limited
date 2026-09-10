@@ -298,6 +298,17 @@ function setupGalleryDropZone(dropZoneId, fileInputId, previewId) {
 // ═══════════════════════════════════════════
 //  FORM SUBMISSION — POST /api/products
 // ═══════════════════════════════════════════
+
+function getDropdownValue(id) {
+  const select = document.getElementById(id);
+  if (!select) return "";
+  if (select.value === "other") {
+    const otherInput = document.getElementById(id + "-other");
+    return otherInput ? otherInput.value : "other";
+  }
+  return select.value;
+}
+
 function initFormSubmission() {
   const form = document.getElementById("upload-form");
   const submitBtn = document.getElementById("modal-submit-btn");
@@ -329,25 +340,16 @@ function initFormSubmission() {
     // Basic fields
     formData.append("name", document.getElementById("tile-name").value);
     formData.append("series", document.getElementById("tile-series").value);
-    formData.append("category", document.getElementById("tile-category").value);
-    formData.append("size", document.getElementById("tile-size").value);
-    formData.append(
-      "thickness",
-      document.getElementById("tile-thickness").value || "",
-    );
-    formData.append(
-      "finish",
-      document.getElementById("tile-finish").value || "",
-    );
+    formData.append("category", getDropdownValue("tile-category"));
+    formData.append("size", getDropdownValue("tile-size"));
+    formData.append("thickness", getDropdownValue("tile-thickness"));
+    formData.append("finish", getDropdownValue("tile-finish"));
     formData.append(
       "surface",
       document.getElementById("tile-surface").value || "",
     );
-    formData.append("color", document.getElementById("tile-color").value || "");
-    formData.append(
-      "surface_texture",
-      document.getElementById("tile-texture").value || "",
-    );
+    formData.append("color", getDropdownValue("tile-color"));
+    formData.append("surface_texture", getDropdownValue("tile-texture"));
     formData.append(
       "description",
       document.getElementById("tile-description").value || "",
@@ -441,6 +443,34 @@ function initFormSubmission() {
 
 // Global variable to hold all products for easy editing
 let allProductsData = [];
+
+
+function setDropdownValue(id, value) {
+  const select = document.getElementById(id);
+  if (!select) return;
+  
+  // check if value exists in options
+  let found = false;
+  for (let i = 0; i < select.options.length; i++) {
+    if (select.options[i].value === value) {
+      found = true;
+      break;
+    }
+  }
+  
+  if (found) {
+    select.value = value;
+    if(typeof toggleOther === 'function') toggleOther(select); // hide 'other'
+  } else if (value) {
+    select.value = 'other';
+    if(typeof toggleOther === 'function') toggleOther(select);
+    const otherInput = document.getElementById(id + '-other');
+    if (otherInput) otherInput.value = value;
+  } else {
+    select.value = '';
+    if(typeof toggleOther === 'function') toggleOther(select);
+  }
+}
 
 async function editProduct(id) {
   const product = allProductsData.find((p) => p.id === id);
