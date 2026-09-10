@@ -1,229 +1,229 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Terms of Service — CERARIA | The Art of Ceramic Luxury</title>
-  <meta name="description" content="Read the Terms of Service governing your use of the CERARIA website and services." />
+ <meta charset="UTF-8" />
+ <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+ <title>Terms of Service — CERARIA | The Art of Ceramic Luxury</title>
+ <meta name="description" content="Read the Terms of Service governing your use of the CERARIA website and services." />
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+ <link rel="preconnect" href="https://fonts.googleapis.com" />
+ <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+ <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            cream:    { 50: '#FFFDF8', 100: '#FFF9ED' },
-            sand:     { 100: '#F5F0E8', 200: '#EDE5D8', 400: '#C4B8A3' },
-            bronze:   { 400: '#C49A6C', 500: '#B07D4F', 600: '#9A673B' },
-            charcoal: { 800: '#2C2824', 900: '#1A1714' },
-          },
-          fontFamily: {
-            serif: ['"Playfair Display"', 'serif'],
-            sans:  ['"Inter"', 'sans-serif'],
-          }
-        }
-      }
-    };
-  </script>
-  <style>
-    body { font-family: 'Inter', sans-serif; background: #FFFDF8; overflow-x: hidden; }
-    h1, h2, h3, h4, .font-serif { font-family: 'Playfair Display', serif; }
-  
-    /* ── NAVBAR INSTANT VISIBILITY ── */
-    /* Ensure nav is always visible immediately, before any JS/CDN loads */
-    #navbar { opacity: 1 !important; transform: none !important; }
-    #navbar * { opacity: 1 !important; }
-    #navbar [data-aos] { opacity: 1 !important; transform: none !important; }
-    #mobile-menu-btn { display: flex !important; flex-direction: column; gap: 6px; padding: 8px; }
-    #mobile-menu-btn span { display: block; }
-    /* Hide hamburger on xl screens (matching Tailwind xl:hidden) */
-    @media (min-width: 1280px) {
-      #mobile-menu-btn { display: none !important; }
-    }
+ <script src="https://cdn.tailwindcss.com"></script>
+ <script>
+ tailwind.config = {
+ theme: {
+ extend: {
+ colors: {
+ cream: { 50: '#FFFDF8', 100: '#FFF9ED' },
+ sand: { 100: '#F5F0E8', 200: '#EDE5D8', 400: '#C4B8A3' },
+ bronze: { 400: '#C49A6C', 500: '#B07D4F', 600: '#9A673B' },
+ charcoal: { 800: '#2C2824', 900: '#1A1714' },
+ },
+ fontFamily: {
+ serif: ['"Playfair Display"', 'serif'],
+ sans: ['"Inter"', 'sans-serif'],
+ }
+ }
+ }
+ };
+ </script>
+ <style>
+ body { font-family: 'Inter', sans-serif; background: #FFFDF8; overflow-x: hidden; }
+ h1, h2, h3, h4, .font-serif { font-family: 'Playfair Display', serif; }
+ 
+ /* ── NAVBAR INSTANT VISIBILITY ── */
+ /* Ensure nav is always visible immediately, before any JS/CDN loads */
+ #navbar { opacity: 1 !important; transform: none !important; }
+ #navbar * { opacity: 1 !important; }
+ #navbar [data-aos] { opacity: 1 !important; transform: none !important; }
+ #mobile-menu-btn { display: flex !important; flex-direction: column; gap: 6px; padding: 8px; }
+ #mobile-menu-btn span { display: block; }
+ /* Hide hamburger on xl screens (matching Tailwind xl:hidden) */
+ @media (min-width: 1280px) {
+ #mobile-menu-btn { display: none !important; }
+ }
 
 </style>
 
-  <!-- AOS CSS -->
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+ <!-- AOS CSS -->
+ <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
 <body class="bg-cream-50 text-charcoal-900 antialiased pt-20 flex flex-col min-h-screen">
 
-  <!-- NAVIGATION BAR -->
-  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 border-b border-sand-200/60 shadow-sm transition-all duration-300 bg-[#E8E3DF]">
-    <div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between h-24 py-4">
-        <a href="/" class="flex items-center gap-3 group" id="nav-logo">
-          <img src="/assets/images/new_logos/logo_icon.jpg" alt="CERARIA logo" class="h-8 sm:h-10 md:h-12 mix-blend-multiply w-auto object-contain group-hover:scale-105 transition-transform duration-500" />
-          <img src="/assets/images/new_logos/logo_full.jpg" alt="CERARIA" class="h-8 sm:h-10 md:h-12 w-auto object-contain group-hover:opacity-80 transition-opacity duration-500 mix-blend-multiply" />
-          <span class="inline-block text-[9px] sm:text-[11px] font-sans font-semibold tracking-[0.15em] sm:tracking-[0.25em] uppercase text-stone-600 border-l border-stone-400 pl-2 sm:pl-3 leading-relaxed">
-            THE ART OF<br/>CERAMIC LUXURY
-          </span>
-        </a>
-        <div class="hidden xl:flex items-center gap-8">
-          <a href="/" class="relative group text-[11px] uppercase tracking-[0.2em] font-bold text-stone-500 hover:text-charcoal-900 transition-colors py-1">Home<span class="absolute bottom-0 left-0 w-0 h-[1.5px] bg-bronze-500 transition-all duration-300 group-hover:w-full"></span></a>
-          <a href="/gallery.html" class="relative group text-[11px] uppercase tracking-[0.2em] font-bold text-stone-500 hover:text-charcoal-900 transition-colors py-1">Gallery<span class="absolute bottom-0 left-0 w-0 h-[1.5px] bg-bronze-500 transition-all duration-300 group-hover:w-full"></span></a>
-          <a href="/products.html" class="relative group text-[11px] uppercase tracking-[0.2em] font-bold text-stone-500 hover:text-charcoal-900 transition-colors py-1">Products<span class="absolute bottom-0 left-0 w-0 h-[1.5px] bg-bronze-500 transition-all duration-300 group-hover:w-full"></span></a>
-          <a href="/catalogue.html" class="relative group text-[11px] uppercase tracking-[0.2em] font-bold text-stone-500 hover:text-charcoal-900 transition-colors py-1">Catalogue<span class="absolute bottom-0 left-0 w-0 h-[1.5px] bg-bronze-500 transition-all duration-300 group-hover:w-full"></span></a>
-          <a href="/about.html" class="relative group text-[11px] uppercase tracking-[0.2em] font-bold text-stone-500 hover:text-charcoal-900 transition-colors py-1">About<span class="absolute bottom-0 left-0 w-0 h-[1.5px] bg-bronze-500 transition-all duration-300 group-hover:w-full"></span></a>
-          <a href="/contact.html" class="relative group text-[11px] uppercase tracking-[0.2em] font-bold text-stone-500 hover:text-charcoal-900 transition-colors py-1">Contact Us<span class="absolute bottom-0 left-0 w-0 h-[1.5px] bg-bronze-500 transition-all duration-300 group-hover:w-full"></span></a>
-        </div>
-        <button id="mobile-menu-btn" class="xl:hidden flex flex-col gap-1.5 p-2 rounded-lg hover:bg-sand-100 transition-colors" aria-label="Toggle mobile menu">
-          <span class="block w-7 h-0.5 bg-charcoal-800 rounded transition-all duration-300" id="burger-line-1"></span>
-          <span class="block w-7 h-0.5 bg-charcoal-800 rounded transition-all duration-300" id="burger-line-2"></span>
-          <span class="block w-5 h-0.5 bg-charcoal-800 rounded transition-all duration-300" id="burger-line-3"></span>
-        </button>
-      </div>
-      <div id="mobile-menu" class="xl:hidden max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
-        <div class="pb-6 pt-2 space-y-2 border-t border-sand-200">
-          <a href="/" class="block px-4 py-3 text-[11px] uppercase tracking-[0.2em] font-bold text-stone-600 hover:bg-sand-100 hover:text-bronze-600 rounded-lg transition-colors">Home</a>
-          <a href="/gallery.html" class="block px-4 py-3 text-[11px] uppercase tracking-[0.2em] font-bold text-stone-600 hover:bg-sand-100 hover:text-bronze-600 rounded-lg transition-colors">Gallery</a>
-          <a href="/products.html" class="block px-4 py-3 text-[11px] uppercase tracking-[0.2em] font-bold text-stone-600 hover:bg-sand-100 hover:text-bronze-600 rounded-lg transition-colors">Products</a>
-          <a href="/catalogue.html" class="block px-4 py-3 text-[11px] uppercase tracking-[0.2em] font-bold text-stone-600 hover:bg-sand-100 hover:text-bronze-600 rounded-lg transition-colors">Catalogue</a>
-          <a href="/about.html" class="block px-4 py-3 text-[11px] uppercase tracking-[0.2em] font-bold text-stone-600 hover:bg-sand-100 hover:text-bronze-600 rounded-lg transition-colors">About</a>
-          <a href="/contact.html" class="block px-4 py-3 text-[11px] uppercase tracking-[0.2em] font-bold text-stone-600 hover:bg-sand-100 hover:text-bronze-600 rounded-lg transition-colors">Contact Us</a>
-        </div>
-      </div>
-    </div>
-  </nav>
+ <!-- NAVIGATION BAR -->
+ <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 border-b border-sand-200/60 shadow-sm transition-all duration-300 bg-[#E8E3DF]">
+ <div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+ <div class="flex items-center justify-between h-24 py-4">
+ <a href="/" class="flex items-center gap-3 group" id="nav-logo">
+ <img src="/assets/images/new_logos/logo_icon_transparent.png" alt="CERARIA logo" class="h-8 sm:h-10 md:h-12 w-auto object-contain group-hover:scale-105 transition-transform duration-500" />
+ <img src="/assets/images/new_logos/logo_full_transparent.png" alt="CERARIA" class="h-8 sm:h-10 md:h-12 w-auto object-contain group-hover:opacity-80 transition-opacity duration-500 " />
+ <span class="inline-block text-[9px] sm:text-[11px] font-sans font-semibold tracking-[0.15em] sm:tracking-[0.25em] uppercase text-stone-600 border-l border-stone-400 pl-2 sm:pl-3 leading-relaxed">
+ THE ART OF<br/>CERAMIC LUXURY
+ </span>
+ </a>
+ <div class="hidden xl:flex items-center gap-8">
+ <a href="/" class="relative group text-[11px] uppercase tracking-[0.2em] font-bold text-stone-500 hover:text-charcoal-900 transition-colors py-1">Home<span class="absolute bottom-0 left-0 w-0 h-[1.5px] bg-bronze-500 transition-all duration-300 group-hover:w-full"></span></a>
+ <a href="/gallery.html" class="relative group text-[11px] uppercase tracking-[0.2em] font-bold text-stone-500 hover:text-charcoal-900 transition-colors py-1">Gallery<span class="absolute bottom-0 left-0 w-0 h-[1.5px] bg-bronze-500 transition-all duration-300 group-hover:w-full"></span></a>
+ <a href="/products.html" class="relative group text-[11px] uppercase tracking-[0.2em] font-bold text-stone-500 hover:text-charcoal-900 transition-colors py-1">Products<span class="absolute bottom-0 left-0 w-0 h-[1.5px] bg-bronze-500 transition-all duration-300 group-hover:w-full"></span></a>
+ <a href="/catalogue.html" class="relative group text-[11px] uppercase tracking-[0.2em] font-bold text-stone-500 hover:text-charcoal-900 transition-colors py-1">Catalogue<span class="absolute bottom-0 left-0 w-0 h-[1.5px] bg-bronze-500 transition-all duration-300 group-hover:w-full"></span></a>
+ <a href="/about.html" class="relative group text-[11px] uppercase tracking-[0.2em] font-bold text-stone-500 hover:text-charcoal-900 transition-colors py-1">About<span class="absolute bottom-0 left-0 w-0 h-[1.5px] bg-bronze-500 transition-all duration-300 group-hover:w-full"></span></a>
+ <a href="/contact.html" class="relative group text-[11px] uppercase tracking-[0.2em] font-bold text-stone-500 hover:text-charcoal-900 transition-colors py-1">Contact Us<span class="absolute bottom-0 left-0 w-0 h-[1.5px] bg-bronze-500 transition-all duration-300 group-hover:w-full"></span></a>
+ </div>
+ <button id="mobile-menu-btn" class="xl:hidden flex flex-col gap-1.5 p-2 rounded-lg hover:bg-sand-100 transition-colors" aria-label="Toggle mobile menu">
+ <span class="block w-7 h-0.5 bg-charcoal-800 rounded transition-all duration-300" id="burger-line-1"></span>
+ <span class="block w-7 h-0.5 bg-charcoal-800 rounded transition-all duration-300" id="burger-line-2"></span>
+ <span class="block w-5 h-0.5 bg-charcoal-800 rounded transition-all duration-300" id="burger-line-3"></span>
+ </button>
+ </div>
+ <div id="mobile-menu" class="xl:hidden max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+ <div class="pb-6 pt-2 space-y-2 border-t border-sand-200">
+ <a href="/" class="block px-4 py-3 text-[11px] uppercase tracking-[0.2em] font-bold text-stone-600 hover:bg-sand-100 hover:text-bronze-600 rounded-lg transition-colors">Home</a>
+ <a href="/gallery.html" class="block px-4 py-3 text-[11px] uppercase tracking-[0.2em] font-bold text-stone-600 hover:bg-sand-100 hover:text-bronze-600 rounded-lg transition-colors">Gallery</a>
+ <a href="/products.html" class="block px-4 py-3 text-[11px] uppercase tracking-[0.2em] font-bold text-stone-600 hover:bg-sand-100 hover:text-bronze-600 rounded-lg transition-colors">Products</a>
+ <a href="/catalogue.html" class="block px-4 py-3 text-[11px] uppercase tracking-[0.2em] font-bold text-stone-600 hover:bg-sand-100 hover:text-bronze-600 rounded-lg transition-colors">Catalogue</a>
+ <a href="/about.html" class="block px-4 py-3 text-[11px] uppercase tracking-[0.2em] font-bold text-stone-600 hover:bg-sand-100 hover:text-bronze-600 rounded-lg transition-colors">About</a>
+ <a href="/contact.html" class="block px-4 py-3 text-[11px] uppercase tracking-[0.2em] font-bold text-stone-600 hover:bg-sand-100 hover:text-bronze-600 rounded-lg transition-colors">Contact Us</a>
+ </div>
+ </div>
+ </div>
+ </nav>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const menuBtn = document.getElementById('mobile-menu-btn');
-      const mobileMenu = document.getElementById('mobile-menu');
-      const burgerLines = [document.getElementById('burger-line-1'), document.getElementById('burger-line-2'), document.getElementById('burger-line-3')];
-      let menuOpen = false;
-      if(menuBtn) {
-        menuBtn.addEventListener('click', () => {
-          menuOpen = !menuOpen;
-          mobileMenu.style.maxHeight = menuOpen ? '500px' : '0';
-          burgerLines[0].style.transform = menuOpen ? 'rotate(45deg) translate(5px, 6px)' : '';
-          burgerLines[1].style.opacity = menuOpen ? '0' : '1';
-          burgerLines[2].style.transform = menuOpen ? 'rotate(-45deg) translate(4px, -5px)' : '';
-          burgerLines[2].style.width = menuOpen ? '1.75rem' : '1.25rem';
-        });
-      }
-    });
-  </script>
+ <script>
+ document.addEventListener('DOMContentLoaded', () => {
+ const menuBtn = document.getElementById('mobile-menu-btn');
+ const mobileMenu = document.getElementById('mobile-menu');
+ const burgerLines = [document.getElementById('burger-line-1'), document.getElementById('burger-line-2'), document.getElementById('burger-line-3')];
+ let menuOpen = false;
+ if(menuBtn) {
+ menuBtn.addEventListener('click', () => {
+ menuOpen = !menuOpen;
+ mobileMenu.style.maxHeight = menuOpen ? '500px' : '0';
+ burgerLines[0].style.transform = menuOpen ? 'rotate(45deg) translate(5px, 6px)' : '';
+ burgerLines[1].style.opacity = menuOpen ? '0' : '1';
+ burgerLines[2].style.transform = menuOpen ? 'rotate(-45deg) translate(4px, -5px)' : '';
+ burgerLines[2].style.width = menuOpen ? '1.75rem' : '1.25rem';
+ });
+ }
+ });
+ </script>
 
-  <!-- ================= TERMS OF SERVICE CONTENT ================= -->
-  <main class="flex-grow">
-    <section class="pt-24 pb-12 px-6 max-w-[1440px] mx-auto text-center">
-      <div class="inline-flex items-center justify-center w-20 h-20 bg-sand-100 rounded-full mb-8">
-        <i class="fa-solid fa-file-contract text-bronze-500 text-3xl"></i>
-      </div>
-      <h1 class="font-serif text-5xl md:text-6xl font-bold text-charcoal-900 mb-6">Terms of Service</h1>
-      <p class="text-stone-500 text-lg max-w-2xl mx-auto">The terms governing your use of the CERARIA website and services.</p>
-      <p class="text-stone-400 text-sm mt-4">Last updated: August 25, 2026</p>
-    </section>
+ <!-- ================= TERMS OF SERVICE CONTENT ================= -->
+ <main class="flex-grow">
+ <section class="pt-24 pb-12 px-6 max-w-[1440px] mx-auto text-center">
+ <div class="inline-flex items-center justify-center w-20 h-20 bg-sand-100 rounded-full mb-8">
+ <i class="fa-solid fa-file-contract text-bronze-500 text-3xl"></i>
+ </div>
+ <h1 class="font-serif text-5xl md:text-6xl font-bold text-charcoal-900 mb-6">Terms of Service</h1>
+ <p class="text-stone-500 text-lg max-w-2xl mx-auto">The terms governing your use of the CERARIA website and services.</p>
+ <p class="text-stone-400 text-sm mt-4">Last updated: August 25, 2026</p>
+ </section>
 
-    <section class="pb-24 px-6">
-      <div id="page-content" class="max-w-[900px] mx-auto bg-white rounded-2xl shadow-sm border border-sand-100 p-8 md:p-12 space-y-10">
-        <div class="flex justify-center py-20">
-          <svg class="animate-spin h-10 w-10 text-bronze-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-          </svg>
-        </div>
-      </div>
-    </section>
-  </main>
+ <section class="pb-24 px-6">
+ <div id="page-content" class="max-w-[900px] mx-auto bg-white rounded-2xl shadow-sm border border-sand-100 p-8 md:p-12 space-y-10">
+ <div class="flex justify-center py-20">
+ <svg class="animate-spin h-10 w-10 text-bronze-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+ <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+ <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+ </svg>
+ </div>
+ </div>
+ </section>
+ </main>
 
-  <!-- FOOTER -->
-    <!-- ================= FOOTER ================= -->
-  <footer class="bg-charcoal-900 text-cream-50 pt-16 pb-8 border-t border-stone-600/30 mt-auto">
-    <div class="max-w-[1440px] mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-10">
-      <div>
-        <h3 class="font-serif text-2xl font-bold mb-4 tracking-wide text-bronze-400">CERARIA</h3>
-        <p class="text-stone-400 text-sm leading-relaxed mb-6">The art of ceramic luxury. Curating world-class ceramic surfaces for architects, builders, and homeowners across India.</p>
-      </div>
-      <div>
-        <h4 class="font-serif text-lg font-bold mb-4">Collections</h4>
-        <ul class="space-y-2 text-sm text-stone-400">
-          <li><a href="/products.html" class="hover:text-bronze-400 transition-colors">Infinia+</a></li>
-          <li><a href="/products.html" class="hover:text-bronze-400 transition-colors">Solido</a></li>
-          <li><a href="/products.html" class="hover:text-bronze-400 transition-colors">Evoq</a></li>
-          <li><a href="/products.html" class="hover:text-bronze-400 transition-colors">Panache</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4 class="font-serif text-lg font-bold mb-4">Company</h4>
-        <ul class="space-y-2 text-sm text-stone-400">
-          <li><a href="/about.html" class="hover:text-bronze-400 transition-colors">About Us</a></li>
-          <li><a href="/gallery.html" class="hover:text-bronze-400 transition-colors">Gallery</a></li>
-          <li><a href="/catalogue.html" class="hover:text-bronze-400 transition-colors">Catalogue</a></li>
-          <li><a href="/contact.html" class="hover:text-bronze-400 transition-colors">Contact</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4 class="font-serif text-lg font-bold mb-4">Reach Us</h4>
-        <ul class="space-y-3 text-sm text-stone-400">
-          <li><a href="tel:+919995311459" class="hover:text-bronze-400 transition-colors">+91 9995311459</a></li>
-          <li><a href="tel:+919847311459" class="hover:text-bronze-400 transition-colors">+91 9847311459</a></li>
-          <li><a href="mailto:cerariatile@gmail.com" class="hover:text-bronze-400 transition-colors">cerariatile@gmail.com</a></li>
-          <li class="text-stone-500 leading-relaxed">Gottigere, Bengaluru,<br/>Karnataka 560083</li>
-        </ul>
-      </div>
-    </div>
-    <div class="max-w-[1440px] mx-auto px-6 mt-12 pt-8 border-t border-stone-600/30 flex flex-col md:flex-row items-center justify-between text-xs text-stone-500">
-      <p>&copy; 2026 CERARIA PRIVATE LIMITED. All rights reserved.</p>
-      <div class="flex gap-4 mt-4 md:mt-0">
-        <a href="/privacy-policy.html" class="hover:text-bronze-400 transition-colors">Privacy Policy</a>
-        <a href="/terms-of-service.html" class="hover:text-bronze-400 transition-colors">Terms of Service</a>
-        <a href="/disclaimer.html" class="hover:text-bronze-400 transition-colors">Disclaimer</a>
-      </div>
-    </div>
-  </footer>
+ <!-- FOOTER -->
+ <!-- ================= FOOTER ================= -->
+ <footer class="bg-charcoal-900 text-cream-50 pt-16 pb-8 border-t border-stone-600/30 mt-auto">
+ <div class="max-w-[1440px] mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-10">
+ <div>
+ <h3 class="font-serif text-2xl font-bold mb-4 tracking-wide text-bronze-400">CERARIA</h3>
+ <p class="text-stone-400 text-sm leading-relaxed mb-6">The art of ceramic luxury. Curating world-class ceramic surfaces for architects, builders, and homeowners across India.</p>
+ </div>
+ <div>
+ <h4 class="font-serif text-lg font-bold mb-4">Collections</h4>
+ <ul class="space-y-2 text-sm text-stone-400">
+ <li><a href="/products.html" class="hover:text-bronze-400 transition-colors">Infinia+</a></li>
+ <li><a href="/products.html" class="hover:text-bronze-400 transition-colors">Solido</a></li>
+ <li><a href="/products.html" class="hover:text-bronze-400 transition-colors">Evoq</a></li>
+ <li><a href="/products.html" class="hover:text-bronze-400 transition-colors">Panache</a></li>
+ </ul>
+ </div>
+ <div>
+ <h4 class="font-serif text-lg font-bold mb-4">Company</h4>
+ <ul class="space-y-2 text-sm text-stone-400">
+ <li><a href="/about.html" class="hover:text-bronze-400 transition-colors">About Us</a></li>
+ <li><a href="/gallery.html" class="hover:text-bronze-400 transition-colors">Gallery</a></li>
+ <li><a href="/catalogue.html" class="hover:text-bronze-400 transition-colors">Catalogue</a></li>
+ <li><a href="/contact.html" class="hover:text-bronze-400 transition-colors">Contact</a></li>
+ </ul>
+ </div>
+ <div>
+ <h4 class="font-serif text-lg font-bold mb-4">Reach Us</h4>
+ <ul class="space-y-3 text-sm text-stone-400">
+ <li><a href="tel:+919995311459" class="hover:text-bronze-400 transition-colors">+91 9995311459</a></li>
+ <li><a href="tel:+919847311459" class="hover:text-bronze-400 transition-colors">+91 9847311459</a></li>
+ <li><a href="mailto:cerariatile@gmail.com" class="hover:text-bronze-400 transition-colors">cerariatile@gmail.com</a></li>
+ <li class="text-stone-500 leading-relaxed">Gottigere, Bengaluru,<br/>Karnataka 560083</li>
+ </ul>
+ </div>
+ </div>
+ <div class="max-w-[1440px] mx-auto px-6 mt-12 pt-8 border-t border-stone-600/30 flex flex-col md:flex-row items-center justify-between text-xs text-stone-500">
+ <p>&copy; 2026 CERARIA PRIVATE LIMITED. All rights reserved.</p>
+ <div class="flex gap-4 mt-4 md:mt-0">
+ <a href="/privacy-policy.html" class="hover:text-bronze-400 transition-colors">Privacy Policy</a>
+ <a href="/terms-of-service.html" class="hover:text-bronze-400 transition-colors">Terms of Service</a>
+ <a href="/disclaimer.html" class="hover:text-bronze-400 transition-colors">Disclaimer</a>
+ </div>
+ </div>
+ </footer>
 
 
-  <script>
-    document.addEventListener('DOMContentLoaded', async () => {
-      try {
-        const res = await fetch('/api/pages/terms-of-service');
-        const json = await res.json();
-        const container = document.getElementById('page-content');
-        if (json.success && json.data.content) {
-          container.innerHTML = json.data.content;
-          
-          // Style the injected HTML slightly for better reading (if quill didn't apply classes)
-          container.querySelectorAll('h2').forEach(el => el.classList.add('font-serif', 'text-2xl', 'font-bold', 'text-charcoal-900', 'mb-4', 'mt-8'));
-          container.querySelectorAll('p').forEach(el => el.classList.add('text-stone-600', 'leading-relaxed', 'mb-4'));
-          container.querySelectorAll('ul').forEach(el => el.classList.add('list-disc', 'list-inside', 'text-stone-600', 'space-y-2', 'ml-4', 'mb-4'));
-          container.querySelectorAll('li').forEach(el => el.classList.add('pl-2'));
-        } else {
-          container.innerHTML = '<p class="text-center text-red-500 py-10">Failed to load content.</p>';
-        }
-      } catch (err) {
-        document.getElementById('page-content').innerHTML = '<p class="text-center text-red-500 py-10">Network error.</p>';
-      }
-    });
-  </script>
+ <script>
+ document.addEventListener('DOMContentLoaded', async () => {
+ try {
+ const res = await fetch('/api/pages/terms-of-service');
+ const json = await res.json();
+ const container = document.getElementById('page-content');
+ if (json.success && json.data.content) {
+ container.innerHTML = json.data.content;
+ 
+ // Style the injected HTML slightly for better reading (if quill didn't apply classes)
+ container.querySelectorAll('h2').forEach(el => el.classList.add('font-serif', 'text-2xl', 'font-bold', 'text-charcoal-900', 'mb-4', 'mt-8'));
+ container.querySelectorAll('p').forEach(el => el.classList.add('text-stone-600', 'leading-relaxed', 'mb-4'));
+ container.querySelectorAll('ul').forEach(el => el.classList.add('list-disc', 'list-inside', 'text-stone-600', 'space-y-2', 'ml-4', 'mb-4'));
+ container.querySelectorAll('li').forEach(el => el.classList.add('pl-2'));
+ } else {
+ container.innerHTML = '<p class="text-center text-red-500 py-10">Failed to load content.</p>';
+ }
+ } catch (err) {
+ document.getElementById('page-content').innerHTML = '<p class="text-center text-red-500 py-10">Network error.</p>';
+ }
+ });
+ </script>
 
-  <!-- AOS JS -->
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      // Automatically add data-aos to major elements that don't already have it
-      const elementsToAnimate = document.querySelectorAll('section, main > div, .card, .grid > div, .flex > div, h1, h2, h3');
-      
-      elementsToAnimate.forEach(function(el) {
-        // Skip elements that already have data-aos, or are inside nav/footer
-        if (!el.hasAttribute('data-aos') && !el.closest('nav') && !el.closest('footer') && !el.closest('.swiper')) {
-          el.setAttribute('data-aos', 'fade-up');
-          el.setAttribute('data-aos-duration', '1000');
-          el.setAttribute('data-aos-once', 'true');
-        }
-      });
-      
-      if (typeof AOS !== 'undefined') {
-        AOS.init({ once: true, offset: 50 });
-      }
-    });
-  </script>
+ <!-- AOS JS -->
+ <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+ <script>
+ document.addEventListener("DOMContentLoaded", function() {
+ // Automatically add data-aos to major elements that don't already have it
+ const elementsToAnimate = document.querySelectorAll('section, main > div, .card, .grid > div, .flex > div, h1, h2, h3');
+ 
+ elementsToAnimate.forEach(function(el) {
+ // Skip elements that already have data-aos, or are inside nav/footer
+ if (!el.hasAttribute('data-aos') && !el.closest('nav') && !el.closest('footer') && !el.closest('.swiper')) {
+ el.setAttribute('data-aos', 'fade-up');
+ el.setAttribute('data-aos-duration', '1000');
+ el.setAttribute('data-aos-once', 'true');
+ }
+ });
+ 
+ if (typeof AOS !== 'undefined') {
+ AOS.init({ once: true, offset: 50 });
+ }
+ });
+ </script>
 
-  </body>
+ </body>
 </html>

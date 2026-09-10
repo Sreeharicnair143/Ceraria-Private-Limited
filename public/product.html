@@ -1,921 +1,921 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Product Details — CERARIA | The Art of Ceramic Luxury</title>
-  <meta name="description" content="Explore premium tile details, specifications, and interior visualizations at CERARIA." />
+ <meta charset="UTF-8" />
+ <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+ <title>Product Details — CERARIA | The Art of Ceramic Luxury</title>
+ <meta name="description" content="Explore premium tile details, specifications, and interior visualizations at CERARIA." />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+ <link rel="preconnect" href="https://fonts.googleapis.com" />
+ <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+ <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            cream:    { 50: '#FFFDF8', 100: '#FFF9ED', 200: '#FFF3DB' },
-            sand:     { 100: '#F5F0E8', 200: '#EDE5D8', 300: '#DDD3C1', 400: '#C4B8A3' },
-            stone:    { 300: '#B8B0A4', 400: '#9A9184', 500: '#7A7267', 600: '#5C554B' },
-            bronze:   { 400: '#C49A6C', 500: '#B07D4F', 600: '#9A673B', 700: '#7D522E' },
-            charcoal: { 700: '#3A342E', 800: '#2C2824', 900: '#1A1714' },
-          },
-                    fontFamily: {
-            serif: ['"Playfair Display"', 'serif'],
-            sans:  ['"Inter"', 'sans-serif'],
-          },
-        },
-      },
-    };
-  </script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+ <script src="https://cdn.tailwindcss.com"></script>
+ <script>
+ tailwind.config = {
+ theme: {
+ extend: {
+ colors: {
+ cream: { 50: '#FFFDF8', 100: '#FFF9ED', 200: '#FFF3DB' },
+ sand: { 100: '#F5F0E8', 200: '#EDE5D8', 300: '#DDD3C1', 400: '#C4B8A3' },
+ stone: { 300: '#B8B0A4', 400: '#9A9184', 500: '#7A7267', 600: '#5C554B' },
+ bronze: { 400: '#C49A6C', 500: '#B07D4F', 600: '#9A673B', 700: '#7D522E' },
+ charcoal: { 700: '#3A342E', 800: '#2C2824', 900: '#1A1714' },
+ },
+ fontFamily: {
+ serif: ['"Playfair Display"', 'serif'],
+ sans: ['"Inter"', 'sans-serif'],
+ },
+ },
+ },
+ };
+ </script>
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
 
-  <style>
-    html { scroll-behavior: smooth; }
-    body { font-family: 'Inter', system-ui, sans-serif; background: #FFFDF8; }
+ <style>
+ html { scroll-behavior: smooth; }
+ body { font-family: 'Inter', system-ui, sans-serif; background: #FFFDF8; }
 
-    /* Header */
-    #main-header .nav-link { color: #2C2824; }
-    #main-header .nav-link:hover { color: #B07D4F; }
+ /* Header */
+ #main-header .nav-link { color: #2C2824; }
+ #main-header .nav-link:hover { color: #B07D4F; }
 
-    /* ── Kajaria-style Image Carousel ── */
-    .carousel-track { display: flex; width: 200%; transition: transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
-    .carousel-slide { width: 50%; position: relative; cursor: zoom-in; overflow: hidden; }
-    .carousel-slide img {
-      width: 100%; height: 100%; object-fit: cover;
-      transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    }
-    .carousel-slide:hover img { transform: scale(1.04); }
+ /* ── Kajaria-style Image Carousel ── */
+ .carousel-track { display: flex; width: 200%; transition: transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+ .carousel-slide { width: 50%; position: relative; cursor: zoom-in; overflow: hidden; }
+ .carousel-slide img {
+ width: 100%; height: 100%; object-fit: cover;
+ transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+ }
+ .carousel-slide:hover img { transform: scale(1.04); }
 
-    /* Slide type badge */
-    .slide-badge {
-      position: absolute; bottom: 16px; left: 16px;
-      background: rgba(0,0,0,0.6); backdrop-filter: blur(8px);
-      color: white; font-size: 10px; font-weight: 700;
-      letter-spacing: 0.2em; text-transform: uppercase;
-      padding: 5px 12px; border-radius: 20px;
-    }
+ /* Slide type badge */
+ .slide-badge {
+ position: absolute; bottom: 16px; left: 16px;
+ background: rgba(0,0,0,0.6); backdrop-filter: blur(8px);
+ color: white; font-size: 10px; font-weight: 700;
+ letter-spacing: 0.2em; text-transform: uppercase;
+ padding: 5px 12px; border-radius: 20px;
+ }
 
-    /* Arrow buttons */
-    .carousel-btn {
-      position: absolute; top: 50%; transform: translateY(-50%); z-index: 10;
-      width: 44px; height: 44px; border-radius: 50%;
-      background: rgba(255,255,255,0.9); backdrop-filter: blur(8px);
-      border: 1px solid rgba(0,0,0,0.08); cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
-      transition: all 0.2s ease;
-      color: #1A1714;
-    }
-    .carousel-btn:hover { background: white; box-shadow: 0 6px 24px rgba(0,0,0,0.18); transform: translateY(-50%) scale(1.05); }
-    .carousel-btn-prev { left: 14px; }
-    .carousel-btn-next { right: 14px; }
+ /* Arrow buttons */
+ .carousel-btn {
+ position: absolute; top: 50%; transform: translateY(-50%); z-index: 10;
+ width: 44px; height: 44px; border-radius: 50%;
+ background: rgba(255,255,255,0.9); backdrop-filter: blur(8px);
+ border: 1px solid rgba(0,0,0,0.08); cursor: pointer;
+ display: flex; align-items: center; justify-content: center;
+ box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+ transition: all 0.2s ease;
+ color: #1A1714;
+ }
+ .carousel-btn:hover { background: white; box-shadow: 0 6px 24px rgba(0,0,0,0.18); transform: translateY(-50%) scale(1.05); }
+ .carousel-btn-prev { left: 14px; }
+ .carousel-btn-next { right: 14px; }
 
-    /* Dots */
-    .carousel-dot {
-      width: 8px; height: 8px; border-radius: 50%;
-      background: rgba(255,255,255,0.5); cursor: pointer;
-      transition: all 0.3s; border: none;
-    }
-    .carousel-dot.active { background: white; width: 28px; border-radius: 4px; }
+ /* Dots */
+ .carousel-dot {
+ width: 8px; height: 8px; border-radius: 50%;
+ background: rgba(255,255,255,0.5); cursor: pointer;
+ transition: all 0.3s; border: none;
+ }
+ .carousel-dot.active { background: white; width: 28px; border-radius: 4px; }
 
-    /* ── Specs divider table ── */
-    .spec-divider { border-right: 1px solid #DDD3C1; }
-    .spec-divider:last-child { border-right: none; }
+ /* ── Specs divider table ── */
+ .spec-divider { border-right: 1px solid #DDD3C1; }
+ .spec-divider:last-child { border-right: none; }
 
-    /* ── Application tag ── */
-    .app-tag {
-      display: inline-flex; align-items: center; gap: 5px;
-      padding: 4px 12px; border-radius: 20px;
-      background: #F5F0E8; color: #5C554B;
-      font-size: 11px; font-weight: 600; letter-spacing: 0.05em;
-      border: 1px solid #DDD3C1;
-    }
+ /* ── Application tag ── */
+ .app-tag {
+ display: inline-flex; align-items: center; gap: 5px;
+ padding: 4px 12px; border-radius: 20px;
+ background: #F5F0E8; color: #5C554B;
+ font-size: 11px; font-weight: 600; letter-spacing: 0.05em;
+ border: 1px solid #DDD3C1;
+ }
 
-    /* ── Lightbox ── */
-    .lightbox-overlay { opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease; }
-    .lightbox-overlay.open { opacity: 1; visibility: visible; }
+ /* ── Lightbox ── */
+ .lightbox-overlay { opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease; }
+ .lightbox-overlay.open { opacity: 1; visibility: visible; }
 
-    /* ── Inquiry modal ── */
-    .modal-overlay { opacity: 0; visibility: hidden; transition: opacity 0.3s ease; }
-    .modal-overlay.open { opacity: 1; visibility: visible; }
-    .modal-panel { transform: scale(0.95) translateY(20px); transition: transform 0.3s ease; }
-    .modal-overlay.open .modal-panel { transform: scale(1) translateY(0); }
+ /* ── Inquiry modal ── */
+ .modal-overlay { opacity: 0; visibility: hidden; transition: opacity 0.3s ease; }
+ .modal-overlay.open { opacity: 1; visibility: visible; }
+ .modal-panel { transform: scale(0.95) translateY(20px); transition: transform 0.3s ease; }
+ .modal-overlay.open .modal-panel { transform: scale(1) translateY(0); }
 
-    /* ── Fade-up ── */
-    .fade-up { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease-out, transform 0.7s ease-out; }
-    .fade-up.visible { opacity: 1; transform: translateY(0); }
-    .delay-1 { transition-delay: 0.1s; } .delay-2 { transition-delay: 0.2s; }
+ /* ── Fade-up ── */
+ .fade-up { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease-out, transform 0.7s ease-out; }
+ .fade-up.visible { opacity: 1; transform: translateY(0); }
+ .delay-1 { transition-delay: 0.1s; } .delay-2 { transition-delay: 0.2s; }
 
-    /* ── Skeleton ── */
-    @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
-    .skeleton { background: linear-gradient(90deg, #F5F0E8 25%, #EDE5D8 50%, #F5F0E8 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite; border-radius: 12px; }
+ /* ── Skeleton ── */
+ @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+ .skeleton { background: linear-gradient(90deg, #F5F0E8 25%, #EDE5D8 50%, #F5F0E8 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite; border-radius: 12px; }
 
-    /* ── Form ── */
-    .form-input:focus { outline: none; border-color: #B07D4F; box-shadow: 0 0 0 3px rgba(176,125,79,0.12); }
+ /* ── Form ── */
+ .form-input:focus { outline: none; border-color: #B07D4F; box-shadow: 0 0 0 3px rgba(176,125,79,0.12); }
 
-    /* ── Product card hover ── */
-    .product-card { transition: transform 0.4s ease, box-shadow 0.4s ease; }
-    .product-card:hover { transform: translateY(-5px); box-shadow: 0 20px 48px rgba(0,0,0,0.09); }
+ /* ── Product card hover ── */
+ .product-card { transition: transform 0.4s ease, box-shadow 0.4s ease; }
+ .product-card:hover { transform: translateY(-5px); box-shadow: 0 20px 48px rgba(0,0,0,0.09); }
 
-    /* ── Scrollbar ── */
-    ::-webkit-scrollbar { width: 6px; }
-    ::-webkit-scrollbar-track { background: #F5F0E8; }
-    ::-webkit-scrollbar-thumb { background: #C4B8A3; border-radius: 3px; }
+ /* ── Scrollbar ── */
+ ::-webkit-scrollbar { width: 6px; }
+ ::-webkit-scrollbar-track { background: #F5F0E8; }
+ ::-webkit-scrollbar-thumb { background: #C4B8A3; border-radius: 3px; }
 
-    /* Breadcrumb separator */
-    .bc-sep { color: #C4B8A3; }
-  
-    /* ── NAVBAR INSTANT VISIBILITY ── */
-    /* Ensure nav is always visible immediately, before any JS/CDN loads */
-    #navbar { opacity: 1 !important; transform: none !important; }
-    #navbar * { opacity: 1 !important; }
-    #navbar [data-aos] { opacity: 1 !important; transform: none !important; }
-    #mobile-menu-btn { display: flex !important; flex-direction: column; gap: 6px; padding: 8px; }
-    #mobile-menu-btn span { display: block; }
-    /* Hide hamburger on xl screens (matching Tailwind xl:hidden) */
-    @media (min-width: 1280px) {
-      #mobile-menu-btn { display: none !important; }
-    }
+ /* Breadcrumb separator */
+ .bc-sep { color: #C4B8A3; }
+ 
+ /* ── NAVBAR INSTANT VISIBILITY ── */
+ /* Ensure nav is always visible immediately, before any JS/CDN loads */
+ #navbar { opacity: 1 !important; transform: none !important; }
+ #navbar * { opacity: 1 !important; }
+ #navbar [data-aos] { opacity: 1 !important; transform: none !important; }
+ #mobile-menu-btn { display: flex !important; flex-direction: column; gap: 6px; padding: 8px; }
+ #mobile-menu-btn span { display: block; }
+ /* Hide hamburger on xl screens (matching Tailwind xl:hidden) */
+ @media (min-width: 1280px) {
+ #mobile-menu-btn { display: none !important; }
+ }
 
 </style>
 
-  <!-- AOS CSS -->
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+ <!-- AOS CSS -->
+ <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
 
 <body class="bg-cream-50 text-charcoal-900 antialiased">
 
-  <!-- ================================================================
-       NAVIGATION
-  ================================================================ -->
-  <!-- ================================================================
-       SECTION: NAVIGATION BAR
-       ================================================================ -->
-  <!-- ================================================================
-       SECTION: NAVIGATION BAR
-       ================================================================ -->
-  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 border-b border-sand-200/60 shadow-sm transition-all duration-300 bg-[#E8E3DF]">
-    <div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between h-24 py-4">
-
-        <!-- Logo -->
-        <a href="/" class="flex items-center gap-3 group" id="nav-logo">
-          <img src="/assets/images/new_logos/logo_icon.jpg"
-               alt="CERARIA logo"
-               class="h-8 sm:h-10 md:h-12 mix-blend-multiply w-auto object-contain group-hover:scale-105 transition-transform duration-500" />
-          <img src="/assets/images/new_logos/logo_full.jpg" alt="CERARIA" class="h-8 sm:h-10 md:h-12 w-auto object-contain group-hover:opacity-80 transition-opacity duration-500 mix-blend-multiply" />
-          <span class="inline-block text-[9px] sm:text-[11px] font-sans font-semibold tracking-[0.15em] sm:tracking-[0.25em] uppercase text-stone-600 border-l border-stone-400 pl-2 sm:pl-3 leading-relaxed">
-            THE ART OF<br/>CERAMIC LUXURY
-          </span>
-        </a>
-
-        <!-- Desktop Nav Links -->
-        <div class="hidden xl:flex items-center gap-8" id="nav-links-desktop">
-          <a href="/" class="relative group text-[11px] uppercase tracking-[0.2em] font-bold text-stone-500 hover:text-charcoal-900 transition-colors py-1">
-            Home
-            <span class="absolute bottom-0 left-0 w-0 h-[1.5px] bg-bronze-500 transition-all duration-300 group-hover:w-full"></span>
-          </a>
-          <a href="/gallery.html" class="relative group text-[11px] uppercase tracking-[0.2em] font-bold text-stone-500 hover:text-charcoal-900 transition-colors py-1">
-            Gallery
-            <span class="absolute bottom-0 left-0 w-0 h-[1.5px] bg-bronze-500 transition-all duration-300 group-hover:w-full"></span>
-          </a>
-          <a href="/products.html" class="relative group text-[11px] uppercase tracking-[0.2em] font-bold text-stone-500 hover:text-charcoal-900 transition-colors py-1">
-            Products
-            <span class="absolute bottom-0 left-0 w-0 h-[1.5px] bg-bronze-500 transition-all duration-300 group-hover:w-full"></span>
-          </a>
-          <a href="/catalogue.html" class="relative group text-[11px] uppercase tracking-[0.2em] font-bold text-stone-500 hover:text-charcoal-900 transition-colors py-1">
-            Catalogue
-            <span class="absolute bottom-0 left-0 w-0 h-[1.5px] bg-bronze-500 transition-all duration-300 group-hover:w-full"></span>
-          </a>
-          <a href="/about.html" class="relative group text-[11px] uppercase tracking-[0.2em] font-bold text-stone-500 hover:text-charcoal-900 transition-colors py-1">
-            About
-            <span class="absolute bottom-0 left-0 w-0 h-[1.5px] bg-bronze-500 transition-all duration-300 group-hover:w-full"></span>
-          </a>
-          <a href="/contact.html" class="relative group text-[11px] uppercase tracking-[0.2em] font-bold text-stone-500 hover:text-charcoal-900 transition-colors py-1">
-            Contact Us
-            <span class="absolute bottom-0 left-0 w-0 h-[1.5px] bg-bronze-500 transition-all duration-300 group-hover:w-full"></span>
-          </a>
-        </div>
-
-        <!-- Mobile Hamburger -->
-        <button id="mobile-menu-btn"
-                class="xl:hidden flex flex-col gap-1.5 p-2 rounded-lg hover:bg-sand-100 transition-colors"
-                aria-label="Toggle mobile menu">
-          <span class="block w-7 h-0.5 bg-charcoal-800 rounded transition-all duration-300" id="burger-line-1"></span>
-          <span class="block w-7 h-0.5 bg-charcoal-800 rounded transition-all duration-300" id="burger-line-2"></span>
-          <span class="block w-5 h-0.5 bg-charcoal-800 rounded transition-all duration-300" id="burger-line-3"></span>
-        </button>
-      </div>
-
-      <!-- Mobile Menu -->
-      <div id="mobile-menu" class="mobile-menu xl:hidden max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
-        <div class="pb-6 pt-2 space-y-2 border-t border-sand-200">
-          <a href="/" class="block px-4 py-3 text-[11px] uppercase tracking-[0.2em] font-bold text-stone-600 hover:bg-sand-100 hover:text-bronze-600 rounded-lg transition-colors">Home</a>
-          <a href="/gallery.html" class="block px-4 py-3 text-[11px] uppercase tracking-[0.2em] font-bold text-stone-600 hover:bg-sand-100 hover:text-bronze-600 rounded-lg transition-colors">Gallery</a>
-          <a href="/products.html" class="block px-4 py-3 text-[11px] uppercase tracking-[0.2em] font-bold text-stone-600 hover:bg-sand-100 hover:text-bronze-600 rounded-lg transition-colors">Products</a>
-          <a href="/catalogue.html" class="block px-4 py-3 text-[11px] uppercase tracking-[0.2em] font-bold text-stone-600 hover:bg-sand-100 hover:text-bronze-600 rounded-lg transition-colors">Catalogue</a>
-          <a href="/about.html" class="block px-4 py-3 text-[11px] uppercase tracking-[0.2em] font-bold text-stone-600 hover:bg-sand-100 hover:text-bronze-600 rounded-lg transition-colors">About</a>
-          <a href="/contact.html" class="block px-4 py-3 text-[11px] uppercase tracking-[0.2em] font-bold text-stone-600 hover:bg-sand-100 hover:text-bronze-600 rounded-lg transition-colors">Contact Us</a>
-        </div>
-      </div>
-    </div>
-  </nav>
-  
-  <script>
-    // Inline script for mobile menu in case it's missing in some files
-    document.addEventListener('DOMContentLoaded', () => {
-      const menuBtn = document.getElementById('mobile-menu-btn');
-      const mobileMenu = document.getElementById('mobile-menu');
-      const burgerLines = [
-        document.getElementById('burger-line-1'),
-        document.getElementById('burger-line-2'),
-        document.getElementById('burger-line-3'),
-      ];
-      let menuOpen = false;
-
-      if(menuBtn) {
-        menuBtn.addEventListener('click', () => {
-          menuOpen = !menuOpen;
-          if (menuOpen) {
-            mobileMenu.style.maxHeight = '500px';
-          } else {
-            mobileMenu.style.maxHeight = '0';
-          }
-          burgerLines[0].style.transform = menuOpen ? 'rotate(45deg) translate(5px, 6px)' : '';
-          burgerLines[1].style.opacity   = menuOpen ? '0' : '1';
-          burgerLines[2].style.transform = menuOpen ? 'rotate(-45deg) translate(4px, -5px)' : '';
-          burgerLines[2].style.width     = menuOpen ? '1.75rem' : '1.25rem';
-        });
-      }
-    });
-  </script>
-  
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const menuBtn = document.getElementById('mobile-menu-btn');
-      const mobileMenu = document.getElementById('mobile-menu');
-      const burgerLines = [
-        document.getElementById('burger-line-1'),
-        document.getElementById('burger-line-2'),
-        document.getElementById('burger-line-3'),
-      ];
-      let menuOpen = false;
-
-      if(menuBtn && mobileMenu) {
-        menuBtn.addEventListener('click', () => {
-          menuOpen = !menuOpen;
-          if (menuOpen) {
-            mobileMenu.style.maxHeight = '400px';
-          } else {
-            mobileMenu.style.maxHeight = '0';
-          }
-          burgerLines[0].style.transform = menuOpen ? 'rotate(45deg) translate(4px, 4px)' : '';
-          burgerLines[1].style.opacity   = menuOpen ? '0' : '1';
-          burgerLines[2].style.transform = menuOpen ? 'rotate(-45deg) translate(3px, -3px)' : '';
-          burgerLines[2].style.width     = menuOpen ? '1.5rem' : '1rem';
-        });
-      }
-    });
-  </script>
-
-  <!-- Mobile Menu -->
-  <div id="mobile-menu" class="fixed inset-y-0 right-0 w-80 max-w-full bg-white z-[60] shadow-2xl p-6 overflow-y-auto transform translate-x-full transition-transform duration-300">
-    <div class="flex justify-between items-center mb-8">
-      <span class="font-serif text-xl font-bold">CERARIA</span>
-      <button id="mobile-menu-close" class="p-2 text-charcoal-800">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
-      </button>
-    </div>
-    <nav class="space-y-3">
-      <a href="/gallery.html" class="block py-3 text-lg font-medium text-charcoal-800 border-b border-sand-100">Gallery</a>
-      <a href="/catalogue.html" class="block py-3 text-lg font-medium text-charcoal-800 border-b border-sand-100">Catalogue</a>
-      <a href="/contact.html" class="block py-3 text-lg font-medium text-charcoal-800 border-b border-sand-100">Contact Us</a>
-      <a href="/about.html" class="block py-3 text-lg font-medium text-charcoal-800 border-b border-sand-100">About</a>
-      <a href="/products.html" class="block py-3 text-lg font-medium text-charcoal-800 border-b border-sand-100">Products</a>
-      <a href="tel:+919876543210" class="block mt-6 text-center py-3 bg-bronze-500 text-cream-50 font-semibold text-sm tracking-widest uppercase rounded-xl">Call Now</a>
-    </nav>
-  </div>
-  <div id="mobile-menu-backdrop" class="fixed inset-0 bg-black/40 z-[55] hidden"></div>
-
-
-  <!-- ================================================================
-       LOADING SKELETON
-  ================================================================ -->
-  <div id="page-loader" class="pt-[120px]">
-    <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <div class="flex items-center gap-2 mb-8">
-        <div class="skeleton h-4 w-12 rounded"></div>
-        <div class="skeleton h-4 w-4 rounded"></div>
-        <div class="skeleton h-4 w-20 rounded"></div>
-        <div class="skeleton h-4 w-4 rounded"></div>
-        <div class="skeleton h-4 w-32 rounded"></div>
-      </div>
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
-        <div class="skeleton rounded-2xl" style="aspect-ratio:1/1;"></div>
-        <div class="space-y-5 pt-4">
-          <div class="skeleton h-4 w-28 rounded"></div>
-          <div class="skeleton h-14 w-3/4 rounded"></div>
-          <div class="skeleton h-5 w-48 rounded"></div>
-          <div class="skeleton h-28 w-full rounded-xl"></div>
-          <div class="skeleton h-20 w-full rounded-xl"></div>
-          <div class="flex gap-3"><div class="skeleton h-14 flex-1 rounded-xl"></div><div class="skeleton h-14 flex-1 rounded-xl"></div></div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-  <!-- ================================================================
-       MAIN PRODUCT CONTENT
-  ================================================================ -->
-  <main id="product-content" class="hidden pt-[120px]">
-
-    <!-- Breadcrumb -->
-    <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 pt-5 pb-1">
-      <nav class="flex items-center gap-2 text-xs" aria-label="Breadcrumb">
-        <a href="/" class="text-stone-400 hover:text-bronze-600 transition-colors">Home</a>
-        <span class="bc-sep">/</span>
-        <a href="/products.html" class="text-stone-400 hover:text-bronze-600 transition-colors">Products</a>
-        <span class="bc-sep">/</span>
-        <span id="breadcrumb-series" class="text-stone-400"></span>
-        <span class="bc-sep">/</span>
-        <span id="breadcrumb-name" class="text-charcoal-900 font-semibold"></span>
-      </nav>
-    </div>
-
-    <!-- ================================================================
-         SECTION 1: KAJARIA-STYLE PRODUCT SHOWCASE
-         Left: 2-slide carousel (Room Scene + Tile Closeup)
-         Right: Product details + specs + CTAs
-    ================================================================ -->
-    <section class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-6 lg:py-10">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-14 items-start">
-
-        <!-- ── LEFT: Image Carousel ── -->
-        <div class="fade-up">
-          <!-- Carousel Wrapper -->
-          <div class="relative rounded-2xl overflow-hidden bg-sand-100" style="aspect-ratio: 1/1;" id="carousel-wrapper">
-
-            <!-- Slides track -->
-            <div class="carousel-track h-full" id="carousel-track">
-              <!-- Slide 1: Room Scene -->
-              <div class="carousel-slide h-full" id="slide-room" onclick="openLightbox(0)">
-                <img id="room-img" src="" alt="Room Scene" class="w-full h-full" />
-                <span class="slide-badge"><i class="fa-solid fa-couch mr-1.5 text-xs"></i>Room Scene</span>
-              </div>
-              <!-- Slide 2: Tile Closeup -->
-              <div class="carousel-slide h-full" id="slide-tile" onclick="openLightbox(1)">
-                <img id="tile-img" src="" alt="Tile Closeup" class="w-full h-full" />
-                <span class="slide-badge"><i class="fa-solid fa-border-all mr-1.5 text-xs"></i>Tile Closeup</span>
-              </div>
-            </div>
-
-            <!-- Nav Arrows -->
-            <button class="carousel-btn carousel-btn-prev" onclick="carouselPrev()" aria-label="Previous">
-              <i class="fa-solid fa-chevron-left text-sm"></i>
-            </button>
-            <button class="carousel-btn carousel-btn-next" onclick="carouselNext()" aria-label="Next">
-              <i class="fa-solid fa-chevron-right text-sm"></i>
-            </button>
-
-            <!-- Slide indicator dots -->
-            <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
-              <button class="carousel-dot active" onclick="goToSlide(0)" aria-label="Room scene"></button>
-              <button class="carousel-dot" onclick="goToSlide(1)" aria-label="Tile closeup"></button>
-            </div>
-
-            <!-- Zoom hint -->
-            <div class="absolute top-4 right-4 px-2.5 py-1 bg-white/80 backdrop-blur-sm rounded-full text-[10px] font-semibold text-stone-500 flex items-center gap-1 pointer-events-none">
-              <i class="fa-solid fa-magnifying-glass-plus text-bronze-400"></i> Click to zoom
-            </div>
-          </div>
-
-          <!-- Slide label strip under carousel -->
-          <div class="flex gap-3 mt-3">
-            <button id="tab-room" onclick="goToSlide(0)" class="flex-1 py-2.5 text-xs font-semibold uppercase tracking-wider rounded-xl border-2 border-bronze-500 bg-bronze-500/10 text-bronze-600 transition-all">
-              <i class="fa-solid fa-couch mr-1.5"></i>Room Scene
-            </button>
-            <button id="tab-tile" onclick="goToSlide(1)" class="flex-1 py-2.5 text-xs font-semibold uppercase tracking-wider rounded-xl border-2 border-sand-300 text-stone-500 hover:border-bronze-400 transition-all">
-              <i class="fa-solid fa-border-all mr-1.5"></i>Tile Closeup
-            </button>
-          </div>
-        </div>
-
-
-        <!-- ── RIGHT: Product Info Panel ── -->
-        <div class="fade-up delay-1 space-y-6">
-
-          <!-- Series + Category badges -->
-          <div class="flex items-center gap-2 flex-wrap">
-            <span class="text-[10px] font-bold tracking-[0.25em] uppercase text-bronze-500 px-3 py-1 bg-bronze-500/10 rounded-full border border-bronze-400/30" id="product-series-label">Series</span>
-            <span class="text-[10px] font-bold tracking-[0.2em] uppercase text-stone-500 px-3 py-1 bg-sand-100 rounded-full" id="product-category-badge">Category</span>
-          </div>
-
-          <!-- Product Name -->
-          <div>
-            <h1 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-charcoal-900 leading-tight" id="product-name">Loading...</h1>
-          </div>
-
-          <!-- Specs Row -->
-          <div class="flex divide-x divide-sand-300 border border-sand-200 rounded-2xl overflow-hidden bg-white" id="specs-row">
-            <div class="flex-1 px-5 py-4">
-              <p class="text-[9px] font-bold tracking-[0.2em] uppercase text-stone-400 mb-1">SIZE</p>
-              <p class="text-sm font-bold text-charcoal-900" id="spec-size">—</p>
-            </div>
-            <div class="flex-1 px-5 py-4">
-              <p class="text-[9px] font-bold tracking-[0.2em] uppercase text-stone-400 mb-1">FINISH</p>
-              <p class="text-sm font-bold text-charcoal-900" id="spec-finish">—</p>
-            </div>
-            <div class="flex-1 px-5 py-4">
-              <p class="text-[9px] font-bold tracking-[0.2em] uppercase text-stone-400 mb-1">THICKNESS</p>
-              <p class="text-sm font-bold text-charcoal-900" id="spec-thickness">—</p>
-            </div>
-          </div>
-
-          <!-- Description -->
-          <p class="text-stone-500 text-sm leading-relaxed" id="product-description">Loading...</p>
-
-          <!-- Applications -->
-          <div id="applications-section" class="hidden">
-            <p class="text-[9px] font-bold tracking-[0.2em] uppercase text-stone-400 mb-2.5">SUITABLE FOR</p>
-            <div id="application-tags" class="flex flex-wrap gap-2"></div>
-          </div>
-
-          <!-- Action Buttons -->
-          <div class="flex flex-col sm:flex-row gap-4 pt-4">
-            <button onclick="openInquiryModal()" class="flex-1 flex items-center justify-center gap-2 py-3.5 bg-bronze-500 text-cream-50 font-semibold text-sm tracking-widest uppercase rounded-xl hover:bg-bronze-600 transition-all shadow-md">
-              <i class="fa-solid fa-paper-plane"></i> Send Inquiry
-            </button>
-            <button onclick="openWhatsApp()" class="flex-1 flex items-center justify-center gap-2 py-3.5 bg-green-600 text-white font-semibold text-sm tracking-widest uppercase rounded-xl hover:bg-green-700 transition-all shadow-md">
-              <i class="fa-brands fa-whatsapp text-lg"></i> WhatsApp
-            </button>
-          </div>
-
-          <!-- Full specs accordion -->
-          <details class="border border-sand-200 rounded-2xl overflow-hidden group mt-6">
-            <summary class="flex items-center justify-between px-5 py-4 cursor-pointer bg-sand-100/60 hover:bg-sand-100 transition-colors list-none">
-              <span class="text-xs font-bold tracking-[0.2em] uppercase text-stone-500 flex items-center gap-2">
-                <i class="fa-solid fa-table-cells-large text-bronze-400"></i> Full Specifications
-              </span>
-              <i class="fa-solid fa-chevron-down text-stone-400 text-xs group-open:rotate-180 transition-transform"></i>
-            </summary>
-            <div class="p-5">
-              <div class="grid grid-cols-2 gap-3" id="specs-grid">
-                <!-- Populated by JS -->
-              </div>
-            </div>
-          </details>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- ================================================================
-         SECTION: RELATED PRODUCTS
-    ================================================================ -->
-    <section class="py-16 sm:py-20 bg-cream-50" id="related-section">
-      <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-12 fade-up">
-          <span class="inline-block text-xs font-semibold tracking-[0.35em] uppercase text-bronze-500 mb-3">Explore More</span>
-          <h2 class="font-serif text-3xl sm:text-4xl font-bold text-charcoal-900">From the Same Collection</h2>
-        </div>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-7 fade-up delay-1" id="related-products-grid">
-          <!-- Populated by JS -->
-        </div>
-      </div>
-    </section>
-
-
-        <!-- ================================================================
-    <!-- FOOTER -->
-      <!-- ================= FOOTER ================= -->
-  <footer class="bg-charcoal-900 text-cream-50 pt-16 pb-8 border-t border-stone-600/30 mt-auto">
-    <div class="max-w-[1440px] mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-10">
-      <div>
-        <h3 class="font-serif text-2xl font-bold mb-4 tracking-wide text-bronze-400">CERARIA</h3>
-        <p class="text-stone-400 text-sm leading-relaxed mb-6">The art of ceramic luxury. Curating world-class ceramic surfaces for architects, builders, and homeowners across India.</p>
-      </div>
-      <div>
-        <h4 class="font-serif text-lg font-bold mb-4">Collections</h4>
-        <ul class="space-y-2 text-sm text-stone-400">
-          <li><a href="/products.html" class="hover:text-bronze-400 transition-colors">Infinia+</a></li>
-          <li><a href="/products.html" class="hover:text-bronze-400 transition-colors">Solido</a></li>
-          <li><a href="/products.html" class="hover:text-bronze-400 transition-colors">Evoq</a></li>
-          <li><a href="/products.html" class="hover:text-bronze-400 transition-colors">Panache</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4 class="font-serif text-lg font-bold mb-4">Company</h4>
-        <ul class="space-y-2 text-sm text-stone-400">
-          <li><a href="/about.html" class="hover:text-bronze-400 transition-colors">About Us</a></li>
-          <li><a href="/gallery.html" class="hover:text-bronze-400 transition-colors">Gallery</a></li>
-          <li><a href="/catalogue.html" class="hover:text-bronze-400 transition-colors">Catalogue</a></li>
-          <li><a href="/contact.html" class="hover:text-bronze-400 transition-colors">Contact</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4 class="font-serif text-lg font-bold mb-4">Reach Us</h4>
-        <ul class="space-y-3 text-sm text-stone-400">
-          <li><a href="tel:+919995311459" class="hover:text-bronze-400 transition-colors">+91 9995311459</a></li>
-          <li><a href="tel:+919847311459" class="hover:text-bronze-400 transition-colors">+91 9847311459</a></li>
-          <li><a href="mailto:cerariatile@gmail.com" class="hover:text-bronze-400 transition-colors">cerariatile@gmail.com</a></li>
-          <li class="text-stone-500 leading-relaxed">Gottigere, Bengaluru,<br/>Karnataka 560083</li>
-        </ul>
-      </div>
-    </div>
-    <div class="max-w-[1440px] mx-auto px-6 mt-12 pt-8 border-t border-stone-600/30 flex flex-col md:flex-row items-center justify-between text-xs text-stone-500">
-      <p>&copy; 2026 CERARIA PRIVATE LIMITED. All rights reserved.</p>
-      <div class="flex gap-4 mt-4 md:mt-0">
-        <a href="/privacy-policy.html" class="hover:text-bronze-400 transition-colors">Privacy Policy</a>
-        <a href="/terms-of-service.html" class="hover:text-bronze-400 transition-colors">Terms of Service</a>
-        <a href="/disclaimer.html" class="hover:text-bronze-400 transition-colors">Disclaimer</a>
-      </div>
-    </div>
-  </footer>
-
-  </main>
-
-
-  <!-- ================================================================
-       FULLSCREEN LIGHTBOX
-  ================================================================ -->
-  <div id="lightbox" class="lightbox-overlay fixed inset-0 z-[80] flex items-center justify-center bg-black/95 backdrop-blur-md">
-    <button onclick="closeLightbox()" class="absolute top-5 right-5 z-10 p-3 rounded-full bg-white/10 hover:bg-white/20 transition-colors" aria-label="Close">
-      <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
-    </button>
-    <button onclick="lightboxPrev()" class="absolute left-4 sm:left-8 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-white/10 backdrop-blur-md border border-white/20 rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-all">
-      <i class="fa-solid fa-chevron-left"></i>
-    </button>
-    <button onclick="lightboxNext()" class="absolute right-4 sm:right-8 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-white/10 backdrop-blur-md border border-white/20 rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-all">
-      <i class="fa-solid fa-chevron-right"></i>
-    </button>
-    <div class="max-w-5xl max-h-[88vh] mx-4 text-center">
-      <img id="lightbox-image" src="" alt="" class="max-w-full max-h-[80vh] object-contain rounded-xl" />
-      <p id="lightbox-label" class="text-white/60 text-xs mt-3 tracking-widest uppercase"></p>
-    </div>
-    <div id="lightbox-dots" class="absolute bottom-5 left-1/2 -translate-x-1/2 flex gap-2"></div>
-  </div>
-
-
-  <!-- ================================================================
-       INQUIRY MODAL
-  ================================================================ -->
-  <div id="inquiry-modal" class="modal-overlay fixed inset-0 z-[70] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
-    <div class="modal-panel bg-white rounded-3xl max-w-lg w-full max-h-[90vh] overflow-y-auto shadow-2xl">
-      <div class="sticky top-0 bg-white/95 backdrop-blur-sm z-10 px-6 py-5 border-b border-sand-100 rounded-t-3xl flex items-center justify-between">
-        <div>
-          <h2 class="font-serif text-xl font-bold text-charcoal-900">Product Inquiry</h2>
-          <p class="text-xs text-stone-400 mt-0.5">We'll get back to you within 24 hours</p>
-        </div>
-        <button onclick="closeInquiryModal()" class="p-2 rounded-full bg-sand-100 hover:bg-sand-200 transition-colors">
-          <svg class="w-5 h-5 text-charcoal-800" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
-        </button>
-      </div>
-      <form id="inquiry-form" class="p-6 space-y-4">
-        <div>
-          <label class="block text-sm font-semibold text-charcoal-900 mb-1.5">Full Name *</label>
-          <input type="text" name="name" required placeholder="Your name" class="form-input w-full px-4 py-3 border border-sand-200 rounded-xl text-sm text-charcoal-800 bg-cream-50/50 transition-all" />
-        </div>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div>
-            <label class="block text-sm font-semibold text-charcoal-900 mb-1.5">Phone *</label>
-            <input type="tel" name="phone" required placeholder="+91 XXXXX XXXXX" class="form-input w-full px-4 py-3 border border-sand-200 rounded-xl text-sm text-charcoal-800 bg-cream-50/50 transition-all" />
-          </div>
-          <div>
-            <label class="block text-sm font-semibold text-charcoal-900 mb-1.5">Email *</label>
-            <input type="email" name="email" required placeholder="you@email.com" class="form-input w-full px-4 py-3 border border-sand-200 rounded-xl text-sm text-charcoal-800 bg-cream-50/50 transition-all" />
-          </div>
-        </div>
-        <div>
-          <label class="block text-sm font-semibold text-charcoal-900 mb-1.5">Product</label>
-          <input type="text" name="product_name" id="inquiry-product-name" readonly class="form-input w-full px-4 py-3 border border-sand-200 rounded-xl text-sm text-charcoal-800 bg-sand-100/50 cursor-not-allowed" />
-        </div>
-        <div>
-          <label class="block text-sm font-semibold text-charcoal-900 mb-1.5">Required Quantity</label>
-          <input type="text" name="quantity" placeholder="e.g., 200 sq. ft." class="form-input w-full px-4 py-3 border border-sand-200 rounded-xl text-sm text-charcoal-800 bg-cream-50/50 transition-all" />
-        </div>
-        <div>
-          <label class="block text-sm font-semibold text-charcoal-900 mb-1.5">Message</label>
-          <textarea name="message" rows="3" placeholder="Tell us about your project..." class="form-input w-full px-4 py-3 border border-sand-200 rounded-xl text-sm text-charcoal-800 bg-cream-50/50 resize-none transition-all"></textarea>
-        </div>
-        <div class="flex flex-col sm:flex-row gap-3 pt-2">
-          <button type="submit" id="inquiry-submit-btn" class="flex-1 flex items-center justify-center gap-2 py-3.5 bg-bronze-500 text-cream-50 font-semibold text-sm tracking-widest uppercase rounded-xl hover:bg-bronze-600 transition-all shadow-md">
-            <i class="fa-solid fa-paper-plane"></i> Send Inquiry
-          </button>
-          <button type="button" onclick="openWhatsApp()" class="flex-1 flex items-center justify-center gap-2 py-3.5 bg-green-600 text-white font-semibold text-sm tracking-widest uppercase rounded-xl hover:bg-green-700 transition-all shadow-md">
-            <i class="fa-brands fa-whatsapp text-lg"></i> WhatsApp
-          </button>
-        </div>
-        <div id="inquiry-success" class="hidden text-center py-4 bg-green-50 border border-green-200 rounded-xl">
-          <p class="text-sm font-semibold text-green-700"><i class="fa-solid fa-circle-check mr-1"></i> Inquiry sent successfully!</p>
-          <p class="text-xs text-green-600 mt-1">Our team will contact you within 24 hours.</p>
-        </div>
-      </form>
-    </div>
-  </div>
-
-
-  <!-- ================================================================
-       JAVASCRIPT
-  ================================================================ -->
-  <script>
-    let product = null;
-    let carouselIndex = 0;  // 0 = room scene, 1 = tile closeup
-    let allLightboxImages = [];
-    let lightboxIdx = 0;
-    const WHATSAPP_NUMBER = '919876543210';
-
-    // Application icons map
-    const APP_ICONS = {
-      'Bathroom': 'fa-shower', 'Kitchen': 'fa-utensils', 'Living Room': 'fa-couch',
-      'Bedroom': 'fa-bed', 'Outdoor': 'fa-tree', 'Commercial Spaces': 'fa-building',
-      'Staircases': 'fa-stairs', 'Counter Slabs': 'fa-square', 'Elevation Tiles': 'fa-building-columns'
-    };
-
-    // ── INIT ──────────────────────────────────────
-    document.addEventListener('DOMContentLoaded', () => {
-      initMobileMenu();
-      initFadeUpObserver();
-      loadProduct();
-    });
-
-    // ── LOAD PRODUCT ──────────────────────────────
-    async function loadProduct() {
-      const params = new URLSearchParams(window.location.search);
-      const id = params.get('id');
-      if (!id) { window.location.href = '/products.html'; return; }
-
-      try {
-        const res = await fetch(`/api/products/${id}`);
-        const json = await res.json();
-        if (!json.success) { window.location.href = '/products.html'; return; }
-        product = json.data;
-        renderProduct();
-        loadRelatedProducts();
-      } catch (err) {
-        console.error('Failed to load product:', err);
-        window.location.href = '/products.html';
-      }
-    }
-
-    // ── RENDER PRODUCT ────────────────────────────
-    function renderProduct() {
-      document.title = `${product.name} — ${product.series} | CERARIA`;
-
-      // Breadcrumb
-      document.getElementById('breadcrumb-series').textContent = product.series;
-      document.getElementById('breadcrumb-name').textContent = product.name;
-
-      // Carousel images
-      const roomSrc = product.room_scene_url || 'https://images.unsplash.com/photo-1600210492493-0946911123ea?w=1200&q=85';
-      const tileSrc = product.main_image || 'https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=1200&q=80';
-
-      document.getElementById('room-img').src = roomSrc;
-      document.getElementById('room-img').alt = `${product.name} — Room Scene`;
-      document.getElementById('tile-img').src = tileSrc;
-      document.getElementById('tile-img').alt = `${product.name} — Tile Closeup`;
-
-      allLightboxImages = [
-        { src: roomSrc, label: 'Room Scene' },
-        { src: tileSrc, label: 'Tile Closeup' }
-      ];
-
-      // Info
-      document.getElementById('product-series-label').textContent = product.series;
-      document.getElementById('product-category-badge').textContent = product.category || 'Porcelain Tiles';
-      document.getElementById('product-name').textContent = product.name;
-      document.getElementById('product-description').textContent = product.description || `A premium tile from the ${product.series} collection by CERARIA.`;
-
-      // Specs row
-      document.getElementById('spec-size').textContent = product.size ? product.size.replace('x', ' × ') + ' mm' : '—';
-      document.getElementById('spec-finish').textContent = product.finish || '—';
-      document.getElementById('spec-thickness').textContent = product.thickness || '—';
-
-      // Full specs grid
-      const specs = [
-        { label: 'Collection', value: product.series, icon: 'fa-layer-group' },
-        { label: 'Category', value: product.category || '—', icon: 'fa-shapes' },
-        { label: 'Size', value: product.size ? product.size.replace('x', ' × ') + ' mm' : '—', icon: 'fa-ruler-combined' },
-        { label: 'Thickness', value: product.thickness || '—', icon: 'fa-expand' },
-        { label: 'Finish', value: product.finish || '—', icon: 'fa-wand-magic-sparkles' },
-        { label: 'Surface', value: product.surface || '—', icon: 'fa-hand-sparkles' },
-      ];
-      document.getElementById('specs-grid').innerHTML = specs.map(s => `
-        <div class="bg-sand-100/70 rounded-xl px-4 py-3">
-          <div class="flex items-center gap-1.5 mb-1">
-            <i class="fa-solid ${s.icon} text-[10px] text-bronze-400"></i>
-            <span class="text-[9px] font-bold tracking-widest uppercase text-stone-400">${s.label}</span>
-          </div>
-          <span class="text-sm font-bold text-charcoal-800">${s.value}</span>
-        </div>
-      `).join('');
-
-      // Applications
-      let apps = product.application || [];
-      if (typeof apps === 'string') { try { apps = JSON.parse(apps); } catch(e) { apps = []; } }
-      if (apps && apps.length > 0) {
-        document.getElementById('applications-section').classList.remove('hidden');
-        document.getElementById('application-tags').innerHTML = apps.map(app => `
-          <span class="app-tag">
-            <i class="fa-solid ${APP_ICONS[app] || 'fa-star'} text-bronze-400 text-[10px]"></i>
-            ${app}
-          </span>
-        `).join('');
-      }
-
-      // Room inspirations grid
-      // Inquiry modal prefill
-      document.getElementById('inquiry-product-name').value = `${product.name} (${product.series})`;
-
-      // Show content
-      document.getElementById('page-loader').classList.add('hidden');
-      document.getElementById('product-content').classList.remove('hidden');
-      setTimeout(() => { document.querySelectorAll('.fade-up').forEach(el => el.classList.add('visible')); }, 50);
-    }
-
-
-    // ── CAROUSEL ──────────────────────────────────
-    function goToSlide(idx) {
-      carouselIndex = idx;
-      const track = document.getElementById('carousel-track');
-      track.style.transform = `translateX(-${idx * 50}%)`;
-      // Update dots
-      document.querySelectorAll('.carousel-dot').forEach((d, i) => d.classList.toggle('active', i === idx));
-      // Update tab buttons
-      const tabRoom = document.getElementById('tab-room');
-      const tabTile = document.getElementById('tab-tile');
-      if (idx === 0) {
-        tabRoom.className = 'flex-1 py-2.5 text-xs font-semibold uppercase tracking-wider rounded-xl border-2 border-bronze-500 bg-bronze-500/10 text-bronze-600 transition-all';
-        tabTile.className = 'flex-1 py-2.5 text-xs font-semibold uppercase tracking-wider rounded-xl border-2 border-sand-300 text-stone-500 hover:border-bronze-400 transition-all';
-      } else {
-        tabRoom.className = 'flex-1 py-2.5 text-xs font-semibold uppercase tracking-wider rounded-xl border-2 border-sand-300 text-stone-500 hover:border-bronze-400 transition-all';
-        tabTile.className = 'flex-1 py-2.5 text-xs font-semibold uppercase tracking-wider rounded-xl border-2 border-bronze-500 bg-bronze-500/10 text-bronze-600 transition-all';
-      }
-    }
-    function carouselPrev() { goToSlide((carouselIndex - 1 + 2) % 2); }
-    function carouselNext() { goToSlide((carouselIndex + 1) % 2); }
-
-    // Auto-advance carousel every 5s
-    setInterval(() => { if (!document.getElementById('lightbox').classList.contains('open')) carouselNext(); }, 5000);
-
-    // ── LIGHTBOX ──────────────────────────────────
-    function openLightbox(idx) {
-      lightboxIdx = idx;
-      updateLightbox();
-      document.getElementById('lightbox').classList.add('open');
-      document.body.style.overflow = 'hidden';
-    }
-    function closeLightbox() {
-      document.getElementById('lightbox').classList.remove('open');
-      document.body.style.overflow = '';
-    }
-    function updateLightbox() {
-      const img = allLightboxImages[lightboxIdx];
-      document.getElementById('lightbox-image').src = img.src;
-      document.getElementById('lightbox-label').textContent = img.label;
-      document.getElementById('lightbox-dots').innerHTML = allLightboxImages.map((_, i) => `
-        <button onclick="lightboxGo(${i})" class="carousel-dot ${i === lightboxIdx ? 'active' : ''}" aria-label="Image ${i+1}"></button>
-      `).join('');
-    }
-    function lightboxGo(i) { lightboxIdx = i; updateLightbox(); }
-    function lightboxPrev() { lightboxIdx = (lightboxIdx - 1 + allLightboxImages.length) % allLightboxImages.length; updateLightbox(); }
-    function lightboxNext() { lightboxIdx = (lightboxIdx + 1) % allLightboxImages.length; updateLightbox(); }
-
-    // ── INQUIRY MODAL ────────────────────────────
-    function openInquiryModal() { document.getElementById('inquiry-modal').classList.add('open'); document.body.style.overflow = 'hidden'; }
-    function closeInquiryModal() {
-      document.getElementById('inquiry-modal').classList.remove('open');
-      document.body.style.overflow = '';
-      document.getElementById('inquiry-form').reset();
-      document.getElementById('inquiry-success').classList.add('hidden');
-      document.getElementById('inquiry-submit-btn').disabled = false;
-      document.getElementById('inquiry-submit-btn').innerHTML = '<i class="fa-solid fa-paper-plane"></i> Send Inquiry';
-      if (product) document.getElementById('inquiry-product-name').value = `${product.name} (${product.series})`;
-    }
-
-    document.getElementById('inquiry-form').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const btn = document.getElementById('inquiry-submit-btn');
-      btn.disabled = true;
-      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending...';
-      const data = Object.fromEntries(new FormData(e.target).entries());
-      try {
-        const res = await fetch('/api/inquiry', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
-        const json = await res.json();
-        if (json.success) {
-          e.target.classList.add('hidden');
-          document.getElementById('inquiry-success').classList.remove('hidden');
-          setTimeout(() => closeInquiryModal(), 3000);
-        } else {
-          btn.disabled = false;
-          btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Send Inquiry';
-          alert(json.error || 'Failed to send inquiry');
-        }
-      } catch (err) {
-        btn.disabled = false;
-        btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Send Inquiry';
-        alert('Network error. Please try again.');
-      }
-    });
-
-    // ── WHATSAPP ────────────────────────────────
-    function openWhatsApp() {
-      if (!product) return;
-      const text = encodeURIComponent(
-        `Hello CERARIA,\n\nI am interested in:\n\n*Product:* ${product.name}\n*Collection:* ${product.series}\n*Size:* ${product.size} mm\n*Finish:* ${product.finish || 'N/A'}\n\nPlease share pricing and availability.\n\nThank you!`
-      );
-      window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${text}`, '_blank');
-    }
-
-    // ── RELATED PRODUCTS ─────────────────────────
-    async function loadRelatedProducts() {
-      if (!product) return;
-      try {
-        const res = await fetch(`/api/products?series=${encodeURIComponent(product.series)}`);
-        const json = await res.json();
-        if (json.success) {
-          const related = json.data.filter(p => p.id !== product.id).slice(0, 3);
-          if (related.length === 0) { document.getElementById('related-section').classList.add('hidden'); return; }
-          document.getElementById('related-products-grid').innerHTML = related.map(p => `
-            <a href="/product.html?id=${p.id}" class="product-card bg-white rounded-2xl overflow-hidden shadow-sm border border-sand-100 group block">
-              <div class="relative overflow-hidden" style="aspect-ratio:4/3;">
-                <img src="${p.room_scene_url || p.main_image}" alt="${p.name}"
-                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy" />
-                <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
-                <div class="absolute bottom-4 left-4 right-4">
-                  <span class="text-[9px] font-bold tracking-wider uppercase text-white/70">${p.series}</span>
-                  <h3 class="font-serif text-lg font-bold text-white mt-0.5 leading-tight">${p.name}</h3>
-                </div>
-              </div>
-              <div class="p-4 flex items-center justify-between">
-                <span class="text-xs text-stone-400">${p.size ? p.size.replace('x', ' × ') + ' mm' : ''}</span>
-                <span class="text-xs font-semibold text-bronze-500">${p.finish || ''}</span>
-              </div>
-            </a>
-          `).join('');
-        }
-      } catch (err) { console.error('Failed to load related:', err); }
-    }
-
-    // ── MOBILE MENU ──────────────────────────────
-    function initMobileMenu() {
-      const menu = document.getElementById('mobile-menu');
-      const backdrop = document.getElementById('mobile-menu-backdrop');
-      const openBtn = document.getElementById('mobile-menu-btn');
-      const closeBtn = document.getElementById('mobile-menu-close');
-      const close = () => { menu.style.transform = 'translateX(100%)'; backdrop.classList.add('hidden'); document.body.style.overflow = ''; };
-      openBtn.addEventListener('click', () => { menu.style.transform = 'translateX(0)'; backdrop.classList.remove('hidden'); document.body.style.overflow = 'hidden'; });
-      closeBtn.addEventListener('click', close);
-      backdrop.addEventListener('click', close);
-      menu.querySelectorAll('a').forEach(a => a.addEventListener('click', close));
-    }
-
-    // ── FADE UP OBSERVER ─────────────────────────
-    function initFadeUpObserver() {
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
-      }, { threshold: 0.1 });
-      document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
-    }
-
-    // ── KEYBOARD SHORTCUTS ───────────────────────
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') { closeLightbox(); closeInquiryModal(); }
-      if (document.getElementById('lightbox').classList.contains('open')) {
-        if (e.key === 'ArrowLeft') lightboxPrev();
-        if (e.key === 'ArrowRight') lightboxNext();
-      }
-    });
-    document.getElementById('lightbox').addEventListener('click', (e) => { if (e.target === document.getElementById('lightbox')) closeLightbox(); });
-    document.getElementById('inquiry-modal').addEventListener('click', (e) => { if (e.target === document.getElementById('inquiry-modal')) closeInquiryModal(); });
-  </script>
-
-
-  <!-- AOS JS -->
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      // Automatically add data-aos to major elements that don't already have it
-      const elementsToAnimate = document.querySelectorAll('section, main > div, .card, .grid > div, .flex > div, h1, h2, h3');
-      
-      elementsToAnimate.forEach(function(el) {
-        // Skip elements that already have data-aos, or are inside nav/footer
-        if (!el.hasAttribute('data-aos') && !el.closest('nav') && !el.closest('footer') && !el.closest('.swiper')) {
-          el.setAttribute('data-aos', 'fade-up');
-          el.setAttribute('data-aos-duration', '1000');
-          el.setAttribute('data-aos-once', 'true');
-        }
-      });
-      
-      if (typeof AOS !== 'undefined') {
-        AOS.init({ once: true, offset: 50 });
-      }
-    });
-  </script>
-
-  </body>
+ <!-- ================================================================
+ NAVIGATION
+ ================================================================ -->
+ <!-- ================================================================
+ SECTION: NAVIGATION BAR
+ ================================================================ -->
+ <!-- ================================================================
+ SECTION: NAVIGATION BAR
+ ================================================================ -->
+ <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 border-b border-sand-200/60 shadow-sm transition-all duration-300 bg-[#E8E3DF]">
+ <div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+ <div class="flex items-center justify-between h-24 py-4">
+
+ <!-- Logo -->
+ <a href="/" class="flex items-center gap-3 group" id="nav-logo">
+ <img src="/assets/images/new_logos/logo_icon_transparent.png"
+ alt="CERARIA logo"
+ class="h-8 sm:h-10 md:h-12 w-auto object-contain group-hover:scale-105 transition-transform duration-500" />
+ <img src="/assets/images/new_logos/logo_full_transparent.png" alt="CERARIA" class="h-8 sm:h-10 md:h-12 w-auto object-contain group-hover:opacity-80 transition-opacity duration-500 " />
+ <span class="inline-block text-[9px] sm:text-[11px] font-sans font-semibold tracking-[0.15em] sm:tracking-[0.25em] uppercase text-stone-600 border-l border-stone-400 pl-2 sm:pl-3 leading-relaxed">
+ THE ART OF<br/>CERAMIC LUXURY
+ </span>
+ </a>
+
+ <!-- Desktop Nav Links -->
+ <div class="hidden xl:flex items-center gap-8" id="nav-links-desktop">
+ <a href="/" class="relative group text-[11px] uppercase tracking-[0.2em] font-bold text-stone-500 hover:text-charcoal-900 transition-colors py-1">
+ Home
+ <span class="absolute bottom-0 left-0 w-0 h-[1.5px] bg-bronze-500 transition-all duration-300 group-hover:w-full"></span>
+ </a>
+ <a href="/gallery.html" class="relative group text-[11px] uppercase tracking-[0.2em] font-bold text-stone-500 hover:text-charcoal-900 transition-colors py-1">
+ Gallery
+ <span class="absolute bottom-0 left-0 w-0 h-[1.5px] bg-bronze-500 transition-all duration-300 group-hover:w-full"></span>
+ </a>
+ <a href="/products.html" class="relative group text-[11px] uppercase tracking-[0.2em] font-bold text-stone-500 hover:text-charcoal-900 transition-colors py-1">
+ Products
+ <span class="absolute bottom-0 left-0 w-0 h-[1.5px] bg-bronze-500 transition-all duration-300 group-hover:w-full"></span>
+ </a>
+ <a href="/catalogue.html" class="relative group text-[11px] uppercase tracking-[0.2em] font-bold text-stone-500 hover:text-charcoal-900 transition-colors py-1">
+ Catalogue
+ <span class="absolute bottom-0 left-0 w-0 h-[1.5px] bg-bronze-500 transition-all duration-300 group-hover:w-full"></span>
+ </a>
+ <a href="/about.html" class="relative group text-[11px] uppercase tracking-[0.2em] font-bold text-stone-500 hover:text-charcoal-900 transition-colors py-1">
+ About
+ <span class="absolute bottom-0 left-0 w-0 h-[1.5px] bg-bronze-500 transition-all duration-300 group-hover:w-full"></span>
+ </a>
+ <a href="/contact.html" class="relative group text-[11px] uppercase tracking-[0.2em] font-bold text-stone-500 hover:text-charcoal-900 transition-colors py-1">
+ Contact Us
+ <span class="absolute bottom-0 left-0 w-0 h-[1.5px] bg-bronze-500 transition-all duration-300 group-hover:w-full"></span>
+ </a>
+ </div>
+
+ <!-- Mobile Hamburger -->
+ <button id="mobile-menu-btn"
+ class="xl:hidden flex flex-col gap-1.5 p-2 rounded-lg hover:bg-sand-100 transition-colors"
+ aria-label="Toggle mobile menu">
+ <span class="block w-7 h-0.5 bg-charcoal-800 rounded transition-all duration-300" id="burger-line-1"></span>
+ <span class="block w-7 h-0.5 bg-charcoal-800 rounded transition-all duration-300" id="burger-line-2"></span>
+ <span class="block w-5 h-0.5 bg-charcoal-800 rounded transition-all duration-300" id="burger-line-3"></span>
+ </button>
+ </div>
+
+ <!-- Mobile Menu -->
+ <div id="mobile-menu" class="mobile-menu xl:hidden max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+ <div class="pb-6 pt-2 space-y-2 border-t border-sand-200">
+ <a href="/" class="block px-4 py-3 text-[11px] uppercase tracking-[0.2em] font-bold text-stone-600 hover:bg-sand-100 hover:text-bronze-600 rounded-lg transition-colors">Home</a>
+ <a href="/gallery.html" class="block px-4 py-3 text-[11px] uppercase tracking-[0.2em] font-bold text-stone-600 hover:bg-sand-100 hover:text-bronze-600 rounded-lg transition-colors">Gallery</a>
+ <a href="/products.html" class="block px-4 py-3 text-[11px] uppercase tracking-[0.2em] font-bold text-stone-600 hover:bg-sand-100 hover:text-bronze-600 rounded-lg transition-colors">Products</a>
+ <a href="/catalogue.html" class="block px-4 py-3 text-[11px] uppercase tracking-[0.2em] font-bold text-stone-600 hover:bg-sand-100 hover:text-bronze-600 rounded-lg transition-colors">Catalogue</a>
+ <a href="/about.html" class="block px-4 py-3 text-[11px] uppercase tracking-[0.2em] font-bold text-stone-600 hover:bg-sand-100 hover:text-bronze-600 rounded-lg transition-colors">About</a>
+ <a href="/contact.html" class="block px-4 py-3 text-[11px] uppercase tracking-[0.2em] font-bold text-stone-600 hover:bg-sand-100 hover:text-bronze-600 rounded-lg transition-colors">Contact Us</a>
+ </div>
+ </div>
+ </div>
+ </nav>
+ 
+ <script>
+ // Inline script for mobile menu in case it's missing in some files
+ document.addEventListener('DOMContentLoaded', () => {
+ const menuBtn = document.getElementById('mobile-menu-btn');
+ const mobileMenu = document.getElementById('mobile-menu');
+ const burgerLines = [
+ document.getElementById('burger-line-1'),
+ document.getElementById('burger-line-2'),
+ document.getElementById('burger-line-3'),
+ ];
+ let menuOpen = false;
+
+ if(menuBtn) {
+ menuBtn.addEventListener('click', () => {
+ menuOpen = !menuOpen;
+ if (menuOpen) {
+ mobileMenu.style.maxHeight = '500px';
+ } else {
+ mobileMenu.style.maxHeight = '0';
+ }
+ burgerLines[0].style.transform = menuOpen ? 'rotate(45deg) translate(5px, 6px)' : '';
+ burgerLines[1].style.opacity = menuOpen ? '0' : '1';
+ burgerLines[2].style.transform = menuOpen ? 'rotate(-45deg) translate(4px, -5px)' : '';
+ burgerLines[2].style.width = menuOpen ? '1.75rem' : '1.25rem';
+ });
+ }
+ });
+ </script>
+ 
+ <script>
+ document.addEventListener('DOMContentLoaded', () => {
+ const menuBtn = document.getElementById('mobile-menu-btn');
+ const mobileMenu = document.getElementById('mobile-menu');
+ const burgerLines = [
+ document.getElementById('burger-line-1'),
+ document.getElementById('burger-line-2'),
+ document.getElementById('burger-line-3'),
+ ];
+ let menuOpen = false;
+
+ if(menuBtn && mobileMenu) {
+ menuBtn.addEventListener('click', () => {
+ menuOpen = !menuOpen;
+ if (menuOpen) {
+ mobileMenu.style.maxHeight = '400px';
+ } else {
+ mobileMenu.style.maxHeight = '0';
+ }
+ burgerLines[0].style.transform = menuOpen ? 'rotate(45deg) translate(4px, 4px)' : '';
+ burgerLines[1].style.opacity = menuOpen ? '0' : '1';
+ burgerLines[2].style.transform = menuOpen ? 'rotate(-45deg) translate(3px, -3px)' : '';
+ burgerLines[2].style.width = menuOpen ? '1.5rem' : '1rem';
+ });
+ }
+ });
+ </script>
+
+ <!-- Mobile Menu -->
+ <div id="mobile-menu" class="fixed inset-y-0 right-0 w-80 max-w-full bg-white z-[60] shadow-2xl p-6 overflow-y-auto transform translate-x-full transition-transform duration-300">
+ <div class="flex justify-between items-center mb-8">
+ <span class="font-serif text-xl font-bold">CERARIA</span>
+ <button id="mobile-menu-close" class="p-2 text-charcoal-800">
+ <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+ </button>
+ </div>
+ <nav class="space-y-3">
+ <a href="/gallery.html" class="block py-3 text-lg font-medium text-charcoal-800 border-b border-sand-100">Gallery</a>
+ <a href="/catalogue.html" class="block py-3 text-lg font-medium text-charcoal-800 border-b border-sand-100">Catalogue</a>
+ <a href="/contact.html" class="block py-3 text-lg font-medium text-charcoal-800 border-b border-sand-100">Contact Us</a>
+ <a href="/about.html" class="block py-3 text-lg font-medium text-charcoal-800 border-b border-sand-100">About</a>
+ <a href="/products.html" class="block py-3 text-lg font-medium text-charcoal-800 border-b border-sand-100">Products</a>
+ <a href="tel:+919876543210" class="block mt-6 text-center py-3 bg-bronze-500 text-cream-50 font-semibold text-sm tracking-widest uppercase rounded-xl">Call Now</a>
+ </nav>
+ </div>
+ <div id="mobile-menu-backdrop" class="fixed inset-0 bg-black/40 z-[55] hidden"></div>
+
+
+ <!-- ================================================================
+ LOADING SKELETON
+ ================================================================ -->
+ <div id="page-loader" class="pt-[120px]">
+ <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-8">
+ <div class="flex items-center gap-2 mb-8">
+ <div class="skeleton h-4 w-12 rounded"></div>
+ <div class="skeleton h-4 w-4 rounded"></div>
+ <div class="skeleton h-4 w-20 rounded"></div>
+ <div class="skeleton h-4 w-4 rounded"></div>
+ <div class="skeleton h-4 w-32 rounded"></div>
+ </div>
+ <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+ <div class="skeleton rounded-2xl" style="aspect-ratio:1/1;"></div>
+ <div class="space-y-5 pt-4">
+ <div class="skeleton h-4 w-28 rounded"></div>
+ <div class="skeleton h-14 w-3/4 rounded"></div>
+ <div class="skeleton h-5 w-48 rounded"></div>
+ <div class="skeleton h-28 w-full rounded-xl"></div>
+ <div class="skeleton h-20 w-full rounded-xl"></div>
+ <div class="flex gap-3"><div class="skeleton h-14 flex-1 rounded-xl"></div><div class="skeleton h-14 flex-1 rounded-xl"></div></div>
+ </div>
+ </div>
+ </div>
+ </div>
+
+
+ <!-- ================================================================
+ MAIN PRODUCT CONTENT
+ ================================================================ -->
+ <main id="product-content" class="hidden pt-[120px]">
+
+ <!-- Breadcrumb -->
+ <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 pt-5 pb-1">
+ <nav class="flex items-center gap-2 text-xs" aria-label="Breadcrumb">
+ <a href="/" class="text-stone-400 hover:text-bronze-600 transition-colors">Home</a>
+ <span class="bc-sep">/</span>
+ <a href="/products.html" class="text-stone-400 hover:text-bronze-600 transition-colors">Products</a>
+ <span class="bc-sep">/</span>
+ <span id="breadcrumb-series" class="text-stone-400"></span>
+ <span class="bc-sep">/</span>
+ <span id="breadcrumb-name" class="text-charcoal-900 font-semibold"></span>
+ </nav>
+ </div>
+
+ <!-- ================================================================
+ SECTION 1: KAJARIA-STYLE PRODUCT SHOWCASE
+ Left: 2-slide carousel (Room Scene + Tile Closeup)
+ Right: Product details + specs + CTAs
+ ================================================================ -->
+ <section class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-6 lg:py-10">
+ <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-14 items-start">
+
+ <!-- ── LEFT: Image Carousel ── -->
+ <div class="fade-up">
+ <!-- Carousel Wrapper -->
+ <div class="relative rounded-2xl overflow-hidden bg-sand-100" style="aspect-ratio: 1/1;" id="carousel-wrapper">
+
+ <!-- Slides track -->
+ <div class="carousel-track h-full" id="carousel-track">
+ <!-- Slide 1: Room Scene -->
+ <div class="carousel-slide h-full" id="slide-room" onclick="openLightbox(0)">
+ <img id="room-img" src="" alt="Room Scene" class="w-full h-full" />
+ <span class="slide-badge"><i class="fa-solid fa-couch mr-1.5 text-xs"></i>Room Scene</span>
+ </div>
+ <!-- Slide 2: Tile Closeup -->
+ <div class="carousel-slide h-full" id="slide-tile" onclick="openLightbox(1)">
+ <img id="tile-img" src="" alt="Tile Closeup" class="w-full h-full" />
+ <span class="slide-badge"><i class="fa-solid fa-border-all mr-1.5 text-xs"></i>Tile Closeup</span>
+ </div>
+ </div>
+
+ <!-- Nav Arrows -->
+ <button class="carousel-btn carousel-btn-prev" onclick="carouselPrev()" aria-label="Previous">
+ <i class="fa-solid fa-chevron-left text-sm"></i>
+ </button>
+ <button class="carousel-btn carousel-btn-next" onclick="carouselNext()" aria-label="Next">
+ <i class="fa-solid fa-chevron-right text-sm"></i>
+ </button>
+
+ <!-- Slide indicator dots -->
+ <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+ <button class="carousel-dot active" onclick="goToSlide(0)" aria-label="Room scene"></button>
+ <button class="carousel-dot" onclick="goToSlide(1)" aria-label="Tile closeup"></button>
+ </div>
+
+ <!-- Zoom hint -->
+ <div class="absolute top-4 right-4 px-2.5 py-1 bg-white/80 backdrop-blur-sm rounded-full text-[10px] font-semibold text-stone-500 flex items-center gap-1 pointer-events-none">
+ <i class="fa-solid fa-magnifying-glass-plus text-bronze-400"></i> Click to zoom
+ </div>
+ </div>
+
+ <!-- Slide label strip under carousel -->
+ <div class="flex gap-3 mt-3">
+ <button id="tab-room" onclick="goToSlide(0)" class="flex-1 py-2.5 text-xs font-semibold uppercase tracking-wider rounded-xl border-2 border-bronze-500 bg-bronze-500/10 text-bronze-600 transition-all">
+ <i class="fa-solid fa-couch mr-1.5"></i>Room Scene
+ </button>
+ <button id="tab-tile" onclick="goToSlide(1)" class="flex-1 py-2.5 text-xs font-semibold uppercase tracking-wider rounded-xl border-2 border-sand-300 text-stone-500 hover:border-bronze-400 transition-all">
+ <i class="fa-solid fa-border-all mr-1.5"></i>Tile Closeup
+ </button>
+ </div>
+ </div>
+
+
+ <!-- ── RIGHT: Product Info Panel ── -->
+ <div class="fade-up delay-1 space-y-6">
+
+ <!-- Series + Category badges -->
+ <div class="flex items-center gap-2 flex-wrap">
+ <span class="text-[10px] font-bold tracking-[0.25em] uppercase text-bronze-500 px-3 py-1 bg-bronze-500/10 rounded-full border border-bronze-400/30" id="product-series-label">Series</span>
+ <span class="text-[10px] font-bold tracking-[0.2em] uppercase text-stone-500 px-3 py-1 bg-sand-100 rounded-full" id="product-category-badge">Category</span>
+ </div>
+
+ <!-- Product Name -->
+ <div>
+ <h1 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-charcoal-900 leading-tight" id="product-name">Loading...</h1>
+ </div>
+
+ <!-- Specs Row -->
+ <div class="flex divide-x divide-sand-300 border border-sand-200 rounded-2xl overflow-hidden bg-white" id="specs-row">
+ <div class="flex-1 px-5 py-4">
+ <p class="text-[9px] font-bold tracking-[0.2em] uppercase text-stone-400 mb-1">SIZE</p>
+ <p class="text-sm font-bold text-charcoal-900" id="spec-size">—</p>
+ </div>
+ <div class="flex-1 px-5 py-4">
+ <p class="text-[9px] font-bold tracking-[0.2em] uppercase text-stone-400 mb-1">FINISH</p>
+ <p class="text-sm font-bold text-charcoal-900" id="spec-finish">—</p>
+ </div>
+ <div class="flex-1 px-5 py-4">
+ <p class="text-[9px] font-bold tracking-[0.2em] uppercase text-stone-400 mb-1">THICKNESS</p>
+ <p class="text-sm font-bold text-charcoal-900" id="spec-thickness">—</p>
+ </div>
+ </div>
+
+ <!-- Description -->
+ <p class="text-stone-500 text-sm leading-relaxed" id="product-description">Loading...</p>
+
+ <!-- Applications -->
+ <div id="applications-section" class="hidden">
+ <p class="text-[9px] font-bold tracking-[0.2em] uppercase text-stone-400 mb-2.5">SUITABLE FOR</p>
+ <div id="application-tags" class="flex flex-wrap gap-2"></div>
+ </div>
+
+ <!-- Action Buttons -->
+ <div class="flex flex-col sm:flex-row gap-4 pt-4">
+ <button onclick="openInquiryModal()" class="flex-1 flex items-center justify-center gap-2 py-3.5 bg-bronze-500 text-cream-50 font-semibold text-sm tracking-widest uppercase rounded-xl hover:bg-bronze-600 transition-all shadow-md">
+ <i class="fa-solid fa-paper-plane"></i> Send Inquiry
+ </button>
+ <button onclick="openWhatsApp()" class="flex-1 flex items-center justify-center gap-2 py-3.5 bg-green-600 text-white font-semibold text-sm tracking-widest uppercase rounded-xl hover:bg-green-700 transition-all shadow-md">
+ <i class="fa-brands fa-whatsapp text-lg"></i> WhatsApp
+ </button>
+ </div>
+
+ <!-- Full specs accordion -->
+ <details class="border border-sand-200 rounded-2xl overflow-hidden group mt-6">
+ <summary class="flex items-center justify-between px-5 py-4 cursor-pointer bg-sand-100/60 hover:bg-sand-100 transition-colors list-none">
+ <span class="text-xs font-bold tracking-[0.2em] uppercase text-stone-500 flex items-center gap-2">
+ <i class="fa-solid fa-table-cells-large text-bronze-400"></i> Full Specifications
+ </span>
+ <i class="fa-solid fa-chevron-down text-stone-400 text-xs group-open:rotate-180 transition-transform"></i>
+ </summary>
+ <div class="p-5">
+ <div class="grid grid-cols-2 gap-3" id="specs-grid">
+ <!-- Populated by JS -->
+ </div>
+ </div>
+ </details>
+
+ </div>
+ </div>
+ </section>
+
+ <!-- ================================================================
+ SECTION: RELATED PRODUCTS
+ ================================================================ -->
+ <section class="py-16 sm:py-20 bg-cream-50" id="related-section">
+ <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
+ <div class="text-center mb-12 fade-up">
+ <span class="inline-block text-xs font-semibold tracking-[0.35em] uppercase text-bronze-500 mb-3">Explore More</span>
+ <h2 class="font-serif text-3xl sm:text-4xl font-bold text-charcoal-900">From the Same Collection</h2>
+ </div>
+ <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-7 fade-up delay-1" id="related-products-grid">
+ <!-- Populated by JS -->
+ </div>
+ </div>
+ </section>
+
+
+ <!-- ================================================================
+ <!-- FOOTER -->
+ <!-- ================= FOOTER ================= -->
+ <footer class="bg-charcoal-900 text-cream-50 pt-16 pb-8 border-t border-stone-600/30 mt-auto">
+ <div class="max-w-[1440px] mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-10">
+ <div>
+ <h3 class="font-serif text-2xl font-bold mb-4 tracking-wide text-bronze-400">CERARIA</h3>
+ <p class="text-stone-400 text-sm leading-relaxed mb-6">The art of ceramic luxury. Curating world-class ceramic surfaces for architects, builders, and homeowners across India.</p>
+ </div>
+ <div>
+ <h4 class="font-serif text-lg font-bold mb-4">Collections</h4>
+ <ul class="space-y-2 text-sm text-stone-400">
+ <li><a href="/products.html" class="hover:text-bronze-400 transition-colors">Infinia+</a></li>
+ <li><a href="/products.html" class="hover:text-bronze-400 transition-colors">Solido</a></li>
+ <li><a href="/products.html" class="hover:text-bronze-400 transition-colors">Evoq</a></li>
+ <li><a href="/products.html" class="hover:text-bronze-400 transition-colors">Panache</a></li>
+ </ul>
+ </div>
+ <div>
+ <h4 class="font-serif text-lg font-bold mb-4">Company</h4>
+ <ul class="space-y-2 text-sm text-stone-400">
+ <li><a href="/about.html" class="hover:text-bronze-400 transition-colors">About Us</a></li>
+ <li><a href="/gallery.html" class="hover:text-bronze-400 transition-colors">Gallery</a></li>
+ <li><a href="/catalogue.html" class="hover:text-bronze-400 transition-colors">Catalogue</a></li>
+ <li><a href="/contact.html" class="hover:text-bronze-400 transition-colors">Contact</a></li>
+ </ul>
+ </div>
+ <div>
+ <h4 class="font-serif text-lg font-bold mb-4">Reach Us</h4>
+ <ul class="space-y-3 text-sm text-stone-400">
+ <li><a href="tel:+919995311459" class="hover:text-bronze-400 transition-colors">+91 9995311459</a></li>
+ <li><a href="tel:+919847311459" class="hover:text-bronze-400 transition-colors">+91 9847311459</a></li>
+ <li><a href="mailto:cerariatile@gmail.com" class="hover:text-bronze-400 transition-colors">cerariatile@gmail.com</a></li>
+ <li class="text-stone-500 leading-relaxed">Gottigere, Bengaluru,<br/>Karnataka 560083</li>
+ </ul>
+ </div>
+ </div>
+ <div class="max-w-[1440px] mx-auto px-6 mt-12 pt-8 border-t border-stone-600/30 flex flex-col md:flex-row items-center justify-between text-xs text-stone-500">
+ <p>&copy; 2026 CERARIA PRIVATE LIMITED. All rights reserved.</p>
+ <div class="flex gap-4 mt-4 md:mt-0">
+ <a href="/privacy-policy.html" class="hover:text-bronze-400 transition-colors">Privacy Policy</a>
+ <a href="/terms-of-service.html" class="hover:text-bronze-400 transition-colors">Terms of Service</a>
+ <a href="/disclaimer.html" class="hover:text-bronze-400 transition-colors">Disclaimer</a>
+ </div>
+ </div>
+ </footer>
+
+ </main>
+
+
+ <!-- ================================================================
+ FULLSCREEN LIGHTBOX
+ ================================================================ -->
+ <div id="lightbox" class="lightbox-overlay fixed inset-0 z-[80] flex items-center justify-center bg-black/95 backdrop-blur-md">
+ <button onclick="closeLightbox()" class="absolute top-5 right-5 z-10 p-3 rounded-full bg-white/10 hover:bg-white/20 transition-colors" aria-label="Close">
+ <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+ </button>
+ <button onclick="lightboxPrev()" class="absolute left-4 sm:left-8 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-white/10 backdrop-blur-md border border-white/20 rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-all">
+ <i class="fa-solid fa-chevron-left"></i>
+ </button>
+ <button onclick="lightboxNext()" class="absolute right-4 sm:right-8 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-white/10 backdrop-blur-md border border-white/20 rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-all">
+ <i class="fa-solid fa-chevron-right"></i>
+ </button>
+ <div class="max-w-5xl max-h-[88vh] mx-4 text-center">
+ <img id="lightbox-image" src="" alt="" class="max-w-full max-h-[80vh] object-contain rounded-xl" />
+ <p id="lightbox-label" class="text-white/60 text-xs mt-3 tracking-widest uppercase"></p>
+ </div>
+ <div id="lightbox-dots" class="absolute bottom-5 left-1/2 -translate-x-1/2 flex gap-2"></div>
+ </div>
+
+
+ <!-- ================================================================
+ INQUIRY MODAL
+ ================================================================ -->
+ <div id="inquiry-modal" class="modal-overlay fixed inset-0 z-[70] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+ <div class="modal-panel bg-white rounded-3xl max-w-lg w-full max-h-[90vh] overflow-y-auto shadow-2xl">
+ <div class="sticky top-0 bg-white/95 backdrop-blur-sm z-10 px-6 py-5 border-b border-sand-100 rounded-t-3xl flex items-center justify-between">
+ <div>
+ <h2 class="font-serif text-xl font-bold text-charcoal-900">Product Inquiry</h2>
+ <p class="text-xs text-stone-400 mt-0.5">We'll get back to you within 24 hours</p>
+ </div>
+ <button onclick="closeInquiryModal()" class="p-2 rounded-full bg-sand-100 hover:bg-sand-200 transition-colors">
+ <svg class="w-5 h-5 text-charcoal-800" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+ </button>
+ </div>
+ <form id="inquiry-form" class="p-6 space-y-4">
+ <div>
+ <label class="block text-sm font-semibold text-charcoal-900 mb-1.5">Full Name *</label>
+ <input type="text" name="name" required placeholder="Your name" class="form-input w-full px-4 py-3 border border-sand-200 rounded-xl text-sm text-charcoal-800 bg-cream-50/50 transition-all" />
+ </div>
+ <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+ <div>
+ <label class="block text-sm font-semibold text-charcoal-900 mb-1.5">Phone *</label>
+ <input type="tel" name="phone" required placeholder="+91 XXXXX XXXXX" class="form-input w-full px-4 py-3 border border-sand-200 rounded-xl text-sm text-charcoal-800 bg-cream-50/50 transition-all" />
+ </div>
+ <div>
+ <label class="block text-sm font-semibold text-charcoal-900 mb-1.5">Email *</label>
+ <input type="email" name="email" required placeholder="you@email.com" class="form-input w-full px-4 py-3 border border-sand-200 rounded-xl text-sm text-charcoal-800 bg-cream-50/50 transition-all" />
+ </div>
+ </div>
+ <div>
+ <label class="block text-sm font-semibold text-charcoal-900 mb-1.5">Product</label>
+ <input type="text" name="product_name" id="inquiry-product-name" readonly class="form-input w-full px-4 py-3 border border-sand-200 rounded-xl text-sm text-charcoal-800 bg-sand-100/50 cursor-not-allowed" />
+ </div>
+ <div>
+ <label class="block text-sm font-semibold text-charcoal-900 mb-1.5">Required Quantity</label>
+ <input type="text" name="quantity" placeholder="e.g., 200 sq. ft." class="form-input w-full px-4 py-3 border border-sand-200 rounded-xl text-sm text-charcoal-800 bg-cream-50/50 transition-all" />
+ </div>
+ <div>
+ <label class="block text-sm font-semibold text-charcoal-900 mb-1.5">Message</label>
+ <textarea name="message" rows="3" placeholder="Tell us about your project..." class="form-input w-full px-4 py-3 border border-sand-200 rounded-xl text-sm text-charcoal-800 bg-cream-50/50 resize-none transition-all"></textarea>
+ </div>
+ <div class="flex flex-col sm:flex-row gap-3 pt-2">
+ <button type="submit" id="inquiry-submit-btn" class="flex-1 flex items-center justify-center gap-2 py-3.5 bg-bronze-500 text-cream-50 font-semibold text-sm tracking-widest uppercase rounded-xl hover:bg-bronze-600 transition-all shadow-md">
+ <i class="fa-solid fa-paper-plane"></i> Send Inquiry
+ </button>
+ <button type="button" onclick="openWhatsApp()" class="flex-1 flex items-center justify-center gap-2 py-3.5 bg-green-600 text-white font-semibold text-sm tracking-widest uppercase rounded-xl hover:bg-green-700 transition-all shadow-md">
+ <i class="fa-brands fa-whatsapp text-lg"></i> WhatsApp
+ </button>
+ </div>
+ <div id="inquiry-success" class="hidden text-center py-4 bg-green-50 border border-green-200 rounded-xl">
+ <p class="text-sm font-semibold text-green-700"><i class="fa-solid fa-circle-check mr-1"></i> Inquiry sent successfully!</p>
+ <p class="text-xs text-green-600 mt-1">Our team will contact you within 24 hours.</p>
+ </div>
+ </form>
+ </div>
+ </div>
+
+
+ <!-- ================================================================
+ JAVASCRIPT
+ ================================================================ -->
+ <script>
+ let product = null;
+ let carouselIndex = 0; // 0 = room scene, 1 = tile closeup
+ let allLightboxImages = [];
+ let lightboxIdx = 0;
+ const WHATSAPP_NUMBER = '919876543210';
+
+ // Application icons map
+ const APP_ICONS = {
+ 'Bathroom': 'fa-shower', 'Kitchen': 'fa-utensils', 'Living Room': 'fa-couch',
+ 'Bedroom': 'fa-bed', 'Outdoor': 'fa-tree', 'Commercial Spaces': 'fa-building',
+ 'Staircases': 'fa-stairs', 'Counter Slabs': 'fa-square', 'Elevation Tiles': 'fa-building-columns'
+ };
+
+ // ── INIT ──────────────────────────────────────
+ document.addEventListener('DOMContentLoaded', () => {
+ initMobileMenu();
+ initFadeUpObserver();
+ loadProduct();
+ });
+
+ // ── LOAD PRODUCT ──────────────────────────────
+ async function loadProduct() {
+ const params = new URLSearchParams(window.location.search);
+ const id = params.get('id');
+ if (!id) { window.location.href = '/products.html'; return; }
+
+ try {
+ const res = await fetch(`/api/products/${id}`);
+ const json = await res.json();
+ if (!json.success) { window.location.href = '/products.html'; return; }
+ product = json.data;
+ renderProduct();
+ loadRelatedProducts();
+ } catch (err) {
+ console.error('Failed to load product:', err);
+ window.location.href = '/products.html';
+ }
+ }
+
+ // ── RENDER PRODUCT ────────────────────────────
+ function renderProduct() {
+ document.title = `${product.name} — ${product.series} | CERARIA`;
+
+ // Breadcrumb
+ document.getElementById('breadcrumb-series').textContent = product.series;
+ document.getElementById('breadcrumb-name').textContent = product.name;
+
+ // Carousel images
+ const roomSrc = product.room_scene_url || 'https://images.unsplash.com/photo-1600210492493-0946911123ea?w=1200&q=85';
+ const tileSrc = product.main_image || 'https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=1200&q=80';
+
+ document.getElementById('room-img').src = roomSrc;
+ document.getElementById('room-img').alt = `${product.name} — Room Scene`;
+ document.getElementById('tile-img').src = tileSrc;
+ document.getElementById('tile-img').alt = `${product.name} — Tile Closeup`;
+
+ allLightboxImages = [
+ { src: roomSrc, label: 'Room Scene' },
+ { src: tileSrc, label: 'Tile Closeup' }
+ ];
+
+ // Info
+ document.getElementById('product-series-label').textContent = product.series;
+ document.getElementById('product-category-badge').textContent = product.category || 'Porcelain Tiles';
+ document.getElementById('product-name').textContent = product.name;
+ document.getElementById('product-description').textContent = product.description || `A premium tile from the ${product.series} collection by CERARIA.`;
+
+ // Specs row
+ document.getElementById('spec-size').textContent = product.size ? product.size.replace('x', ' × ') + ' mm' : '—';
+ document.getElementById('spec-finish').textContent = product.finish || '—';
+ document.getElementById('spec-thickness').textContent = product.thickness || '—';
+
+ // Full specs grid
+ const specs = [
+ { label: 'Collection', value: product.series, icon: 'fa-layer-group' },
+ { label: 'Category', value: product.category || '—', icon: 'fa-shapes' },
+ { label: 'Size', value: product.size ? product.size.replace('x', ' × ') + ' mm' : '—', icon: 'fa-ruler-combined' },
+ { label: 'Thickness', value: product.thickness || '—', icon: 'fa-expand' },
+ { label: 'Finish', value: product.finish || '—', icon: 'fa-wand-magic-sparkles' },
+ { label: 'Surface', value: product.surface || '—', icon: 'fa-hand-sparkles' },
+ ];
+ document.getElementById('specs-grid').innerHTML = specs.map(s => `
+ <div class="bg-sand-100/70 rounded-xl px-4 py-3">
+ <div class="flex items-center gap-1.5 mb-1">
+ <i class="fa-solid ${s.icon} text-[10px] text-bronze-400"></i>
+ <span class="text-[9px] font-bold tracking-widest uppercase text-stone-400">${s.label}</span>
+ </div>
+ <span class="text-sm font-bold text-charcoal-800">${s.value}</span>
+ </div>
+ `).join('');
+
+ // Applications
+ let apps = product.application || [];
+ if (typeof apps === 'string') { try { apps = JSON.parse(apps); } catch(e) { apps = []; } }
+ if (apps && apps.length > 0) {
+ document.getElementById('applications-section').classList.remove('hidden');
+ document.getElementById('application-tags').innerHTML = apps.map(app => `
+ <span class="app-tag">
+ <i class="fa-solid ${APP_ICONS[app] || 'fa-star'} text-bronze-400 text-[10px]"></i>
+ ${app}
+ </span>
+ `).join('');
+ }
+
+ // Room inspirations grid
+ // Inquiry modal prefill
+ document.getElementById('inquiry-product-name').value = `${product.name} (${product.series})`;
+
+ // Show content
+ document.getElementById('page-loader').classList.add('hidden');
+ document.getElementById('product-content').classList.remove('hidden');
+ setTimeout(() => { document.querySelectorAll('.fade-up').forEach(el => el.classList.add('visible')); }, 50);
+ }
+
+
+ // ── CAROUSEL ──────────────────────────────────
+ function goToSlide(idx) {
+ carouselIndex = idx;
+ const track = document.getElementById('carousel-track');
+ track.style.transform = `translateX(-${idx * 50}%)`;
+ // Update dots
+ document.querySelectorAll('.carousel-dot').forEach((d, i) => d.classList.toggle('active', i === idx));
+ // Update tab buttons
+ const tabRoom = document.getElementById('tab-room');
+ const tabTile = document.getElementById('tab-tile');
+ if (idx === 0) {
+ tabRoom.className = 'flex-1 py-2.5 text-xs font-semibold uppercase tracking-wider rounded-xl border-2 border-bronze-500 bg-bronze-500/10 text-bronze-600 transition-all';
+ tabTile.className = 'flex-1 py-2.5 text-xs font-semibold uppercase tracking-wider rounded-xl border-2 border-sand-300 text-stone-500 hover:border-bronze-400 transition-all';
+ } else {
+ tabRoom.className = 'flex-1 py-2.5 text-xs font-semibold uppercase tracking-wider rounded-xl border-2 border-sand-300 text-stone-500 hover:border-bronze-400 transition-all';
+ tabTile.className = 'flex-1 py-2.5 text-xs font-semibold uppercase tracking-wider rounded-xl border-2 border-bronze-500 bg-bronze-500/10 text-bronze-600 transition-all';
+ }
+ }
+ function carouselPrev() { goToSlide((carouselIndex - 1 + 2) % 2); }
+ function carouselNext() { goToSlide((carouselIndex + 1) % 2); }
+
+ // Auto-advance carousel every 5s
+ setInterval(() => { if (!document.getElementById('lightbox').classList.contains('open')) carouselNext(); }, 5000);
+
+ // ── LIGHTBOX ──────────────────────────────────
+ function openLightbox(idx) {
+ lightboxIdx = idx;
+ updateLightbox();
+ document.getElementById('lightbox').classList.add('open');
+ document.body.style.overflow = 'hidden';
+ }
+ function closeLightbox() {
+ document.getElementById('lightbox').classList.remove('open');
+ document.body.style.overflow = '';
+ }
+ function updateLightbox() {
+ const img = allLightboxImages[lightboxIdx];
+ document.getElementById('lightbox-image').src = img.src;
+ document.getElementById('lightbox-label').textContent = img.label;
+ document.getElementById('lightbox-dots').innerHTML = allLightboxImages.map((_, i) => `
+ <button onclick="lightboxGo(${i})" class="carousel-dot ${i === lightboxIdx ? 'active' : ''}" aria-label="Image ${i+1}"></button>
+ `).join('');
+ }
+ function lightboxGo(i) { lightboxIdx = i; updateLightbox(); }
+ function lightboxPrev() { lightboxIdx = (lightboxIdx - 1 + allLightboxImages.length) % allLightboxImages.length; updateLightbox(); }
+ function lightboxNext() { lightboxIdx = (lightboxIdx + 1) % allLightboxImages.length; updateLightbox(); }
+
+ // ── INQUIRY MODAL ────────────────────────────
+ function openInquiryModal() { document.getElementById('inquiry-modal').classList.add('open'); document.body.style.overflow = 'hidden'; }
+ function closeInquiryModal() {
+ document.getElementById('inquiry-modal').classList.remove('open');
+ document.body.style.overflow = '';
+ document.getElementById('inquiry-form').reset();
+ document.getElementById('inquiry-success').classList.add('hidden');
+ document.getElementById('inquiry-submit-btn').disabled = false;
+ document.getElementById('inquiry-submit-btn').innerHTML = '<i class="fa-solid fa-paper-plane"></i> Send Inquiry';
+ if (product) document.getElementById('inquiry-product-name').value = `${product.name} (${product.series})`;
+ }
+
+ document.getElementById('inquiry-form').addEventListener('submit', async (e) => {
+ e.preventDefault();
+ const btn = document.getElementById('inquiry-submit-btn');
+ btn.disabled = true;
+ btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending...';
+ const data = Object.fromEntries(new FormData(e.target).entries());
+ try {
+ const res = await fetch('/api/inquiry', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
+ const json = await res.json();
+ if (json.success) {
+ e.target.classList.add('hidden');
+ document.getElementById('inquiry-success').classList.remove('hidden');
+ setTimeout(() => closeInquiryModal(), 3000);
+ } else {
+ btn.disabled = false;
+ btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Send Inquiry';
+ alert(json.error || 'Failed to send inquiry');
+ }
+ } catch (err) {
+ btn.disabled = false;
+ btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Send Inquiry';
+ alert('Network error. Please try again.');
+ }
+ });
+
+ // ── WHATSAPP ────────────────────────────────
+ function openWhatsApp() {
+ if (!product) return;
+ const text = encodeURIComponent(
+ `Hello CERARIA,\n\nI am interested in:\n\n*Product:* ${product.name}\n*Collection:* ${product.series}\n*Size:* ${product.size} mm\n*Finish:* ${product.finish || 'N/A'}\n\nPlease share pricing and availability.\n\nThank you!`
+ );
+ window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${text}`, '_blank');
+ }
+
+ // ── RELATED PRODUCTS ─────────────────────────
+ async function loadRelatedProducts() {
+ if (!product) return;
+ try {
+ const res = await fetch(`/api/products?series=${encodeURIComponent(product.series)}`);
+ const json = await res.json();
+ if (json.success) {
+ const related = json.data.filter(p => p.id !== product.id).slice(0, 3);
+ if (related.length === 0) { document.getElementById('related-section').classList.add('hidden'); return; }
+ document.getElementById('related-products-grid').innerHTML = related.map(p => `
+ <a href="/product.html?id=${p.id}" class="product-card bg-white rounded-2xl overflow-hidden shadow-sm border border-sand-100 group block">
+ <div class="relative overflow-hidden" style="aspect-ratio:4/3;">
+ <img src="${p.room_scene_url || p.main_image}" alt="${p.name}"
+ class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy" />
+ <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
+ <div class="absolute bottom-4 left-4 right-4">
+ <span class="text-[9px] font-bold tracking-wider uppercase text-white/70">${p.series}</span>
+ <h3 class="font-serif text-lg font-bold text-white mt-0.5 leading-tight">${p.name}</h3>
+ </div>
+ </div>
+ <div class="p-4 flex items-center justify-between">
+ <span class="text-xs text-stone-400">${p.size ? p.size.replace('x', ' × ') + ' mm' : ''}</span>
+ <span class="text-xs font-semibold text-bronze-500">${p.finish || ''}</span>
+ </div>
+ </a>
+ `).join('');
+ }
+ } catch (err) { console.error('Failed to load related:', err); }
+ }
+
+ // ── MOBILE MENU ──────────────────────────────
+ function initMobileMenu() {
+ const menu = document.getElementById('mobile-menu');
+ const backdrop = document.getElementById('mobile-menu-backdrop');
+ const openBtn = document.getElementById('mobile-menu-btn');
+ const closeBtn = document.getElementById('mobile-menu-close');
+ const close = () => { menu.style.transform = 'translateX(100%)'; backdrop.classList.add('hidden'); document.body.style.overflow = ''; };
+ openBtn.addEventListener('click', () => { menu.style.transform = 'translateX(0)'; backdrop.classList.remove('hidden'); document.body.style.overflow = 'hidden'; });
+ closeBtn.addEventListener('click', close);
+ backdrop.addEventListener('click', close);
+ menu.querySelectorAll('a').forEach(a => a.addEventListener('click', close));
+ }
+
+ // ── FADE UP OBSERVER ─────────────────────────
+ function initFadeUpObserver() {
+ const observer = new IntersectionObserver((entries) => {
+ entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+ }, { threshold: 0.1 });
+ document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+ }
+
+ // ── KEYBOARD SHORTCUTS ───────────────────────
+ document.addEventListener('keydown', (e) => {
+ if (e.key === 'Escape') { closeLightbox(); closeInquiryModal(); }
+ if (document.getElementById('lightbox').classList.contains('open')) {
+ if (e.key === 'ArrowLeft') lightboxPrev();
+ if (e.key === 'ArrowRight') lightboxNext();
+ }
+ });
+ document.getElementById('lightbox').addEventListener('click', (e) => { if (e.target === document.getElementById('lightbox')) closeLightbox(); });
+ document.getElementById('inquiry-modal').addEventListener('click', (e) => { if (e.target === document.getElementById('inquiry-modal')) closeInquiryModal(); });
+ </script>
+
+
+ <!-- AOS JS -->
+ <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+ <script>
+ document.addEventListener("DOMContentLoaded", function() {
+ // Automatically add data-aos to major elements that don't already have it
+ const elementsToAnimate = document.querySelectorAll('section, main > div, .card, .grid > div, .flex > div, h1, h2, h3');
+ 
+ elementsToAnimate.forEach(function(el) {
+ // Skip elements that already have data-aos, or are inside nav/footer
+ if (!el.hasAttribute('data-aos') && !el.closest('nav') && !el.closest('footer') && !el.closest('.swiper')) {
+ el.setAttribute('data-aos', 'fade-up');
+ el.setAttribute('data-aos-duration', '1000');
+ el.setAttribute('data-aos-once', 'true');
+ }
+ });
+ 
+ if (typeof AOS !== 'undefined') {
+ AOS.init({ once: true, offset: 50 });
+ }
+ });
+ </script>
+
+ </body>
 </html>
