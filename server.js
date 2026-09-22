@@ -7,6 +7,7 @@
 
 require('dotenv').config();
 const express = require('express');
+const jwt = require('jsonwebtoken');
 const cors    = require('cors');
 const path    = require('path');
 const multer  = require('multer');
@@ -241,7 +242,7 @@ app.post('/api/inquiry', async (req, res) => {
 // ════════════════════════════════════════════════════════════
 
 // ── POST /api/admin/login ──────────────────────────────────
-app.post('/api/admin/login', async (req, res) => {
+app.post('/api/sys-auth/verify-99', async (req, res) => {
   try {
     const { email, password } = req.body;
 
@@ -273,9 +274,17 @@ app.post('/api/admin/login', async (req, res) => {
     req.session.adminEmail = admin.email;
     req.session.adminName = admin.name;
 
+    
+    const token = jwt.sign(
+      { id: admin.id, email: admin.email, role: 'system_admin' },
+      process.env.JWT_SECRET || 'fallback_secure_secret_99482',
+      { expiresIn: '2h' }
+    );
+
     res.json({
       success: true,
-      message: 'Login successful',
+      message: 'Authentication successful',
+      token: token,
       admin: { id: admin.id, email: admin.email, name: admin.name }
     });
 
@@ -473,7 +482,7 @@ const genericStorage = multerS3({
 });
 const uploadGeneric = multer({ storage: genericStorage, limits: { fileSize: 10 * 1024 * 1024 } });
 
-app.post('/api/admin/upload-image', requireAdmin, uploadGeneric.single('image'), (req, res) => {
+app.post('/api/admin/upload-image', verifySecureAccess, requireAdmin, uploadGeneric.single('image'), (req, res) => {
   try {
     if (!req.file) return res.status(400).json({ success: false, error: 'No image uploaded' });
     res.json({ success: true, url: req.file.location });
@@ -773,7 +782,7 @@ app.put('/api/products/:id', requireAdmin, upload.fields([{ name: 'main_image', 
 });
 
 // ── DELETE /api/products/:id ───────────────────────────────
-app.delete('/api/products/:id', requireAdmin, async (req, res) => {
+app.delete('/api/products/:id', verifySecureAccess, requireAdmin, async (req, res) => {
   try {
     const { id } = req.params;
     const result = await pool.query(
@@ -804,13 +813,13 @@ app.get('/product', (req, res) => {
 });
 
 // Serve admin login page (hidden route)
-app.get('/admin-login', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'admin-login.html'));
+app.get('/sys-auth-99', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'sys-auth-99.html'));
 });
 
 // Serve admin dashboard
-app.get('/admin', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'admin.html'));
+app.get('/management-portal-v9-x72', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'management-portal-v9-x72.html'));
 });
 
 // 404 handler — serve branded 404 page for unmatched routes

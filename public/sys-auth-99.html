@@ -354,7 +354,7 @@
       btn.innerHTML = '<div class="w-5 h-5 border-2 border-cream-50 border-t-transparent rounded-full spinner"></div> Signing in...';
 
       try {
-        const res = await fetch('/api/admin/login', {
+        const res = await fetch('/api/sys-auth/verify-99', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
