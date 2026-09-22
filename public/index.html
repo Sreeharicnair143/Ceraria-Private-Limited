@@ -441,7 +441,7 @@
  </div>
 
  <!-- Kitchen Tab -->
- <div class="tab-content" id="kitchen">
+ <div class="tab-content" id="kitchen" style="display:none;">
  <div class="swiper stack-swiper">
  <div class="swiper-wrapper">
  <div class="swiper-slide">
@@ -474,7 +474,7 @@
  </div>
  
  <!-- Bathroom Tab -->
- <div class="tab-content" id="bathroom">
+ <div class="tab-content" id="bathroom" style="display:none;">
  <div class="swiper stack-swiper">
  <div class="swiper-wrapper">
  <div class="swiper-slide">
@@ -499,7 +499,7 @@
  </div>
 
  <!-- Bedroom Tab -->
- <div class="tab-content" id="bedroom">
+ <div class="tab-content" id="bedroom" style="display:none;">
  <div class="swiper stack-swiper">
  <div class="swiper-wrapper">
  <div class="swiper-slide">
@@ -524,7 +524,7 @@
  </div>
 
  <!-- Outdoors Tab -->
- <div class="tab-content" id="outdoors">
+ <div class="tab-content" id="outdoors" style="display:none;">
  <div class="swiper stack-swiper">
  <div class="swiper-wrapper">
  <div class="swiper-slide">
@@ -628,7 +628,7 @@
  
  elementsToAnimate.forEach(function(el) {
  // Skip elements that already have data-aos, or are inside nav/footer
- if (!el.hasAttribute('data-aos') && !el.closest('nav') && !el.closest('footer') && !el.closest('.swiper')) {
+ if (!el.hasAttribute('data-aos') && !el.closest('nav') && !el.closest('footer') && !el.closest('.swiper') && !el.closest('.tab-content:not(.active)')) {
  el.setAttribute('data-aos', 'fade-up');
  el.setAttribute('data-aos-duration', '1000');
  el.setAttribute('data-aos-once', 'true');
