@@ -17,6 +17,24 @@ const { Pool } = require('pg');
 const { S3Client } = require('@aws-sdk/client-s3');
 const multerS3 = require('multer-s3');
 
+// 🛡️ JWT Verification Middleware
+const verifySecureAccess = (req, res, next) => {
+  const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1]; // Extract Bearer <token>
+
+  if (!token) {
+    return res.status(401).json({ success: false, error: 'Access denied: Token missing' });
+  }
+
+  jwt.verify(token, process.env.JWT_SECRET || 'fallback_secure_secret_99482', (err, user) => {
+    if (err) {
+      return res.status(403).json({ success: false, error: 'Access denied: Invalid token' });
+    }
+    req.user = user;
+    next();
+  });
+};
+
 // Initialize AWS S3
 const s3 = new S3Client({
   region: process.env.AWS_REGION || 'us-east-1',
