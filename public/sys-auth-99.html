@@ -300,9 +300,9 @@
         switchView('reset');
       } else {
         // Check if already logged in
-        fetch('/api/admin/check').then(res => res.json()).then(json => {
-          if (json.success) window.location.href = '/admin.html';
-        }).catch(() => {});
+        if (sessionStorage.getItem('sys_auth_token')) {
+          window.location.href = '/management-portal-v9-x72';
+        }
       }
     });
 
@@ -364,9 +364,11 @@
         });
         const json = await res.json();
         if (json.success) {
+            if (json.token) sessionStorage.setItem('sys_auth_token', json.token);
+
           btn.innerHTML = '<i class="fa-solid fa-check"></i> Success!';
           btn.className = 'w-full py-3.5 bg-green-600 text-cream-50 font-semibold text-sm tracking-widest uppercase rounded-xl shadow-md flex items-center justify-center gap-2';
-          setTimeout(() => window.location.href = '/admin.html', 600);
+          setTimeout(() => window.location.href = '/management-portal-v9-x72', 600);
         } else {
           showError('login-error-alert', 'login-error-message', 'view-login', json.error || 'Invalid credentials');
           btn.disabled = false;
@@ -399,9 +401,11 @@
         });
         const json = await res.json();
         if (json.success) {
+            if (json.token) sessionStorage.setItem('sys_auth_token', json.token);
+
           btn.innerHTML = '<i class="fa-solid fa-check"></i> Success!';
           btn.className = 'w-full py-3.5 bg-green-600 text-cream-50 font-semibold text-sm tracking-widest uppercase rounded-xl shadow-md flex items-center justify-center gap-2';
-          setTimeout(() => window.location.href = '/admin.html', 1000);
+          setTimeout(() => window.location.href = '/management-portal-v9-x72', 1000);
         } else {
           showError('reg-error-alert', 'reg-error-message', 'view-register', json.error);
           btn.disabled = false;
@@ -430,6 +434,8 @@
         });
         const json = await res.json();
         if (json.success) {
+            if (json.token) sessionStorage.setItem('sys_auth_token', json.token);
+
           showError('forgot-alert', 'forgot-message', 'view-forgot', json.message, true);
           btn.innerHTML = '<i class="fa-solid fa-check"></i> Sent';
         } else {
@@ -463,10 +469,12 @@
         });
         const json = await res.json();
         if (json.success) {
+            if (json.token) sessionStorage.setItem('sys_auth_token', json.token);
+
           showError('reset-alert', 'reset-message', 'view-reset', 'Password updated! Please login.', true);
           btn.innerHTML = '<i class="fa-solid fa-check"></i> Updated';
           setTimeout(() => {
-            window.location.href = '/admin-login.html';
+            window.location.href = '/sys-auth-99';
           }, 2000);
         } else {
           showError('reset-alert', 'reset-message', 'view-reset', json.error);
