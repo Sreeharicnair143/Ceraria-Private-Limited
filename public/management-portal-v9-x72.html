@@ -928,7 +928,7 @@
           url += `?search=${encodeURIComponent(searchInput.value.trim())}`;
         }
         
-        const res = await fetch(url);
+        const res = await secureFetch(url);
         const json = await res.json();
         if (json.success) {
           allProductsData = json.data;
@@ -1102,7 +1102,7 @@
           const url = editId ? `${API_BASE}/api/products/${editId}` : `${API_BASE}/api/products`;
           const method = editId ? 'PUT' : 'POST';
 
-          const res = await fetch(url, {
+          const res = await secureFetch(url, {
             method: method,
             body: formData,
           });

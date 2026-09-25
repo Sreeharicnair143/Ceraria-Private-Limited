@@ -6,8 +6,14 @@
 // ============================================================
 
 require('dotenv').config();
+const crypto  = require('crypto');
 const express = require('express');
 const jwt = require('jsonwebtoken');
+
+// 🔒 Enforce required secrets — refuse to start without them
+if (!process.env.JWT_SECRET) throw new Error('FATAL: JWT_SECRET environment variable is required');
+if (!process.env.SESSION_SECRET) throw new Error('FATAL: SESSION_SECRET environment variable is required');
+
 const cors    = require('cors');
 const path    = require('path');
 const multer  = require('multer');
@@ -26,7 +32,7 @@ const verifySecureAccess = (req, res, next) => {
     return res.status(401).json({ success: false, error: 'Access denied: Token missing' });
   }
 
-  jwt.verify(token, process.env.JWT_SECRET || 'fallback_secure_secret_99482', (err, user) => {
+  jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
     if (err) {
       return res.status(403).json({ success: false, error: 'Access denied: Invalid token' });
     }
@@ -70,18 +76,22 @@ const app  = express();
 const PORT = process.env.PORT || 3000;
 
 // ── Middleware ──────────────────────────────────────────────
-app.use(cors());
+app.use(cors({
+  origin: ['https://ceraria.in', 'https://www.ceraria.in'],
+  credentials: true
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Session middleware for admin authentication
 app.use(session({
-  secret: process.env.SESSION_SECRET || 'ceraria-luxury-tiles-2026-secret-key',
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
   cookie: {
     httpOnly: true,
-    secure: false, // Set to true in production with HTTPS
+    secure: true,
+    sameSite: 'strict',
     maxAge: 24 * 60 * 60 * 1000 // 24 hours
   }
 }));
@@ -295,7 +305,7 @@ app.post('/api/sys-auth/verify-99', async (req, res) => {
     
     const token = jwt.sign(
       { id: admin.id, email: admin.email, role: 'system_admin' },
-      process.env.JWT_SECRET || 'fallback_secure_secret_99482',
+      process.env.JWT_SECRET,
       { expiresIn: '2h' }
     );
 
@@ -309,31 +319,11 @@ app.post('/api/sys-auth/verify-99', async (req, res) => {
   } catch (err) {
     console.error('POST /api/admin/login error:', err);
     res.status(500).json({ success: false, error: 'Login failed' });
-  }
-});
-
-const crypto = require('crypto');
-
-// ── GET /api/admin/check ───────────────────────────────────
-app.get('/api/admin/check', (req, res) => {
-  if (req.session && req.session.adminId) {
-    return res.json({
-      success: true,
-      admin: {
-        id: req.session.adminId,
-        email: req.session.adminEmail,
-        name: req.session.adminName
-      }
-    });
-  }
-  res.status(401).json({ success: false, error: 'Not authenticated' });
-});
-
 // ── POST /api/admin/register ───────────────────────────────
 // Only allows registration if it's the first non-demo admin, or we can just allow it 
 // and the client can delete the demo admin later. 
 // For security, if there's already > 1 admin, block registration (so only client can register once).
-app.post('/api/admin/register', async (req, res) => {
+app.post('/api/admin/register', verifySecureAccess, async (req, res) => {
   try {
     const { name, email, password } = req.body;
     if (!name || !email || !password) {
@@ -466,7 +456,7 @@ app.get('/api/pages/:slug', async (req, res) => {
 });
 
 // ── PUT /api/pages/:slug ───────────────────────────────────
-app.put('/api/pages/:slug', requireAdmin, async (req, res) => {
+app.put('/api/pages/:slug', verifySecureAccess, requireAdmin, async (req, res) => {
   try {
     const { slug } = req.params;
     const { content } = req.body;
@@ -533,7 +523,7 @@ app.get('/api/gallery', async (req, res) => {
   }
 });
 
-app.post('/api/gallery', requireAdmin, uploadGallery.array('images', 5), async (req, res) => {
+app.post('/api/gallery', verifySecureAccess, requireAdmin, uploadGallery.array('images', 5), async (req, res) => {
   try {
     const { title } = req.body;
     if (!req.files || req.files.length === 0) {
@@ -554,7 +544,7 @@ app.post('/api/gallery', requireAdmin, uploadGallery.array('images', 5), async (
   }
 });
 
-app.delete('/api/gallery/:id', requireAdmin, async (req, res) => {
+app.delete('/api/gallery/:id', verifySecureAccess, requireAdmin, async (req, res) => {
   try {
     const { id } = req.params;
     await pool.query('DELETE FROM gallery_images WHERE id = $1', [id]);
@@ -593,7 +583,7 @@ app.get('/api/catalogues', async (req, res) => {
   }
 });
 
-app.post('/api/catalogues', requireAdmin, uploadCatalogueFiles, async (req, res) => {
+app.post('/api/catalogues', verifySecureAccess, requireAdmin, uploadCatalogueFiles, async (req, res) => {
   try {
     const { title, size_details } = req.body;
     if (!title || !req.files || !req.files.pdf_url || !req.files.cover_image) {
@@ -613,7 +603,7 @@ app.post('/api/catalogues', requireAdmin, uploadCatalogueFiles, async (req, res)
   }
 });
 
-app.delete('/api/catalogues/:id', requireAdmin, async (req, res) => {
+app.delete('/api/catalogues/:id', verifySecureAccess, requireAdmin, async (req, res) => {
   try {
     const { id } = req.params;
     // (Optional) Delete the physical file here if needed
@@ -655,7 +645,7 @@ const storage = multerS3({
 const upload = multer({ storage, limits: { fileSize: 10 * 1024 * 1024 } }); // 10MB
 
 // ── POST /api/products ─────────────────────────────────────
-app.post('/api/products', requireAdmin, upload.fields([{ name: 'main_image', maxCount: 1 }, { name: 'room_scene_url', maxCount: 1 }, { name: 'thumb_images', maxCount: 5 }]), async (req, res) => {
+app.post('/api/products', verifySecureAccess, requireAdmin, upload.fields([{ name: 'main_image', maxCount: 1 }, { name: 'room_scene_url', maxCount: 1 }, { name: 'thumb_images', maxCount: 5 }]), async (req, res) => {
   try {
     const {
       name, series, category, size, thickness,
@@ -727,7 +717,7 @@ app.post('/api/products', requireAdmin, upload.fields([{ name: 'main_image', max
 });
 
 // ── PUT /api/products/:id ──────────────────────────────────
-app.put('/api/products/:id', requireAdmin, upload.fields([{ name: 'main_image', maxCount: 1 }, { name: 'room_scene_url', maxCount: 1 }, { name: 'thumb_images', maxCount: 5 }]), async (req, res) => {
+app.put('/api/products/:id', verifySecureAccess, requireAdmin, upload.fields([{ name: 'main_image', maxCount: 1 }, { name: 'room_scene_url', maxCount: 1 }, { name: 'thumb_images', maxCount: 5 }]), async (req, res) => {
   try {
     const { id } = req.params;
     const {
