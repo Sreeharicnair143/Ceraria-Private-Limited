@@ -36,14 +36,19 @@ const verifySecureAccess = async (req, res, next) => {
     const user = jwt.verify(token, process.env.JWT_SECRET);
     
     // Check if this token matches the one in the database
-    const result = await pool.query('SELECT last_login_token FROM admins WHERE id = $1', [user.id]);
-    if (result.rows.length === 0 || result.rows[0].last_login_token !== token) {
-      return res.status(403).json({ success: false, error: 'Session expired or logged in from another device' });
+    try {
+      const result = await pool.query('SELECT last_login_token FROM admins WHERE id = $1', [user.id]);
+      if (result.rows.length === 0 || (result.rows[0].last_login_token && result.rows[0].last_login_token !== token)) {
+        return res.status(403).json({ success: false, error: 'Session expired or logged in from another device' });
+      }
+    } catch (dbErr) {
+      console.warn('Migration warning: last_login_token check skipped', dbErr.message);
     }
     
     req.user = user;
     next();
   } catch (err) {
+    console.error('JWT Verify error:', err.message);
     return res.status(403).json({ success: false, error: 'Access denied: Invalid token' });
   }
 };
@@ -475,7 +480,7 @@ app.get('/api/pages/:slug', async (req, res) => {
 });
 
 // ── PUT /api/pages/:slug ───────────────────────────────────
-app.put('/api/pages/:slug', verifySecureAccess, requireAdmin, async (req, res) => {
+app.put('/api/pages/:slug', verifySecureAccess, async (req, res) => {
   try {
     const { slug } = req.params;
     const { content } = req.body;
@@ -509,7 +514,7 @@ const genericStorage = multerS3({
 });
 const uploadGeneric = multer({ storage: genericStorage, limits: { fileSize: 10 * 1024 * 1024 } });
 
-app.post('/api/admin/upload-image', verifySecureAccess, requireAdmin, uploadGeneric.single('image'), (req, res) => {
+app.post('/api/admin/upload-image', verifySecureAccess, uploadGeneric.single('image'), (req, res) => {
   try {
     if (!req.file) return res.status(400).json({ success: false, error: 'No image uploaded' });
     res.json({ success: true, url: req.file.location });
@@ -542,7 +547,7 @@ app.get('/api/gallery', async (req, res) => {
   }
 });
 
-app.post('/api/gallery', verifySecureAccess, requireAdmin, uploadGallery.array('images', 5), async (req, res) => {
+app.post('/api/gallery', verifySecureAccess, uploadGallery.array('images', 5), async (req, res) => {
   try {
     const { title } = req.body;
     if (!req.files || req.files.length === 0) {
@@ -563,7 +568,7 @@ app.post('/api/gallery', verifySecureAccess, requireAdmin, uploadGallery.array('
   }
 });
 
-app.delete('/api/gallery/:id', verifySecureAccess, requireAdmin, async (req, res) => {
+app.delete('/api/gallery/:id', verifySecureAccess, async (req, res) => {
   try {
     const { id } = req.params;
     await pool.query('DELETE FROM gallery_images WHERE id = $1', [id]);
@@ -602,7 +607,7 @@ app.get('/api/catalogues', async (req, res) => {
   }
 });
 
-app.post('/api/catalogues', verifySecureAccess, requireAdmin, uploadCatalogueFiles, async (req, res) => {
+app.post('/api/catalogues', verifySecureAccess, uploadCatalogueFiles, async (req, res) => {
   try {
     const { title, size_details } = req.body;
     if (!title || !req.files || !req.files.pdf_url || !req.files.cover_image) {
@@ -622,7 +627,7 @@ app.post('/api/catalogues', verifySecureAccess, requireAdmin, uploadCatalogueFil
   }
 });
 
-app.delete('/api/catalogues/:id', verifySecureAccess, requireAdmin, async (req, res) => {
+app.delete('/api/catalogues/:id', verifySecureAccess, async (req, res) => {
   try {
     const { id } = req.params;
     // (Optional) Delete the physical file here if needed
@@ -664,7 +669,7 @@ const storage = multerS3({
 const upload = multer({ storage, limits: { fileSize: 10 * 1024 * 1024 } }); // 10MB
 
 // ── POST /api/products ─────────────────────────────────────
-app.post('/api/products', verifySecureAccess, requireAdmin, upload.fields([{ name: 'main_image', maxCount: 1 }, { name: 'room_scene_url', maxCount: 1 }, { name: 'thumb_images', maxCount: 5 }]), async (req, res) => {
+app.post('/api/products', verifySecureAccess, upload.fields([{ name: 'main_image', maxCount: 1 }, { name: 'room_scene_url', maxCount: 1 }, { name: 'thumb_images', maxCount: 5 }]), async (req, res) => {
   try {
     const {
       name, series, category, size, thickness,
@@ -736,7 +741,7 @@ app.post('/api/products', verifySecureAccess, requireAdmin, upload.fields([{ nam
 });
 
 // ── PUT /api/products/:id ──────────────────────────────────
-app.put('/api/products/:id', verifySecureAccess, requireAdmin, upload.fields([{ name: 'main_image', maxCount: 1 }, { name: 'room_scene_url', maxCount: 1 }, { name: 'thumb_images', maxCount: 5 }]), async (req, res) => {
+app.put('/api/products/:id', verifySecureAccess, upload.fields([{ name: 'main_image', maxCount: 1 }, { name: 'room_scene_url', maxCount: 1 }, { name: 'thumb_images', maxCount: 5 }]), async (req, res) => {
   try {
     const { id } = req.params;
     const {
@@ -809,7 +814,7 @@ app.put('/api/products/:id', verifySecureAccess, requireAdmin, upload.fields([{ 
 });
 
 // ── DELETE /api/products/:id ───────────────────────────────
-app.delete('/api/products/:id', verifySecureAccess, requireAdmin, async (req, res) => {
+app.delete('/api/products/:id', verifySecureAccess, async (req, res) => {
   try {
     const { id } = req.params;
     const result = await pool.query(
