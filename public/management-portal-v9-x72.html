@@ -1009,10 +1009,49 @@
       }
     }
 
-    function initDropZone() {
-      setupDropZone('drop-zone', 'file-input', 'file-preview');
+    
+      function updateImageUploadZones() {
+        const count = parseInt(document.getElementById('image-counter').value);
+        const container = document.getElementById('dynamic-image-zones');
+        
+        // Save current files if possible (this is a simple implementation, it resets on change)
+        container.innerHTML = '';
+        
+        for (let i = 1; i <= count; i++) {
+          const isMain = i === 1;
+          const inputName = isMain ? 'main_image' : 'thumb_images';
+          const inputId = `dyn-file-input-${i}`;
+          const dropZoneId = `dyn-drop-zone-${i}`;
+          const previewId = `dyn-file-preview-${i}`;
+          
+          container.innerHTML += `
+            <div class="bg-sand-50/50 p-4 rounded-xl border border-sand-200">
+              <label class="block text-xs font-semibold text-stone-600 mb-2">Tile Image ${i} ${isMain ? '(Main Cover)' : ''}</label>
+              <div id="${dropZoneId}" class="drop-zone border-2 border-dashed border-sand-300 rounded-xl p-4 text-center cursor-pointer hover:border-bronze-400 transition-all bg-white">
+                <input type="file" id="${inputId}" name="${inputName}" accept="image/jpeg,image/png,image/webp" class="hidden dyn-img-input" />
+                <svg class="w-6 h-6 text-sand-400 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                </svg>
+                <p class="text-xs text-stone-500">Drag & drop or <span class="text-bronze-600 font-semibold cursor-pointer">browse</span></p>
+              </div>
+              <div id="${previewId}" class="mt-2 text-xs"></div>
+            </div>
+          `;
+        }
+        
+        // Setup drag and drop for the new zones
+        for (let i = 1; i <= count; i++) {
+          setupDropZone(`dyn-drop-zone-${i}`, `dyn-file-input-${i}`, `dyn-file-preview-${i}`);
+        }
+      }
+
+      function initDropZone() {
+        updateImageUploadZones();
+        setupDropZone('room-drop-zone', 'room-file-input', 'room-file-preview');
+
+      
       setupDropZone('room-drop-zone', 'room-file-input', 'room-file-preview');
-      setupGalleryDropZone('gallery-drop-zone', 'gallery-file-input', 'gallery-file-preview');
+      
     }
 
     function setupGalleryDropZone(dropZoneId, fileInputId, previewId) {
@@ -1069,21 +1108,16 @@
         const formData = new FormData();
 
         // File uploads
-        const fileInput = document.getElementById('file-input');
-        if (fileInput.files.length > 0) {
-          formData.append('main_image', fileInput.files[0]);
-        }
+        const dynamicInputs = document.querySelectorAll('.dyn-img-input');
+        dynamicInputs.forEach(input => {
+          if (input.files.length > 0) {
+            formData.append(input.name, input.files[0]);
+          }
+        });
         
         const roomFileInput = document.getElementById('room-file-input');
         if (roomFileInput && roomFileInput.files.length > 0) {
           formData.append('room_scene_url', roomFileInput.files[0]);
-        }
-
-        const galleryFileInput = document.getElementById('gallery-file-input');
-        if (galleryFileInput && galleryFileInput.files.length > 0) {
-          for (let i = 0; i < galleryFileInput.files.length; i++) {
-            formData.append('thumb_images', galleryFileInput.files[i]);
-          }
         }
 
         // Basic fields
