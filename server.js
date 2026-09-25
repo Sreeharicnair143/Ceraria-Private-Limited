@@ -681,7 +681,6 @@ app.post('/api/products', verifySecureAccess, upload.fields([{ name: 'main_image
         success: false,
         error: 'Name is required'
       });
-    });
     }
 
     // Check if product already exists
