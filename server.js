@@ -676,11 +676,12 @@ app.post('/api/products', verifySecureAccess, upload.fields([{ name: 'main_image
       finish, surface, application, description, image_url, room_scene_url_text, is_featured, price, offer_price, color, surface_texture
     } = req.body;
 
-    if (!name || !series || !size) {
+    if (!name) {
       return res.status(400).json({
         success: false,
-        error: 'Name, series, and size are required'
+        error: 'Name is required'
       });
+    });
     }
 
     // Check if product already exists
