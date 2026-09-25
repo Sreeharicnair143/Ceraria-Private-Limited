@@ -494,7 +494,7 @@
 
         <!-- ── Image Upload (Drag & Drop + File Select) ── -->
         <div>
-          <label class="block text-sm font-semibold text-charcoal-900 mb-2">Tile Image *</label>
+          <label class="block text-sm font-semibold text-charcoal-900 mb-2">Tile Image</label>
           <div id="drop-zone" class="drop-zone border-2 border-dashed border-sand-300 rounded-2xl p-8 text-center cursor-pointer hover:border-bronze-400 transition-all">
             <input type="file" id="file-input" name="thumbnail" accept="image/jpeg,image/png,image/webp" class="hidden" />
             <svg class="w-10 h-10 text-sand-400 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -528,8 +528,8 @@
                    class="admin-input w-full px-4 py-3 border border-sand-200 rounded-xl text-sm text-charcoal-800 bg-cream-50/50 transition-all" />
           </div>
           <div>
-            <label for="tile-series" class="block text-sm font-semibold text-charcoal-900 mb-2">Series *</label>
-            <select id="tile-series" name="series" required
+            <label for="tile-series" class="block text-sm font-semibold text-charcoal-900 mb-2">Series</label>
+            <select id="tile-series" onchange="toggleOther(this)" name="series"
                     class="admin-input w-full px-4 py-3 border border-sand-200 rounded-xl text-sm text-charcoal-800 bg-cream-50/50 appearance-none cursor-pointer transition-all">
               <option value="" disabled selected>Select series</option>
               <option value="Metallic">Metallic</option>
@@ -545,7 +545,9 @@
               <option value="Chromica & Subway Decors">Chromica & Subway Decors</option>
               <option value="Moroccan">Moroccan</option>
               <option value="Strip Punch + Carving">Strip Punch + Carving</option>
+              <option value="other">Other...</option>
             </select>
+            <input type="text" id="tile-series-other" class="admin-input w-full px-4 py-3 border border-sand-200 rounded-xl text-sm text-charcoal-800 bg-cream-50/50 transition-all hidden mt-2" placeholder="Enter custom series" />
           </div>
         </div>
         <div class="bg-sand-100/50 rounded-2xl border border-sand-200 p-4 mb-4">
@@ -565,8 +567,8 @@
         <!-- ── Category + Size + Price + Offer Price ── -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <div>
-            <label for="tile-category" class="block text-sm font-semibold text-charcoal-900 mb-2">Category *</label>
-            <select id="tile-category" onchange="toggleOther(this)" name="category" required
+            <label for="tile-category" class="block text-sm font-semibold text-charcoal-900 mb-2">Category</label>
+            <select id="tile-category" onchange="toggleOther(this)" name="category"
                     class="admin-input w-full px-4 py-3 border border-sand-200 rounded-xl text-sm text-charcoal-800 bg-cream-50/50 appearance-none cursor-pointer transition-all">
               <option value="" disabled selected>Select category</option>
               <option value="Porcelain Tiles">Porcelain Tiles</option>
@@ -576,8 +578,8 @@
             <input type="text" id="tile-category-other" class="admin-input w-full px-4 py-3 border border-sand-200 rounded-xl text-sm text-charcoal-800 bg-cream-50/50 transition-all hidden mt-2" placeholder="Enter custom category" />
           </div>
           <div>
-            <label for="tile-size" class="block text-sm font-semibold text-charcoal-900 mb-2">Size *</label>
-            <select id="tile-size" onchange="toggleOther(this)" name="size" required
+            <label for="tile-size" class="block text-sm font-semibold text-charcoal-900 mb-2">Size</label>
+            <select id="tile-size" onchange="toggleOther(this)" name="size"
                     class="admin-input w-full px-4 py-3 border border-sand-200 rounded-xl text-sm text-charcoal-800 bg-cream-50/50 appearance-none cursor-pointer transition-all">
               <option value="" disabled selected>Select size</option>
               <option value="75x300">75 × 300 mm</option>
