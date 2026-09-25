@@ -760,6 +760,7 @@
     // ═══════════════════════════════════════════
     async function secureFetch(url, options = {}) {
       const token = sessionStorage.getItem('sys_auth_token');
+      options.credentials = 'same-origin';
       
       // If it's a FormData object, DO NOT set Content-Type manually
       if (!(options.body instanceof FormData)) {

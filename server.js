@@ -91,6 +91,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Session middleware for admin authentication
+app.set('trust proxy', 1); // Required for secure cookies behind reverse proxy
 app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
