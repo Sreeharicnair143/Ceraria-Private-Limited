@@ -24,7 +24,7 @@ const { S3Client } = require('@aws-sdk/client-s3');
 const multerS3 = require('multer-s3');
 
 // 🛡️ JWT Verification Middleware
-const verifySecureAccess = (req, res, next) => {
+const verifySecureAccess = async (req, res, next) => {
   const authHeader = req.headers['authorization'];
   const token = authHeader && authHeader.split(' ')[1]; // Extract Bearer <token>
 
@@ -32,13 +32,20 @@ const verifySecureAccess = (req, res, next) => {
     return res.status(401).json({ success: false, error: 'Access denied: Token missing' });
   }
 
-  jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
-    if (err) {
-      return res.status(403).json({ success: false, error: 'Access denied: Invalid token' });
+  try {
+    const user = jwt.verify(token, process.env.JWT_SECRET);
+    
+    // Check if this token matches the one in the database
+    const result = await pool.query('SELECT last_login_token FROM admins WHERE id = $1', [user.id]);
+    if (result.rows.length === 0 || result.rows[0].last_login_token !== token) {
+      return res.status(403).json({ success: false, error: 'Session expired or logged in from another device' });
     }
+    
     req.user = user;
     next();
-  });
+  } catch (err) {
+    return res.status(403).json({ success: false, error: 'Access denied: Invalid token' });
+  }
 };
 
 // Initialize AWS S3
@@ -308,6 +315,14 @@ app.post('/api/sys-auth/verify-99', async (req, res) => {
       process.env.JWT_SECRET,
       { expiresIn: '2h' }
     );
+
+    // Save token to database to enforce single session
+    try {
+      await pool.query('UPDATE admins SET last_login_token = $1 WHERE id = $2', [token, admin.id]);
+    } catch(e) {
+      // Ignore if column doesn't exist yet during migration
+      console.error('Migration note: last_login_token column not found in admins table');
+    }
 
     res.json({
       success: true,
