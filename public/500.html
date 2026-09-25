@@ -171,7 +171,7 @@
  
  elementsToAnimate.forEach(function(el) {
  // Skip elements that already have data-aos, or are inside nav/footer
- if (!el.hasAttribute('data-aos') && !el.closest('nav') && !el.closest('footer') && !el.closest('.swiper')) {
+ if (!el.hasAttribute('data-aos') && !el.closest('nav') && !el.closest('footer') && !el.closest('.swiper') && !el.closest('.modal-overlay') && !el.closest('form') && !el.closest('.fixed')) {
  el.setAttribute('data-aos', 'fade-up');
  el.setAttribute('data-aos-duration', '1000');
  el.setAttribute('data-aos-once', 'true');
