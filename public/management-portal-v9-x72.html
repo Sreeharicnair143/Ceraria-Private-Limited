@@ -755,6 +755,37 @@
        ================================================================ -->
   <script>
     const API_BASE = '';
+    // ═══════════════════════════════════════════
+    //  SECURE FETCH WRAPPER
+    // ═══════════════════════════════════════════
+    async function secureFetch(url, options = {}) {
+      const token = sessionStorage.getItem('sys_auth_token');
+      
+      // If it's a FormData object, DO NOT set Content-Type manually
+      if (!(options.body instanceof FormData)) {
+        if (!options.headers) options.headers = {};
+        if (!options.headers['Content-Type']) {
+          options.headers['Content-Type'] = 'application/json';
+        }
+      } else if (!options.headers) {
+        options.headers = {};
+      }
+      
+      if (token) {
+        options.headers['Authorization'] = `Bearer ${token}`;
+      }
+      
+      const response = await fetch(url, options);
+      
+      // Handle session expiration or concurrent login invalidation
+      if (response.status === 401 || response.status === 403) {
+        sessionStorage.removeItem('sys_auth_token');
+        window.location.href = '/sys-auth-99';
+        throw new Error('Unauthorized or session expired');
+      }
+      
+      return response;
+    }
 
     // ═══════════════════════════════════════════
     //  LOGOUT
