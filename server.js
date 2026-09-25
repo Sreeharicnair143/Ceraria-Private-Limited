@@ -319,6 +319,9 @@ app.post('/api/sys-auth/verify-99', async (req, res) => {
   } catch (err) {
     console.error('POST /api/admin/login error:', err);
     res.status(500).json({ success: false, error: 'Login failed' });
+  }
+});
+
 // ── POST /api/admin/register ───────────────────────────────
 // Only allows registration if it's the first non-demo admin, or we can just allow it 
 // and the client can delete the demo admin later. 
